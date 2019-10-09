@@ -9,3 +9,8 @@ https://github.com/ecomfe/vue-echarts/blob/master/README.zh_CN.md
 
 element-ui
 https://element.eleme.cn/2.0/#/zh-CN/guide/design
+
+vuex
+https://vuex.vuejs.org/zh/guide/state.html
+
+
