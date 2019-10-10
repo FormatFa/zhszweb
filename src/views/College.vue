@@ -59,7 +59,7 @@
 
       <!-- 各学年变化趋势 -->
       <el-col :span="16">
-        <v-chart  class="chart" autoresize :options="scattertest"> </v-chart>
+        <v-chart  class="chart" autoresize :options="trendOption"> </v-chart>
       </el-col>
 
     </el-row>
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+
 export default {
 
   //生命周期函数
@@ -97,19 +98,30 @@ export default {
 
       //区间
       rangeOption:{
-          title:{text:""},
+          title:{text:"xx年度综合素质总各分区间次数分布"},
           xAxis:{
             data:["(0-10]","(10-20]","(20-30]"]
           },
           yAxis:{},
-          series:{
-            type:"bar",
-            data:[20,40]
-          }
+          legend:{
+            right:0
+          },
+          series:[
+           { 
+             name:"第一学期",
+             type:"bar",
+            data:[20,40,45]
+           },
+           { 
+             name:"第二学期",
+             type:"bar",
+            data:[10,20,5]
+           }
+          ]
       },
       topdata:topdata,
       test: {
-        title: { text: "xx年度第一学期 总分TOP5班级" },
+        title: { text: "xx年度第y学期 某指标 TOP5班级" },
         xAxis: {
           type:"value"
         },
@@ -126,7 +138,7 @@ export default {
         }
       },
       pietest: {
-        title: { text: "xx年度第一学期 各项指标平均分" },
+        title: { text: "xx年度第y学期 各项指标平均分数" },
         series: {
           type: "pie",
           // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
@@ -140,14 +152,46 @@ export default {
 
     ,scattertest:{
 
-       title: { text:"" },
+       title: { text:"GPA成绩与综合素质总分的关系" },
         xAxis: {
+          name:"GPA"
         },
-        yAxis: {},
+        yAxis: {
+          name:"综合素质总分"
+        },
         series: {
           type: "scatter",
           data: scatter
         }
+    },
+    //变化趋势
+    trendOption:{
+      title:{text:"学院各年平均分变化"},
+      xAxis:{
+        name:"年度",
+        data:["17","18","19","20"]
+      },
+      yAxis:{
+        name:"平均分"
+      },
+      legend:{},
+      series:
+      [
+       {
+         stack:"年度",
+         name:"第一学期",
+         type:'line',
+         data:[1,3,4,1],
+         areaStyle:{}
+       },
+       {
+         stack:"年度",
+         name:"第二学期",
+         type:'line',
+         data:[2,4,2,1],
+         areaStyle:{}
+       }
+      ]
     }
 
 

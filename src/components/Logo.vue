@@ -70,6 +70,10 @@ export default {
       {
         value:"term2",
         label:"第二学期"
+      },
+      {
+        value:"year",
+        label:"年度"
       }
     ]
 
