@@ -1,6 +1,9 @@
 <template>
   <div>
-      Logo
+      <el-row>
+
+        
+      </el-row>
   </div>
 </template>
 
