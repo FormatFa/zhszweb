@@ -1,14 +1,25 @@
 <template>
   <div>
     <!-- 第一行 -->
-    <el-row>
+    <el-row type="flex" justify="center" align="center">
       <!-- 卡片 -->
       <el-col :span="8">
         <el-card>
           <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
-          <div v-for="o in 4" :key="o">{{'列表内容 ' + o }}</div>
+          <div>2019年度总平均分:10</div>
+          <div>2019年度第一学期平均分:10</div>
+          <div>2019年度第二学期平均分:12↑</div>
+        </el-card>
+        
+        <!-- 设置顶部那个20px  -->
+        <el-card style="margin-top: 20px">
+          <div slot="header" class="clearfix">
+            <span>其他情况</span>
+          </div>
+          <div>abcd</div>
+          <div>efg  </div>
         </el-card>
       </el-col>
 
@@ -23,7 +34,7 @@
     </el-row>
 
     <!-- 第二行 -->
-    <el-row>
+    <el-row>  
       <!-- top 50表格  -->
       <el-col :span="8"><el-table :data="topdata" height="300">
         <el-table-column type="index" width="50"></el-table-column>
@@ -33,7 +44,7 @@
       
       <!-- 分数分布柱状图 -->
       <el-col :span="16">
-        <v-chart class="chart" autoresize :options="test" ></v-chart>
+        <v-chart class="chart" autoresize :options="rangeOption" ></v-chart>
       </el-col>
     </el-row>
 
@@ -59,6 +70,16 @@
 
 <script>
 export default {
+
+  //生命周期函数
+
+  //组件创建时
+  created(){
+    console.log("创建组件..create....")
+  },
+  mounted(){
+    console.log("挂载 mounted...")
+  },
   name: "College",
   data() {
     let topdata = [];
@@ -73,23 +94,44 @@ export default {
     
     }
     return {
+
+      //区间
+      rangeOption:{
+          title:{text:""},
+          xAxis:{
+            data:["(0-10]","(10-20]","(20-30]"]
+          },
+          yAxis:{},
+          series:{
+            type:"bar",
+            data:[20,40]
+          }
+      },
       topdata:topdata,
       test: {
-        title: { text: "tset" },
+        title: { text: "xx年度第一学期 总分TOP5班级" },
         xAxis: {
-          data: ["a", "b", "c"]
+          type:"value"
         },
-        yAxis: {},
+        yAxis: {
+          type:"category",
+          
+          data: ["a", "b", "c"]
+
+        },
         series: {
           type: "bar",
           data: [1, 2, 3]
+
         }
       },
       pietest: {
-        title: { text: "pie" },
+        title: { text: "xx年度第一学期 各项指标平均分" },
         series: {
           type: "pie",
-          data: [{ name: "测试", value: 12 }, { name: "解决", value: 10 }]
+          // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
+
+          data: [{ name: "思想政治", value: 12 }, { name: "身心健康", value: 10 },{ name: "创新创业", value: 80 },{ name: "技术技能", value: 19 },{ name: "志愿服务", value: 15 },{ name: "人文艺术", value: 25 },{ name: "综合素质理论", value: 2 } ]
         }
       }
 
@@ -98,7 +140,7 @@ export default {
 
     ,scattertest:{
 
-       title: { text: "tset" },
+       title: { text:"" },
         xAxis: {
         },
         yAxis: {},

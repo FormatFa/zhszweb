@@ -20,6 +20,7 @@ import 'echarts/lib/chart/funnel'
 import 'echarts/lib/chart/scatter'//散点图
 import 'echarts/lib/component/legend'//图例
 import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/title'
 Vue.component('v-chart',ECharts)
 Vue.config.productionTip = false
 
