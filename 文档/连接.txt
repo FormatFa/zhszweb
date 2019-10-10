@@ -3,6 +3,9 @@ https://router.vuejs.org/zh/
 
 vue.js
 https://cn.vuejs.org/
+组件生命周期
+https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA
+
 
 vue-echarts
 https://github.com/ecomfe/vue-echarts/blob/master/README.zh_CN.md
