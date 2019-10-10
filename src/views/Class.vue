@@ -37,6 +37,7 @@
        <el-card>
          <div slot="header" class="clearfix">
            <span>综合素质均分及排名</span>
+         </div>
            <div class="text item">
              {{'测试，到时候再连接数据'}}
            </div>
@@ -49,7 +50,7 @@
        v-for="item in options"
        :key="item.value"
        :label="item.label"
-       :value="item.value">
+       :value="item.value"></el-option>
        </el-select></el-col>
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
@@ -73,11 +74,43 @@
 
 
 <script>
- example1=new Vue({el: '#example-1'})
+ 
     
 export default {
-  data:example1() {
+  data:function() {
+    return{
+        peoples:["渣渣","渣渣辉"],
+        option:{title:{text:'各指标雷达图'},
+        tooltip:{},
+        legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
+        radar:{name:{
+          textStyle:{
+            color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
+            indicator:[{name:'思想政治',max:20},
+            {name:'身心健康',max:20},
+            {name:'创新创业',max:20},
+            {name:'技术技能',max:20},
+            {name:'志愿服务',max:20},
+            {name:'人文艺术',max:20},
+            {name:'综合素质理论',max:20}
+            ]
+            },
+            series:[{
+              name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+            type:'radar',
+            data:[
+              {value:[13],name:'思想政治'
+              },
+              {value:[10],name:'身心健康'},
+              {value:[18],name:'创新创业'},
+              {value:[16],name:'技术技能'},
+              {value:[6],name:'志愿服务'},
+              {value:[14],name:'人文艺术'},
+              {value:[2.5],name:'综合素质理论'}
+              ]
+              }]}
 
+    }
   }
   
 }
