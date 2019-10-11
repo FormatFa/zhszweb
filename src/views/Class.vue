@@ -51,7 +51,7 @@
      </el-col>
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
-     <el-col :span="10" ><el-select v-model="value"  clearable placeholder="请选择" style="margin-left: 150px;">
+     <el-col :span="10" ><el-select v-on:change="zhibiaochange" v-model="value"  clearable placeholder="请选择" style="margin-left: 150px;">
        <el-option
        v-for="item in options"
        :key="item.value"
@@ -88,6 +88,16 @@
     
 export default {
   name:'banji',
+  methods:{
+    zhibiaochange(value){
+      console.log("改变指标")
+      console.log(value)
+    
+    },
+      handleChange(val){
+      console.log(val);
+    }
+  },
   data:function() {
     return{
         peoples:["渣渣","渣渣辉"],
@@ -212,11 +222,6 @@ export default {
      ]
      },//漏斗图
     activeNames:[1]
-    }
-  },
-  methods:{
-    handleChange(val){
-      console.log(val);
     }
   }
 
