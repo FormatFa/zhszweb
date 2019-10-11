@@ -4,17 +4,17 @@
         <el-col  :span="8">
           <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
-
+      
       <el-row  type="flex" justify="end" :span="10" >
           <el-button>按钮</el-button>
 
           <!-- 年度选择 -->
-          <el-select v-model="year">
+          <el-select v-model="year" v-on:change="selectYear">
             <el-option v-for="item in years" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
 
           <!-- 学期选择 -->
-          <el-select v-model="term">
+          <el-select v-model="term" v-on:change="selectYear">
             <el-option v-for="item in terms" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
 
@@ -28,11 +28,44 @@
 </template>
 
 <script>
+import {store} from '../store.js'
+import {college} from '../api/testdata'
+import {EventBus} from '../event-bus.js'
+import {get,post} from '../api/http.js'
 export default {
+  computed:{
+    
+  },
+  methods:{
 
+    //请求数据
+    //选择年度 或者 学期事件
+    selectYear(){
+      console.log("当前路由:")
+      console.log(this.$router.currentRoute)
+      //根据当前路由的不同，请求不同的数据
+      console.log("选择的year:"+this.year+" term:"+this.term)
+      this.requestCollege()
+    },
+    requestCollege(){
+            get("xxx").then(res=>{
+            console.log("请求学院数据:..")
+            console.log(res)
+        }).catch(err=>{
+            console.log("请求数据失败>>>")
+            console.log(err)
+            //设置成测试数据
+            //发送事件
+            EventBus.$emit("collegeDataLoad",college)
+            
+        })
+    }
+
+  },
   data(){
     return {
-
+       year:store.state.year,
+       term:store.state.term, 
       // 班级
       classes:[{
           label:"17", value:"17", children:[
@@ -46,7 +79,7 @@ export default {
       }
       ],
 
-      year:"",
+  
       years:[
       {
         value:"2018",
@@ -58,9 +91,6 @@ export default {
         label:"2019年度"
       }
     ],
-
-
-    term:"",
       terms:[
       {
         value:"term1",

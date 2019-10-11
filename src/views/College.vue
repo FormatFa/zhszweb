@@ -6,11 +6,11 @@
       <el-col :span="8">
         <el-card>
           <div slot="header" class="clearfix">
-            <span>基本情况</span>
+            <span>hhh</span>
           </div>
-          <div>2019年度总平均分:10</div>
-          <div>2019年度第一学期平均分:10</div>
-          <div>2019年度第二学期平均分:12↑</div>
+          <div>2019年度总平均分:{{data.basicCard.year_score}}</div>
+          <div>2019年度第一学期平均分:{{data.basicCard.term1_score}}</div>
+          <div>2019年度第二学期平均分:{{data.basicCard.term2_score}}↑</div>
         </el-card>
         
         <!-- 设置顶部那个20px  -->
@@ -69,20 +69,64 @@
 </template>
 
 <script>
-
+import {store} from '../store.js'
+import {EventBus} from '../event-bus.js'
+import {college} from '../api/testdata.js'
 export default {
 
   //生命周期函数
 
   //组件创建时
   created(){
-    console.log("创建组件..create....")
+
+    //监听事件
+    EventBus.$on("collegeDataLoad",data=>{
+      console.log("学院界面请求到数据...")
+      console.log(data)
+      this.data=data
+      this.setIndex()
+    })
+
   },
   mounted(){
     console.log("挂载 mounted...")
   },
   name: "College",
+  methods:{
+    //设置卡片数据
+    setCard()
+    {
+
+    },
+
+    //各个指标测评分均分（饼图联动）
+    setIndex()
+    {
+      let piedata = [];
+      for(let i =0;i<piedata.length;i+=1)
+      {
+        piedata.push({
+          name:this.data.indexes.indexs[i],
+          value:this.data.indexex.scores[i]
+        })
+      }
+      option={ title: { text: "xx年度第y学期 各项指标平均分数" },
+        series: {
+          type: "pie",
+          // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
+          data:piedata
+        }}
+    }
+
+
+    //设置
+
+  },
+  watch:{
+  
+  },
   data() {
+    
     let topdata = [];
     let scatter=[];
     for(let i = 0;i<50;i+=1)
@@ -95,7 +139,8 @@ export default {
     
     }
     return {
-
+      //学院数据
+      data:college,
       //区间
       rangeOption:{
           title:{text:"xx年度综合素质总各分区间次数分布"},
