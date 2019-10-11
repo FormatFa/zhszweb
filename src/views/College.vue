@@ -27,9 +27,9 @@
       <el-col :span="8">
         <v-chart  class="chart" autoresize :options="test"></v-chart>
       </el-col>
-
+    <!-- 饼图 -->
       <el-col :span="6">
-        <v-chart  class="chart" autoresize :options="pietest"></v-chart>
+        <v-chart  class="chart" autoresize :options="pietest" ref="index" v-on:pieselectchanged="indexChange"></v-chart>
       </el-col>
     </el-row>
 
@@ -79,7 +79,12 @@ export default {
   //组件创建时
   created(){
 
-    //监听事件
+
+  },
+  mounted(){
+    console.log("挂载 mounted...")
+
+        //监听事件
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
       console.log(data)
@@ -88,11 +93,15 @@ export default {
     })
 
   },
-  mounted(){
-    console.log("挂载 mounted...")
-  },
   name: "College",
   methods:{
+
+    //饼图选择事件
+    indexChange(event){
+        console.log("选择饼图:"+event.name)
+    },
+
+
     //设置卡片数据
     setCard()
     {
@@ -102,20 +111,32 @@ export default {
     //各个指标测评分均分（饼图联动）
     setIndex()
     {
+      console.log("设置饼图")
+      console.log(this.data)
       let piedata = [];
-      for(let i =0;i<piedata.length;i+=1)
+      for(let i =0;i<this.data.indexes.indexes.length;i+=1)
       {
         piedata.push({
-          name:this.data.indexes.indexs[i],
-          value:this.data.indexex.scores[i]
+          name:this.data.indexes.indexes[i],
+          value:this.data.indexes.scores[i]
         })
       }
-      option={ title: { text: "xx年度第y学期 各项指标平均分数" },
+      let option={ 
+        title: { text: "xx年度第y学期 各项指标平均分数" },
         series: {
           type: "pie",
+          // 单选模式
+          selectedMode:"single",
           // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
           data:piedata
         }}
+
+      console.log(option)
+      
+      let chart=this.$refs['index']
+      console.log(chart)
+      chart.mergeOptions(option)
+
     }
 
 
