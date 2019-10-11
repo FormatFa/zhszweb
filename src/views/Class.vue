@@ -17,7 +17,7 @@
         <v-chart class="chart" autoresize :options="tree1"></v-chart>
       </el-col>
     <!-- 班级名单的下拉框 -->
-      <el-col :span="4"><el-dropdown>
+      <el-col :span="4"><el-dropdown style="margin-left: 120px;">
     
               <span class="el-dropdown-link">
           班级同学名单
@@ -87,6 +87,7 @@
  
     
 export default {
+  name:'banji',
   data:function() {
     return{
         peoples:["渣渣","渣渣辉"],
@@ -158,11 +159,67 @@ export default {
      toolbox:{
        feature:{dataView:{readOnly: false},
        restore: {},
-       },
-     }},
+       saveAsImage:{}
+       }
+     },
+     
+     legend:{
+       data:['0-10','11-20','21-30','31-40','41-50']
+     },
+     calculable: true,
+     series:[
+       {
+         name: '总分区间图',
+         type:'funnel',
+         left:'10%',
+         top:60,
+         bottom:60,
+         width:'80%',
+         min:0,
+         max:50,
+         minSize:'0%',
+         maxSize:'100%',
+         sort:'descending',
+         gap:2,
+         label:{
+           show:true,
+           position:'inside'
+         },
+         labelLine:{
+           length:10,
+           lineStyle:{
+             width:1,
+             type:'solid'
+           }
+         },
+         itemStyle:{
+           borderColor:'#fff',
+           borderWidth:1
+         },
+         emphasis:{
+           label:{
+             fontSize:20
+           }
+         },
+         data:[
+           {value:20,name:'0-10'},
+           {value:9,name:'11-20'},
+           {value:8,name:'21-30'},
+           {value:7,name:'31-40'},
+           {value:4,name:'41-50'}
+         ]
+       }
+     ]
+     },//漏斗图
+    activeNames:[1]
+    }
+  },
+  methods:{
+    handleChange(val){
+      console.log(val);
     }
   }
-  
+
 }
 </script>
 
