@@ -19,6 +19,7 @@
           </el-select>
 
           <el-cascader
+          placeholder="进入班级界面"
             :options="classes"
           ></el-cascader>
         </el-row>
@@ -45,6 +46,8 @@ export default {
       console.log(this.$router.currentRoute)
       //根据当前路由的不同，请求不同的数据
       console.log("选择的year:"+this.year+" term:"+this.term)
+      store.setYear(this.year)
+      store.setTerm(this.term)
       this.requestCollege()
     },
     requestCollege(){

@@ -6,7 +6,7 @@
       <el-col :span="8">
         <el-card>
           <div slot="header" class="clearfix">
-            <span>hhh</span>
+            <span>基本情况</span>
           </div>
           <div>2019年度总平均分:{{data.basicCard.year_score}}</div>
           <div>2019年度第一学期平均分:{{data.basicCard.term1_score}}</div>
@@ -18,14 +18,14 @@
           <div slot="header" class="clearfix">
             <span>其他情况</span>
           </div>
-          <div>abcd</div>
-          <div>efg  </div>
+          <div>1</div>
+          <div> 2 </div>
         </el-card>
       </el-col>
 
       <!-- 1.2 top5柱状图  -->
       <el-col :span="8">
-        <v-chart  class="chart" autoresize :options="test"></v-chart>
+        <v-chart  class="chart" ref="classtop" autoresize :options="test"></v-chart>
       </el-col>
     <!-- 饼图 -->
       <el-col :span="6">
@@ -36,7 +36,9 @@
     <!-- 第二行 -->
     <el-row>  
       <!-- top 50表格  -->
-      <el-col :span="8"><el-table :data="topdata" height="300">
+      <el-col :span="8">
+        <div style="text-align:center;font-weight:bold">{{this.stateStore.year}} 年度 {{this.stateStore.termName()}} {{this.nowIndex}} TOP50 学生</div>
+        <el-table :data="studenttop50" height="300">
         <el-table-column type="index" width="50"></el-table-column>
         <el-table-column property="name" label="姓名"></el-table-column>
         <el-table-column property="score" label="分数"></el-table-column>
@@ -44,7 +46,7 @@
       
       <!-- 分数分布柱状图 -->
       <el-col :span="16">
-        <v-chart class="chart" autoresize :options="rangeOption" ></v-chart>
+        <v-chart class="chart" ref="range" autoresize :options="rangeOption" ></v-chart>
       </el-col>
     </el-row>
 
@@ -54,7 +56,7 @@
     <el-row>
 
       <el-col :span="8">
-        <v-chart class="chart" autoresize :options="scattertest"> </v-chart>
+        <v-chart class="chart"  ref="gpa_score" autoresize :options="scattertest"> </v-chart>
       </el-col>
 
       <!-- 各学年变化趋势 -->
@@ -90,16 +92,34 @@ export default {
       console.log(data)
       this.data=data
       this.setIndex()
+      this.set_classtop()
+      this.set_gpa_score()
+      this.set_range()
     })
 
   },
   name: "College",
   methods:{
-
+    
     //饼图选择事件
     indexChange(event){
         console.log("选择饼图:"+event.name)
+        console.log(event)
+        //获取已经选择的指标，没有就是默认总和
+        let now="平均分";
+        for(let index in event.selected)
+        {
+          if(event.selected[index]==true)
+          {
+            now=index;
+          }
+        }
+        console.log("选择的指标:"+now)
+        this.nowIndex=now;
+        //设置班级top图表
+        this.set_classtop()
     },
+
 
 
     //设置卡片数据
@@ -107,7 +127,108 @@ export default {
     {
 
     },
+    set_studenttop(){
+      let students = this.data['top'][this.nowIndex]['students']
+      
+      
+    },
+    set_classtop(){
 
+      
+      let chart = this.$refs['classtop'];
+      let classes = this.data['top'][this.nowIndex]['classes']
+      let names = [];
+      let scores = [];
+      classes.forEach(element => {
+        names.push(element['name'])
+        scores.push(element['score'])
+        
+      });
+      //查看当前选择的饼图，饼图选择是什么就显示对应的数据
+      console.log("set class top")
+      console.log(this.stateStore.termName())
+      let option= {
+        title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()} ${this.nowIndex} TOP5班级` },
+        xAxis: {
+          type:"value"
+        },
+        yAxis: {
+          type:"category",
+          data: names
+
+        },
+        series: {
+          type: "bar",
+          data: scores
+
+        }
+      }
+      chart.mergeOptions(option);
+      
+    },
+    //区间图表
+    set_range(){
+      let ranges = this.data['range']['ranges']
+      let term1_scores = this.data['range']['term1_scores']
+      let term2_scores = this.data['range']['term2_scores']
+      let option = {
+          title:{text:`${this.stateStore.year} 年度综合素质总各分区间次数分布`},
+          xAxis:{
+            data:["(0-10]","(10-20]","(20-30]"]
+          },
+          yAxis:{},
+          legend:{
+            right:0
+          },
+          series:[
+           { 
+             stack:"总和",
+
+             name:"第一学期",
+             type:"bar",
+            data:term1_scores
+           },
+           { 
+             stack:"总和",
+             name:"第二学期",
+             type:"bar",
+            data:term2_scores
+           }
+          ]
+      }
+
+      this.$refs['range'].mergeOptions(option)
+
+    },
+    set_gpa_score(){
+        //gpa成绩关系
+      let gpa_scores = []
+      for(let i =0 ;i<this.data['gpa_score']['gpas'].length;i+=1)
+      {
+        gpa_scores.push([
+          this.data['gpa_score']['gpas'][i],
+          this.data['gpa_score']['scores'][i]
+        ])
+      }
+      let option={
+
+       title: { text:"GPA成绩与综合素质总分的关系" },
+        xAxis: {
+          name:"GPA"
+        },
+        yAxis: {
+          name:"综合素质总分"
+        },
+        series: {
+          type: "scatter",
+          data: gpa_scores
+        }
+    }
+    this.$refs['gpa_score'].mergeOptions(option)
+    },
+    set_trend(){
+
+    },
     //各个指标测评分均分（饼图联动）
     setIndex()
     {
@@ -122,7 +243,7 @@ export default {
         })
       }
       let option={ 
-        title: { text: "xx年度第y学期 各项指标平均分数" },
+        title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()}  各项指标平均分数` },
         series: {
           type: "pie",
           // 单选模式
@@ -135,6 +256,7 @@ export default {
       
       let chart=this.$refs['index']
       console.log(chart)
+
       chart.mergeOptions(option)
 
     }
@@ -143,8 +265,13 @@ export default {
     //设置
 
   },
-  watch:{
-  
+  computed:{
+    //表格的数据，用计算属性 , nowIndex改变，这里的也会改变
+    studenttop50()
+    {
+       let students = this.data['top'][this.nowIndex]['students']
+       return students;
+    }
   },
   data() {
     
@@ -160,6 +287,9 @@ export default {
     
     }
     return {
+      //当前饼图的选择
+      nowIndex:"平均分",
+      stateStore:store.state,
       //学院数据
       data:college,
       //区间

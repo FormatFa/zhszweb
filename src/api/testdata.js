@@ -12,6 +12,30 @@ export const college={
     },
     // top 总分学生和班级
     top:{
+        "平均分":{
+            classes:[{
+                name:"class1",
+                score:129
+            },{
+                name:"class2",
+                score:80
+            }],
+            students:[
+                {
+                    name:"小李",
+                    score:420
+                },
+                {
+                    name:"小菜",
+                    score:350
+                },
+                {
+                    name:"小大",
+                    score:200
+                }
+    
+            ]
+        },
         "名下房产":{
             classes:[{
                 name:"class1",
@@ -46,16 +70,16 @@ export const college={
             }],
             students:[
                 {
-                    name:"小明",
+                    name:"小李",
                     score:300
                 },
                 {
                     name:"小绿",
-                    score:250
+                    score:50
                 },
                 {
-                    name:"小红",
-                    score:200
+                    name:"小孙",
+                    score:20
                 }
     
             ]
@@ -70,16 +94,16 @@ export const college={
             }],
             students:[
                 {
-                    name:"小明",
-                    score:300
+                    name:"小蓝",
+                    score:30
                 },
                 {
-                    name:"小绿",
-                    score:250
+                    name:"小紫",
+                    score:20
                 },
                 {
                     name:"小红",
-                    score:200
+                    score:10
                 }
     
             ]
@@ -87,12 +111,14 @@ export const college={
     
     },
     
-    //分数区间数据
+    //分数区间数据,两个学期的
     "range":{
-        //分数出现的范围的字符串
         "ranges":["(0-10]","(10-20]","(20-30]"],
-        //对应的成绩
-        "scores":[10,30,20]
+        //分数出现的范围的字符串
+        "term1_scores":[10,30,25],
+        "term2_scores":[20,40,55]
+        
+        
     
     },
     // 根据年度字段 两个学期的 gpa 和成绩数据

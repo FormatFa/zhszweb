@@ -13,7 +13,23 @@ export const store = {
         // 学院数据
         collegeData:{
             
+        },
+
+        //获取当前学期
+        termName(){
+            if(this.term=="term1")
+            {
+                return "第一学期"
+            }
+            else if(this.term=="term2")
+            {
+                return "第二学期"
+            }
+            else if(this.term=="year"){
+                return "年度"
+            }
         }
+
     },
     setYear(year){
         this.state.year=year
