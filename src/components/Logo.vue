@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div v-loading="loading">
       <el-row >
         <el-col  :span="8">
           <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
       <el-row  type="flex" justify="end" :span="10" >
-          <el-button>按钮</el-button>
+          <el-button>登录</el-button>
 
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
@@ -50,6 +50,7 @@ export default {
       console.log("选择的year:"+this.year+" term:"+this.term)
       store.setYear(this.year)
       store.setTerm(this.term)
+      this.loading=true;
       if(this.$router.currentRoute.name=="college")
       this.requestCollege()
       else if(this.$router.currentRoute.name=="class")
@@ -88,6 +89,7 @@ this.requestClass()
   },
   data(){
     return {
+      loading:false,
        year:store.state.year,
        term:store.state.term, 
       // 班级
