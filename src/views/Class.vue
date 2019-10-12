@@ -96,7 +96,7 @@ export default {
       this.data=data
       this.set_topstudent()
     })
-
+  
   },
   methods:{
     zhibiaochange(value){
@@ -109,7 +109,9 @@ export default {
       console.log(val);
     },
     //设置按学期各指标的雷达图
-    
+    set_suchindexscore:{
+
+    },    
 
 
 
