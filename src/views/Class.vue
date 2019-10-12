@@ -8,9 +8,8 @@
         <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
-        <div  class="text item">
-          {{'17云计算1班    38人'}}
-        </div>
+          <div>{{data.classjbCard.classname}}</div>
+          <div>人数:{{data.classjbCard.students}}</div>
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
       <el-col :span="12">
@@ -44,14 +43,15 @@
          <div slot="header" class="clearfix">
            <span>综合素质均分及排名</span>
          </div>
-           <div class="text item">
-             {{'测试，到时候再连接数据'}}
-           </div>
+           <div>2019年度第一学期综合素质平均分:{{data.classCard.term1_score}}</div>
+        <div>2019年度第二学期综合素质平均分:{{data.classCard.term2_score}}</div>
+        <div>2019年度第一学期在全院排名:{{data.classCard.term1_paiming}}</div>
+        <div>2019年度第二学期在全院排名:{{data.classCard.term2_paiming}}</div>
        </el-card>
      </el-col>
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
-     <el-col :span="10" ><el-select v-on:change="zhibiaochange" v-model="value"  clearable placeholder="请选择" style="margin-left: 150px;">
+     <el-col :span="10" ><el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 150px;">
        <el-option
        v-for="item in options"
        :key="item.value"
@@ -59,7 +59,7 @@
        :value="item.value"></el-option>
        </el-select>
        <!-- top5柱状图 -->
-        <v-chart class="chart" autoresize :options="tree2"></v-chart>
+        <v-chart class="chart" ref="topstudent" autoresize :options="tree2"></v-chart>
        </el-col>
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
@@ -84,22 +84,87 @@
 
 
 <script>
- 
-    
+ import {ClassData} from '../api/testclassdata.js'
+    import {store} from '../store.js'
+    import {EventBus} from '../event-bus.js'
 export default {
   name:'banji',
+  mounted(){
+        EventBus.$on("classDataLoad",data=>{
+      console.log("班级界面请求到数据...")
+      console.log(data)
+      this.data=data
+      this.set_topstudent()
+    })
+
+  },
   methods:{
     zhibiaochange(value){
       console.log("改变指标")
       console.log(value)
-    
+      this.set_topstudent()
+
     },
       handleChange(val){
       console.log(val);
+    },
+    //设置按学期各指标的雷达图
+    
+
+
+
+    // 设置top 学生柱状图
+    set_topstudent()
+    {
+      console.log("设置top图表，当前指标是:"+this.nowIndex)
+      if( Object.keys(this.data['topstudent']).indexOf(this.nowIndex)<0 )
+      {
+        console.log("没有这个指标")
+        return;
+      }
+      let names = this.data['topstudent'][this.nowIndex]['names']
+      let scores = this.data['topstudent'][this.nowIndex]['scores']
+      let option={
+        title:{text:` ${this.stateStore.termName()} 柱状图`},
+       color:['#00E5EE'],
+       tooltip:{trigger:'axis',
+       axisPointer: {
+         type: 'shadow'
+       }
+       },
+       grid:{
+         left:'3%',
+         right:'4%',
+         bottom:'3%',
+         containLabel:true
+       },
+       xAxis:[{
+         type:'category',
+         data:names,
+         axisTick:{
+           alignWithLabel:true
+         }
+       }],
+       yAxis:[{
+         type:'value'
+       }],
+       series:[{
+         name:'分数是',
+         type:'bar',
+         barWidth:'60',
+         data:scores
+       }]
+     }
+
+     this.$refs['topstudent'].mergeOptions(option)
     }
   },
   data:function() {
     return{
+
+        stateStore:store.state,
+        nowIndex:"总分",
+        data:ClassData,
         peoples:["渣渣","渣渣辉"],
         tree1:{title:{text:'各指标雷达图'},
         tooltip:{},
@@ -123,16 +188,16 @@ export default {
               {value:[13,8,9,10,17,10,0],name:'第一学期'
               }
               ]
-              }]},
-      options:[{value:'选项1',label:'思想政治Top5'},
-               {value:'选项2',label:'身心健康Top5'},
-               {value:'选项3',label:'创新创业Top5'},
-               {value:'选项4',label:'技术技能Top5'},
-               {value:'选项5',label:'志愿服务Top5'},
-               {value:'选项6',label:'人文艺术Top5'},
-               {value:'选项7',label:'综合素质理论Top5'},
-               {value:'选项8',label:'总分Top5'}],
-               value:'',//雷达图
+              }]},//雷达图
+      options:[{value:'思想政治',label:'思想政治Top5'},
+               {value:'身心健康',label:'身心健康Top5'},
+               {value:'创新创业',label:'创新创业Top5'},
+               {value:'技术技能',label:'技术技能Top5'},
+               {value:'志愿服务',label:'志愿服务Top5'},
+               {value:'人文艺术',label:'人文艺术Top5'},
+               {value:'综合素质理论',label:'综合素质理论Top5'},
+               {value:'总分',label:'总分Top5'}],
+               value:'',//下拉框
      tree2:{
        color:['#00E5EE'],
        tooltip:{trigger:'axis',

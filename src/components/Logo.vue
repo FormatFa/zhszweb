@@ -33,6 +33,8 @@ import {store} from '../store.js'
 import {college} from '../api/testdata'
 import {EventBus} from '../event-bus.js'
 import {get,post} from '../api/http.js'
+
+import {ClassData} from '../api/testclassdata.js'
 export default {
   computed:{
     
@@ -48,7 +50,13 @@ export default {
       console.log("选择的year:"+this.year+" term:"+this.term)
       store.setYear(this.year)
       store.setTerm(this.term)
+      if(this.$router.currentRoute.name=="college")
       this.requestCollege()
+      else if(this.$router.currentRoute.name=="class")
+      {
+this.requestClass()
+      }
+
     },
     requestCollege(){
             get("xxx").then(res=>{
@@ -62,8 +70,21 @@ export default {
             EventBus.$emit("collegeDataLoad",college)
             
         })
+    },
+        requestClass(){
+            get("xxx").then(res=>{
+            console.log("请求班级数据:..")
+            console.log(res)
+        }).catch(err=>{
+            console.log("请求数据失败>>>")
+            console.log(err)
+            //设置成测试数据
+            //发送事件
+            EventBus.$emit("classDataLoad",ClassData)
+            
+        })
     }
-
+    
   },
   data(){
     return {

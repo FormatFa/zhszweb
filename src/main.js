@@ -35,7 +35,7 @@ const routes =[
     path:"/student",component:Student
   },
   {
-    path:"/class",component:Class
+    path:"/class",component:Class,name:"class"
   }
 ]
 
