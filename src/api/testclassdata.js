@@ -13,7 +13,9 @@ export const ClassData={
         "term2_paiming":6
     },
     //各指标的雷达图
-    suchzhibiaoscore
+    suchindexscore:{
+        suchscores:[13,8,9,10,17,10,0]
+    },
 
 
     //各指标的top数据
