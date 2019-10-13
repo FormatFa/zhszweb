@@ -13,7 +13,7 @@
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
       <el-col :span="12">
-        <v-chart class="chart" autoresize :options="tree1"></v-chart>
+        <v-chart class="chart" ref="suchindexscore"  autoresize :options="tree1"></v-chart>
       </el-col>
     <!-- 班级名单的下拉框 -->
       <el-col :span="4"><el-dropdown style="margin-left: 120px;">
@@ -63,7 +63,7 @@
        </el-col>
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
-        <v-chart class="chart" autoresize :options="tree3"></v-chart>
+        <v-chart class="chart" ref="totalscores"  autoresize :options="tree3"></v-chart>
       </el-col>
    </el-row>
 
@@ -109,9 +109,43 @@ export default {
       console.log(val);
     },
     //设置按学期各指标的雷达图
-    set_suchindexscore:{
+    set_suchindexscore()
+    {
+    console.log("显示雷达图，当前学期")
+    let suchnames=this.data['suchindexscore']['suchnames']
+    let suchscores=this.data['suchindexscore']['suchscores']
+    let option={
+          title:{text:`${this.stateStore.termName()} 各指标雷达图`},
+        tooltip:{},
+        legend:{data:suchnames},
+        radar:{name:{
+          textStyle:{
+            color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
+            indicator:[{name:'思想政治',max:20},
+            {name:'身心健康',max:20},
+            {name:'创新创业',max:20},
+            {name:'技术技能',max:20},
+            {name:'志愿服务',max:20},
+            {name:'人文艺术',max:20},
+            {name:'综合素质理论',max:20}
+            ]
+            },
+            series:[{
+              name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+            type:'radar',
+            data:[
+              {value:suchscores
+              }
+              ]
+              }]
 
-    },    
+
+
+    }
+    this.$refs['suchindexscore'].mergeOptions(option)
+    
+
+    }, 
 
 
 
@@ -159,15 +193,79 @@ export default {
      }
 
      this.$refs['topstudent'].mergeOptions(option)
+    },
+    //总分区间漏斗图
+    set_totalscores()
+    {
+      console.log("显示漏斗图，当前学期")
+      let ranges=this.data['totalscores']['ranges']
+      let allscores=this.data['totalscores']['allscores']
+      let option={
+         title:{text:'总分区间漏斗图'},
+     tooltip:{trigger:'item',
+     fromatter: "{a} <br/>{b} : {c}%"},
+     toolbox:{
+       feature:{dataView:{readOnly: false},
+       restore: {},
+       saveAsImage:{}
+       }
+     },
+     
+     legend:{
+       data:ranges
+     },
+     calculable: true,
+     series:[
+       {
+         name: '总分区间图',
+         type:'funnel',
+         left:'10%',
+         top:60,
+         bottom:60,
+         width:'80%',
+         min:0,
+         max:50,
+         minSize:'0%',
+         maxSize:'100%',
+         sort:'descending',
+         gap:2,
+         label:{
+           show:true,
+           position:'inside'
+         },
+         labelLine:{
+           length:10,
+           lineStyle:{
+             width:1,
+             type:'solid'
+           }
+         },
+         itemStyle:{
+           borderColor:'#fff',
+           borderWidth:1
+         },
+         emphasis:{
+           label:{
+             fontSize:20
+           }
+         },
+         data:allscores
+       }
+     ] 
+
+
+      }
+      this.$refs['totalscores'].mergeOptions(option)
     }
   },
-  data:function() {
+
+  data:function(){
     return{
 
         stateStore:store.state,
         nowIndex:"总分",
         data:ClassData,
-        peoples:["渣渣","渣渣辉"],
+        peoples:["渣渣","渣渣辉"],//班级名单
         tree1:{title:{text:'各指标雷达图'},
         tooltip:{},
         legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
