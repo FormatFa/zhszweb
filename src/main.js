@@ -35,7 +35,7 @@ const routes =[
     path:"/student",component:Student
   },
   {
-    path:"/class",component:Class,name:"class"
+    path:"/class/:classid",component:Class,name:"class"
   },
   {
     path:"/login",component:Login,name:"login"

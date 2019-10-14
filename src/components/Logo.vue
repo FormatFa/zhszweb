@@ -5,7 +5,7 @@
           <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
-      <el-row  type="flex" justify="end" :span="10" >
+      <el-row v-if="isLogin" type="flex" justify="end" :span="10" >
           <el-button @click="login()">登录</el-button>
 
           <!-- 年度选择 -->
@@ -21,6 +21,7 @@
           <el-cascader
           placeholder="进入班级界面"
             :options="classes"
+            @change="intoClass"
           ></el-cascader>
         </el-row>
 
@@ -33,13 +34,36 @@ import {store} from '../store.js'
 import {college} from '../api/testdata'
 import {EventBus} from '../event-bus.js'
 import {get,post} from '../api/http.js'
-
+import {apiLogin,apiYears} from '../api/api.js'
 import {ClassData} from '../api/testclassdata.js'
 export default {
+  //请求年度数据，顺便验证登录
+  created(){
+    apiYears().then(res=>{
+
+    }).catch(err=>{
+
+    })
+
+  },
   computed:{
-    
+    isLogin(){
+      return this.$router.currentRoute.name!="login"
+    }
   },
   methods:{
+    intoClass(value){
+      console.log("进入班级:"+value)
+      console.log(value)
+      let id = value.join(",")
+      this.$router.push({
+        name:"class",
+        params:{
+          classid:id
+        }
+      })
+
+    },
     login(){
   EventBus.$emit("showLogin",college)
     },

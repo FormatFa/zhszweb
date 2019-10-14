@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 第一行 -->
-    <el-row type="flex" justify="center" align="center">
+    <el-row >
       <!-- 卡片 -->
-      <el-col :span="8">
+      <el-col :span="8" :xs="20" >
         <el-card>
           <div slot="header" class="clearfix">
             <span>基本情况</span>
@@ -24,7 +24,7 @@
       </el-col>
 
       <!-- 1.2 top5柱状图  -->
-      <el-col :span="8">
+      <el-col :span="8" :xs="20">
         <v-chart  class="chart" ref="classtop" autoresize :options="test"></v-chart>
       </el-col>
     <!-- 饼图 -->
@@ -81,11 +81,12 @@ export default {
   //组件创建时
   created(){
 
+    
 
   },
   mounted(){
     console.log("挂载 mounted...")
-
+    
         //监听事件
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
