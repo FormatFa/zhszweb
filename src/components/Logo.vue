@@ -1,12 +1,12 @@
 <template>
-  <div v-loading="loading">
+  <div v-loading.fullscreen="loading">
       <el-row >
         <el-col  :span="8">
           <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
-      <el-row  type="flex" justify="end" :span="10" >
-          <el-button>登录</el-button>
+      <el-row v-if="isLogin" type="flex" justify="end" :span="10" >
+          <el-button @click="login()">登录</el-button>
 
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
@@ -21,6 +21,7 @@
           <el-cascader
           placeholder="进入班级界面"
             :options="classes"
+            @change="intoClass"
           ></el-cascader>
         </el-row>
 
@@ -33,14 +34,39 @@ import {store} from '../store.js'
 import {college} from '../api/testdata'
 import {EventBus} from '../event-bus.js'
 import {get,post} from '../api/http.js'
-
+import {apiLogin,apiYears} from '../api/api.js'
 import {ClassData} from '../api/testclassdata.js'
 export default {
+  //请求年度数据，顺便验证登录
+  created(){
+    apiYears().then(res=>{
+
+    }).catch(err=>{
+
+    })
+
+  },
   computed:{
-    
+    isLogin(){
+      return this.$router.currentRoute.name!="login"
+    }
   },
   methods:{
+    intoClass(value){
+      console.log("进入班级:"+value)
+      console.log(value)
+      let id = value.join(",")
+      this.$router.push({
+        name:"class",
+        params:{
+          classid:id
+        }
+      })
 
+    },
+    login(){
+  EventBus.$emit("showLogin",college)
+    },
     //请求数据
     //选择年度 或者 学期事件
     selectYear(){
@@ -51,12 +77,18 @@ export default {
       store.setYear(this.year)
       store.setTerm(this.term)
       this.loading=true;
-      if(this.$router.currentRoute.name=="college")
-      this.requestCollege()
+      //模拟延迟
+      window.setTimeout( ()=> {
+        if(this.$router.currentRoute.name=="college")
+      {
+        this.requestCollege()
+      }
       else if(this.$router.currentRoute.name=="class")
       {
 this.requestClass()
       }
+        },2000)
+      
 
     },
     requestCollege(){
@@ -68,8 +100,8 @@ this.requestClass()
             console.log(err)
             //设置成测试数据
             //发送事件
+            this.loading=false
             EventBus.$emit("collegeDataLoad",college)
-            
         })
     },
         requestClass(){
@@ -81,6 +113,7 @@ this.requestClass()
             console.log(err)
             //设置成测试数据
             //发送事件
+            this.loading=false
             EventBus.$emit("classDataLoad",ClassData)
             
         })
