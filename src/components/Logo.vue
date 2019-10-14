@@ -1,12 +1,12 @@
 <template>
-  <div v-loading="loading">
+  <div v-loading.fullscreen="loading">
       <el-row >
         <el-col  :span="8">
           <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
       <el-row  type="flex" justify="end" :span="10" >
-          <el-button>登录</el-button>
+          <el-button @click="login()">登录</el-button>
 
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
@@ -40,7 +40,9 @@ export default {
     
   },
   methods:{
-
+    login(){
+  EventBus.$emit("showLogin",college)
+    },
     //请求数据
     //选择年度 或者 学期事件
     selectYear(){
@@ -51,12 +53,18 @@ export default {
       store.setYear(this.year)
       store.setTerm(this.term)
       this.loading=true;
-      if(this.$router.currentRoute.name=="college")
-      this.requestCollege()
+      //模拟延迟
+      window.setTimeout( ()=> {
+        if(this.$router.currentRoute.name=="college")
+      {
+        this.requestCollege()
+      }
       else if(this.$router.currentRoute.name=="class")
       {
 this.requestClass()
       }
+        },2000)
+      
 
     },
     requestCollege(){
@@ -68,8 +76,8 @@ this.requestClass()
             console.log(err)
             //设置成测试数据
             //发送事件
+            this.loading=false
             EventBus.$emit("collegeDataLoad",college)
-            
         })
     },
         requestClass(){
@@ -81,6 +89,7 @@ this.requestClass()
             console.log(err)
             //设置成测试数据
             //发送事件
+            this.loading=false
             EventBus.$emit("classDataLoad",ClassData)
             
         })

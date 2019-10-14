@@ -19,3 +19,5 @@ https://vuex.vuejs.org/zh/guide/state.html
 vuex 全局存储
 https://www.w3cplus.com/vue/managing-state-in-vue-js.html?utm_source=tuicool&utm_medium=referral
 
+axios封装:
+https://www.jb51.net/article/145341.htm

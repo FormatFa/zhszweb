@@ -1,6 +1,5 @@
 import {get,post} from "./http.js"
+export const apiLogin=p=>post('api/login',p)
 
-//获取学院数据
-export  function getColleageData(){
-    
-}
+//首页年度数据
+export const apiYears=p=>get('')
