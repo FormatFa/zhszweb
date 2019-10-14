@@ -12,7 +12,7 @@
           <div>人数:{{data.classjbCard.students}}</div>
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
-      <el-col :span="12">
+      <el-col :span="12" style="margin-left: 100px;">
         <v-chart class="chart" ref="suchindexscore"  autoresize :options="tree1"></v-chart>
       </el-col>
     <!-- 班级名单的下拉框 -->
@@ -59,7 +59,7 @@
        :value="item.value"></el-option>
        </el-select>
        <!-- top5柱状图 -->
-        <v-chart class="chart" ref="topstudent" autoresize :options="tree2"></v-chart>
+        <v-chart class="chart" ref="topstudent" autoresize ></v-chart>
        </el-col>
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
@@ -95,6 +95,10 @@ export default {
       console.log(data)
       this.data=data
       this.set_topstudent()
+      this.set_suchindexscore()
+      this.set_studentnames()
+      this.set_topstudent()
+      this.set_totalscores()
     })
   
   },
@@ -103,6 +107,7 @@ export default {
       console.log("改变指标")
       console.log(value)
       this.set_topstudent()
+      
 
     },
       handleChange(val){
@@ -146,6 +151,14 @@ export default {
     
 
     }, 
+    //班级名单
+    set_studentnames(){
+      let student=this.data['students']['student']
+      this.peoples.splice(0,this.peoples.length); 
+      for(let i =0;i<student.length;i+=1)
+      this.peoples.push(student[i])
+      
+    },
 
 
 
@@ -298,36 +311,36 @@ export default {
                {value:'综合素质理论',label:'综合素质理论Top5'},
                {value:'总分',label:'总分Top5'}],
                value:'',//下拉框
-     tree2:{
-       color:['#00E5EE'],
-       tooltip:{trigger:'axis',
-       axisPointer: {
-         type: 'shadow'
-       }
-       },
-       grid:{
-         left:'3%',
-         right:'4%',
-         bottom:'3%',
-         containLabel:true
-       },
-       xAxis:[{
-         type:'category',
-         data:['渣渣1','渣渣2','渣渣3','渣渣4','渣渣5'],
-         axisTick:{
-           alignWithLabel:true
-         }
-       }],
-       yAxis:[{
-         type:'value'
-       }],
-       series:[{
-         name:'分数是',
-         type:'bar',
-         barWidth:'60',
-         data:[5,6,7,9,15]
-       }]
-     },//柱状图
+    //  tree2:{
+    //    color:['#00E5EE'],
+    //    tooltip:{trigger:'axis',
+    //    axisPointer: {
+    //      type: 'shadow'
+    //    }
+    //    },
+    //    grid:{
+    //      left:'3%',
+    //      right:'4%',
+    //      bottom:'3%',
+    //      containLabel:true
+    //    },
+    //    xAxis:[{
+    //      type:'category',
+    //      data:['渣渣1','渣渣2','渣渣3','渣渣4','渣渣5'],
+    //      axisTick:{
+    //        alignWithLabel:true
+    //      }
+    //    }],
+    //    yAxis:[{
+    //      type:'value'
+    //    }],
+    //    series:[{
+    //      name:'分数是',
+    //      type:'bar',
+    //      barWidth:'60',
+    //      data:[5,6,7,9,15]
+    //    }]
+    //  },//柱状图
      tree3:{title:{text:'总分区间漏斗图'},
      tooltip:{trigger:'item',
      fromatter: "{a} <br/>{b} : {c}%"},

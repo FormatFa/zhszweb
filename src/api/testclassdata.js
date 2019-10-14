@@ -17,7 +17,8 @@ export const ClassData={
         suchnames:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论'],
         suchscores:[13,8,9,10,17,10,0]
     },
-
+    //班级名单
+    students:{student:["渣渣辉1","渣渣辉2"]},
 
     //各指标的top数据
     topstudent:{

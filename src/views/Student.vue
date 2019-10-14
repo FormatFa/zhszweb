@@ -1,9 +1,137 @@
 <template>
-  <h1>student</h1>
+<div>
+  <!-- 第一行 -->
+  <el-row>
+    <!-- 个人的基本情况卡片 -->
+    <el-col :span="6"><el-card>
+      <div slot ="header" class="clearfix">
+      <span>个人的基本情况</span>
+      </div>
+      <div>2019年度第一学期综合素质平均分:{{data.studentCard.term1_avlscore}}</div>
+      <div>2019年度第二学期综合素质平均分:{{data.studentCard.term2_avlscore}}</div>
+      <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
+      <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
+      <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+      <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+    </el-card>
+    </el-col>
+    <!-- 雷达图 -->
+    <el-col :span=16  style="margin-left: 100px;">
+      <v-chart class="chart" ref="suchindexscore" autoresize :options="tree1"></v-chart>
+    </el-col>
+  </el-row>
+  <!-- 第二行 -->
+  <el-row>
+    <el-col :span=10>
+      <div>各个指标在全院的排名</div>
+    </el-col>
+    <el-col :span=10 style="margin-left: 100px;">
+      <div>各个指标在全班的排名</div>
+      
+    </el-col>
+  </el-row>
+  <!-- 第三行 -->
+  <el-row>
+    <!-- 各个指标在全院的排名 -->
+    <el-col :span=10>
+      <el-table :data="CollegeData" border style="width: 100%">
+        <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
+        <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
+        <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
+      </el-table>
+    </el-col>
+    <!-- 各个指标在全班的排名 -->
+    <el-col :span=10>
+      <el-table :data="ClassData" border style="width: 100%;margin-left: 100px;">
+        <el-table-column prop="Classindex" label="各指标" width="180"></el-table-column>
+        <el-table-column prop="Classscores" label="分数" width="180"></el-table-column>
+        <el-table-column prop="Classranking" label="排名" width="180"></el-table-column>
+      </el-table>
+    </el-col>
+  </el-row>
+  <!-- 第三行 -->
+  <el-row>
+    <!-- 建议 -->
+    <el-col>
+      <el-collapse v-model="activeNames" @change="handleChange">
+        <el-collapse-item title="建议" name="1">
+          <div>好丑的图啊！不想画了。</div>
+        </el-collapse-item>
+      </el-collapse>
+    </el-col>
+  </el-row>
+</div>
 </template>
 
 <script>
+import {StudentData} from '../api/teststudent.js'
+import {store} from '../store.js'
+import {EventBust} from '../event-bus.js'
+
 export default {
+  name:'student',
+  mounted(){
+    EventBust.$on("classDataLoad",data=>{
+      console.log()
+    })
+  },
+  methods:{
+    handleChange(val){
+      console.log(val)
+    }
+  },//建议
+
+  data(){
+    return{
+      tree1:{
+        title:{text: '各指标雷达图'},
+        tooltip:{},
+        legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
+        radar:{name:{
+          textStyle:{
+            color:'#fff',
+            borderRadius:3,
+            padding:[3,5]
+          }
+        },
+        indicator:[
+          {name:'思想政治',max:20},
+            {name:'身心健康',max:20},
+            {name:'创新创业',max:20},
+            {name:'技术技能',max:20},
+            {name:'志愿服务',max:20},
+            {name:'人文艺术',max:20},
+            {name:'综合素质理论',max:20}
+        ]
+        },
+        series:[{name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+            type:'radar',
+            data:[{value:[13,8,9,10,17,10,0],name:'第一学期'
+              }]
+              }]
+      },//雷达图
+      CollegeData:[{
+        Collegindex:'身心健康',
+        Collegscores:60,
+        Collegranking:122
+      },{
+         Collegindex:'思想政治',
+        Collegscores:60,
+        Collegranking:122
+      }],
+      ClassData:[{
+        Classindex:'身心健康',
+        Classscores:60,
+       Classranking:122
+      },{
+      Classindex:'思想政治',
+        Classscores:60,
+        Classranking:122
+      }],
+      activeNames: ['1']
+    }
+
+  }
 
 }
 </script>
