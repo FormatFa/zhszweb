@@ -66,12 +66,12 @@
 <script>
 import {StudentData} from '../api/teststudent.js'
 import {store} from '../store.js'
-import {EventBust} from '../event-bus.js'
+import {EventBus} from '../event-bus.js'
 
 export default {
   name:'student',
   mounted(){
-    EventBust.$on("classDataLoad",data=>{
+    EventBus.$on("classDataLoad",data=>{
       console.log()
     })
   },
@@ -83,6 +83,7 @@ export default {
 
   data(){
     return{
+      data:StudentData,
       tree1:{
         title:{text: '各指标雷达图'},
         tooltip:{},

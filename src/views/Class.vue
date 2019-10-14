@@ -16,7 +16,7 @@
         <v-chart class="chart" ref="suchindexscore"  autoresize :options="tree1"></v-chart>
       </el-col>
     <!-- 班级名单的下拉框 -->
-      <el-col :span="4"><el-dropdown style="margin-left: 120px;">
+      <el-col :span="4"><el-dropdown @command="intoStudent" style="margin-left: 120px;">
     
               <span class="el-dropdown-link">
           班级同学名单
@@ -24,7 +24,7 @@
         </span>
 
         <el-dropdown-menu slot="dropdown">
-         <el-dropdown-item :key="people" v-for="people in peoples">
+         <el-dropdown-item  :command="people" :key="people" v-for="people in peoples">
             {{people}}
          </el-dropdown-item>
         </el-dropdown-menu>
@@ -103,6 +103,15 @@ export default {
   
   },
   methods:{
+    intoStudent(com){
+      console.log("进入学生:"+com)
+         this.$router.push({
+        name:"student",
+        params:{
+          studentid:com
+        }
+      })
+    },
     zhibiaochange(value){
       console.log("改变指标")
       console.log(value)

@@ -32,7 +32,7 @@ const routes =[
     path:"/",component:College,name:"college"
   },
   {
-    path:"/student",component:Student,name:"student"
+    path:"/student/:studentid",component:Student,name:"student"
   },
   {
     path:"/class/:classid",component:Class,name:"class"
