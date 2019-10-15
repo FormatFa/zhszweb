@@ -10,7 +10,7 @@
 
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
-            <el-option v-for="item in years" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <el-option v-for="item in years" :key="item.value" :label="item + '年度'" :value="item.value"></el-option>
           </el-select>
 
           <!-- 学期选择 -->
@@ -37,19 +37,37 @@ import {get,post} from '../api/http.js'
 import {apiLogin,apiYears} from '../api/api.js'
 import {ClassData} from '../api/testclassdata.js'
 export default {
+
   //请求年度数据，顺便验证登录
   created(){
-    apiYears().then(res=>{
+    console.log("创建logo组件.......")
+    this.loading=true
+    window.setTimeout(()=>{
 
+      apiYears().then(res=>{
+        //请求成功有，设置图表
+        this.selectYear()
     }).catch(err=>{
-
+      this.$message.error("请求年度数据失败。")
+        console.log("请求学年失败..")
+        //页面第一次请求
+        for(let i =2008;i<2018;i+=1){this.years.push(i.toString())}
+ this.selectYear()
+    }).then(()=>{
     })
+
+    },2000)
+    
+    
+this.$router.beforeEach((to, from, next) => {
+    console.log("test....."+this.$router.currentRoute.name)
+    this.isLogin= to.name!="login"
+    next();
+})
 
   },
   computed:{
-    isLogin(){
-      return this.$router.currentRoute.name!="login"
-    }
+ 
   },
   methods:{
     intoClass(value){
@@ -62,6 +80,7 @@ export default {
           classid:id
         }
       })
+      this.selectYear()
 
     },
     login(){
@@ -101,6 +120,7 @@ this.requestClass()
             //设置成测试数据
             //发送事件
             this.loading=false
+            console.log("发送学院数据...")
             EventBus.$emit("collegeDataLoad",college)
         })
     },
@@ -122,6 +142,8 @@ this.requestClass()
   },
   data(){
     return {
+      //是否登录
+         isLogin:true,
       loading:false,
        year:store.state.year,
        term:store.state.term, 
@@ -140,15 +162,7 @@ this.requestClass()
 
   
       years:[
-      {
-        value:"2018",
-        label:"2018年度"
-        
-      },
-      {
-        value:"2019",
-        label:"2019年度"
-      }
+  
     ],
       terms:[
       {

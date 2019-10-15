@@ -5,6 +5,8 @@ import {college} from './api/testdata.js'
 export const store = {
 
     state:{
+        //所有年度
+        years:['2017','2018','2019'],
         //当前选择的年度
         year:"2019",
         //当前选择的学期
