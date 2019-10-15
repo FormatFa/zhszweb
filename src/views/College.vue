@@ -29,7 +29,7 @@
       </el-col>
     <!-- 饼图 -->
       <el-col :span="6">
-        <v-chart  class="chart" autoresize :options="pietest" ref="index" v-on:pieselectchanged="indexChange"></v-chart>
+        <v-chart  theme="dark" class="chart" autoresize :options="pietest" ref="index" v-on:pieselectchanged="indexChange"></v-chart>
       </el-col>
     </el-row>
 
@@ -369,7 +369,7 @@ export default {
         data:["17","18","19","20"]
       },
       yAxis:{
-        name:"平均分"
+        name:"综合平均分"
       },
       legend:{},
       series:
@@ -403,8 +403,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .chart {
-width: 100%
+width: 100%;
+
+
 }
 </style>
