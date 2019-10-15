@@ -190,6 +190,7 @@ export default {
       let names = this.data['topstudent'][this.nowIndex]['names']
       let scores = this.data['topstudent'][this.nowIndex]['scores']
       let option={
+        
         title:{text:` ${this.stateStore.termName()} 柱状图`},
        color:['#00E5EE'],
        tooltip:{trigger:'axis',
@@ -230,7 +231,8 @@ export default {
       let ranges=this.data['totalscores']['ranges']
       let allscores=this.data['totalscores']['allscores']
       let option={
-         title:{text:'总分区间漏斗图'},
+        
+         title:{text:`${this.stateStore.termName()}总分区间漏斗图`},
      tooltip:{trigger:'item',
      fromatter: "{a} <br/>{b} : {c}%"},
      toolbox:{
@@ -241,14 +243,15 @@ export default {
      },
      
      legend:{
-       data:ranges
+       data:ranges,
+       bottom:0
      },
      calculable: true,
      series:[
        {
          name: '总分区间图',
          type:'funnel',
-         left:'10%',
+         left:'20%',
          top:60,
          bottom:60,
          width:'80%',

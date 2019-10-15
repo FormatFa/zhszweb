@@ -17,7 +17,7 @@
     </el-col>
     <!-- 雷达图 -->
     <el-col :span=16  style="margin-left: 100px;">
-      <v-chart class="chart" ref="suchindexscore" autoresize :options="tree1"></v-chart>
+      <v-chart class="chart" ref="scuhindexscore" autoresize :options="tree1"></v-chart>
     </el-col>
   </el-row>
   <!-- 第二行 -->
@@ -71,11 +71,15 @@ import {EventBus} from '../event-bus.js'
 export default {
   name:'student',
   mounted(){
+                
     EventBus.$on("studentDataLoad",data=>{
       console.log("个人界面请求数据")
       console.log(data)
       this.data=data
       this.set_suchindexscore()
+      // this.set_CollegeData()
+      // this.set_ClassData()
+  
     })
   },
   methods:{
@@ -125,14 +129,27 @@ export default {
     },
     set_ClassData(){
       let ClassData=this.data['data2']['ClassData']
+      this.ClassData.splice(0,this.ClassData.legend);
+      this.data['data2']['ClassData'].forEach(element => {
+        this.ClassData.push(element)
+      });
      
     }
   },
 
-
+  computed:{
+CollegeData(){
+  return this.data.data1.CollegeData
+},
+ClassData(){
+  return this.data.data2.ClassData
+}
+  },
   data(){
     return{
-      CollegeData:[],
+
+      stateStore:store.state,
+      
       ClassData:[],
       data:StudentData,
       tree1:{
@@ -162,24 +179,24 @@ export default {
               }]
               }]
       },//雷达图
-      CollegeData:[{
-        Collegindex:'身心健康',
-        Collegscores:60,
-        Collegranking:122
-      },{
-         Collegindex:'思想政治',
-        Collegscores:60,
-        Collegranking:122
-      }],
-      ClassData:[{
-        Classindex:'身心健康',
-        Classscores:60,
-       Classranking:122
-      },{
-      Classindex:'思想政治',
-        Classscores:60,
-        Classranking:122
-      }],
+      // CollegeData:[{
+      //   Collegindex:'身心健康',
+      //   Collegscores:60,
+      //   Collegranking:122
+      // },{
+      //    Collegindex:'思想政治',
+      //   Collegscores:60,
+      //   Collegranking:122
+      // }],
+      // ClassData:[{
+      //   Classindex:'身心健康',
+      //   Classscores:60,
+      //  Classranking:122
+      // },{
+      // Classindex:'思想政治',
+      //   Classscores:60,
+      //   Classranking:122
+      // }],
       activeNames: ['1']
     }
 

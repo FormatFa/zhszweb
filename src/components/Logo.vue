@@ -36,6 +36,7 @@ import {EventBus} from '../event-bus.js'
 import {get,post} from '../api/http.js'
 import {apiLogin,apiYears} from '../api/api.js'
 import {ClassData} from '../api/testclassdata.js'
+import {StudentData} from '../api/teststudent'
 export default {
 
   //请求年度数据，顺便验证登录
@@ -104,7 +105,12 @@ this.$router.beforeEach((to, from, next) => {
       }
       else if(this.$router.currentRoute.name=="class")
       {
-this.requestClass()
+        this.requestClass()
+      }
+      else if (this.$router.currentRoute.name=="student")
+      {
+        console.log("请求学生2")
+        this.requestStudent()
       }
         },2000)
       
@@ -135,9 +141,23 @@ this.requestClass()
             //发送事件
             this.loading=false
             EventBus.$emit("classDataLoad",ClassData)
+           
             
         })
-    }
+    },
+        requestStudent(){
+            get("xxx").then(res=>{
+              console.log("请求个人的数据:..")
+              console.log(res)
+            }).catch(err=>{
+              console.log("请求数据失败>>>")
+              console.log(err)
+              //设置成测试数据
+              //发送事件
+              this.loading=false
+              EventBus.$emit("studentDataLoad",StudentData)
+            })
+        }
     
   },
   data(){
