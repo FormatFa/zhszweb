@@ -89,6 +89,13 @@
     import {EventBus} from '../event-bus.js'
 export default {
   name:'banji',
+  beforeRouteEnter(to,from,next){
+    console.log("before router enter")
+    next()
+  },
+  beforeRouteUpdate(){
+    console.log("导航更新..")
+  },
   mounted(){
         EventBus.$on("classDataLoad",data=>{
       console.log("班级界面请求到数据...")
