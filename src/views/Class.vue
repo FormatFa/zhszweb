@@ -13,7 +13,7 @@
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
       <el-col :span="12" style="margin-left: 100px;">
-        <v-chart class="chart" ref="suchindexscore"  autoresize :options="tree1"></v-chart>
+        <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
       </el-col>
     <!-- 班级名单的下拉框 -->
       <el-col :span="4"><el-dropdown @command="intoStudent" style="margin-left: 120px;">
@@ -288,29 +288,29 @@ export default {
         nowIndex:"总分",
         data:ClassData,
         peoples:["渣渣","渣渣辉"],//班级名单
-        tree1:{title:{text:'各指标雷达图'},
-        tooltip:{},
-        legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
-        radar:{name:{
-          textStyle:{
-            color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
-            indicator:[{name:'思想政治',max:20},
-            {name:'身心健康',max:20},
-            {name:'创新创业',max:20},
-            {name:'技术技能',max:20},
-            {name:'志愿服务',max:20},
-            {name:'人文艺术',max:20},
-            {name:'综合素质理论',max:20}
-            ]
-            },
-            series:[{
-              name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
-            type:'radar',
-            data:[
-              {value:[13,8,9,10,17,10,0],name:'第一学期'
-              }
-              ]
-              }]},//雷达图
+        // tree1:{title:{text:'各指标雷达图'},
+        // tooltip:{},
+        // legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
+        // radar:{name:{
+        //   textStyle:{
+        //     color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
+        //     indicator:[{name:'思想政治',max:20},
+        //     {name:'身心健康',max:20},
+        //     {name:'创新创业',max:20},
+        //     {name:'技术技能',max:20},
+        //     {name:'志愿服务',max:20},
+        //     {name:'人文艺术',max:20},
+        //     {name:'综合素质理论',max:20}
+        //     ]
+        //     },
+        //     series:[{
+        //       name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+        //     type:'radar',
+        //     data:[
+        //       {value:[13,8,9,10,17,10,0],name:'第一学期'
+        //       }
+        //       ]
+        //       }]},//雷达图
       options:[{value:'思想政治',label:'思想政治Top5'},
                {value:'身心健康',label:'身心健康Top5'},
                {value:'创新创业',label:'创新创业Top5'},

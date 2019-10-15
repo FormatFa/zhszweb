@@ -34,7 +34,7 @@
   <el-row>
     <!-- 各个指标在全院的排名 -->
     <el-col :span=10>
-      <el-table :data="CollegeData" border style="width: 100%">
+      <el-table :data="CollegeData" border style="width: 100%" >
         <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
         <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
         <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
@@ -71,18 +71,69 @@ import {EventBus} from '../event-bus.js'
 export default {
   name:'student',
   mounted(){
-    EventBus.$on("classDataLoad",data=>{
-      console.log()
+    EventBus.$on("studentDataLoad",data=>{
+      console.log("个人界面请求数据")
+      console.log(data)
+      this.data=data
+      this.set_suchindexscore()
     })
   },
   methods:{
     handleChange(val){
       console.log(val)
+    },//建议
+    set_suchindexscore(){
+      console.log("显示个人当前学期的雷达图")
+      let suchnames=this.data['suchindexscore']['suchnames']
+      let suchscores=this.data['suchindexscore']['suchscores']
+      let option={
+        title:{text: `${this.stateStore.termName()}各指标雷达图`},
+        tooltip:{},
+        legend:{data:suchnames},
+        radar:{name:{
+          textStyle:{
+            color:'#fff',
+            borderRadius:3,
+            padding:[3,5]
+          }
+        },
+        indicator:[
+          {name:'思想政治',max:20},
+            {name:'身心健康',max:20},
+            {name:'创新创业',max:20},
+            {name:'技术技能',max:20},
+            {name:'志愿服务',max:20},
+            {name:'人文艺术',max:20},
+            {name:'综合素质理论',max:20}
+        ]
+        },
+        series:[{name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+            type:'radar',
+            data:[{value:suchscores
+              }]
+              }]
+      }
+      this.$refs['scuhindexscore'].mergeOptions(option)
+    },
+
+    set_CollegeData(){
+      let CollegeData=this.data['data1']['CollegeData']
+      this.CollegeData.splice(0,this.CollegeData.length);
+      this.data['data1']['CollegeData'].forEach(element => {
+        this.CollegeData.push(element)
+      });
+    },
+    set_ClassData(){
+      let ClassData=this.data['data2']['ClassData']
+     
     }
-  },//建议
+  },
+
 
   data(){
     return{
+      CollegeData:[],
+      ClassData:[],
       data:StudentData,
       tree1:{
         title:{text: '各指标雷达图'},

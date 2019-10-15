@@ -12,4 +12,29 @@ export const StudentData={
         suchnames:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论'],
         suchscores:[13,8,9,10,17,10,0]
     },//各指标雷达
+    data1:{
+    CollegeData:[
+        {
+        Collegindex:'身心健康',
+        Collegscores:60,
+        Collegranking:122
+      },
+      {
+         Collegindex:'思想政治',
+        Collegscores:60,
+        Collegranking:122
+      }]
+      
+    },
+    data2:{
+        ClassData:[{
+            Classindex:'身心健康',
+            Classscores:60,
+           Classranking:122
+          },{
+          Classindex:'思想政治',
+            Classscores:60,
+            Classranking:122
+          }]
+    }
 }
