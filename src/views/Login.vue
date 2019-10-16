@@ -7,18 +7,21 @@
         :visible.sync="isShow"
         > -->
         <el-row type="flex" justify="center">
-            <el-col :span="10">
+            <el-col :span="15">
                 
-    <el-carousel>
+    <el-carousel height="400px" >
         <el-carousel-item>
-            <img src="/img1.jpg"/>
+            <img src="/img1.jpg" width="100%" height="100%">
         </el-carousel-item>
             <el-carousel-item>
-            <img src="/img2.jpg"/>
+            <img src="/img2.jpg" width="100%" height="100%">
+        </el-carousel-item>
+        <el-carousel-item>
+            <img src="/img3.jpg" width="100%" height="100%">
         </el-carousel-item>
     </el-carousel>
             </el-col>
-            <el-col  :offset="5" :span="5"><el-card>
+            <el-col  :offset="6" :span="6" style="margin-left: 100px;"><el-card>
             <el-form>
                 <el-form-item label="用户名">
                     <el-input v-model="login.username"></el-input>
@@ -60,6 +63,7 @@ export default {
     },
     data(){
         return {
+        
         isShow:true,
         login:{
          username:"",   
@@ -103,8 +107,5 @@ export default {
 </script>
 
 <style>
-img {
-    width: 1920px;
-    height: 1080px;
-}
+
 </style>

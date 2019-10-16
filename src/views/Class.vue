@@ -28,9 +28,6 @@
             {{people}}
          </el-dropdown-item>
         </el-dropdown-menu>
-
-
-
         </el-dropdown>
         </el-col>
   </el-row>

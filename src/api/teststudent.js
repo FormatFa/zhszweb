@@ -1,40 +1,40 @@
 export const StudentData={
     //基本信息
     studentCard:{
-        "term1_avlscore":34,
-        "term2_avlscore":33,
-        "term1_yranking":299,
-        "term2_yranking":333,
-        "term1_cranking":12,
-        "term1_cranking":11
+        "term1_avlscore":34,//第一学期综合素质平均分
+        "term2_avlscore":33,//第一学期综合素质平均分
+        "term1_yranking":299,//第一学期综合素质在全院排名
+        "term2_yranking":333,//第二学期综合素质在全院排名
+        "term1_cranking":12,//第一学期综合素质在全班排名
+        "term2_cranking":11//第二学期综合素质在全班排名
     },//基本信息卡片
     suchindexscore:{
         suchnames:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论'],
-        suchscores:[13,8,9,10,17,10,0]
+        suchscores:[13,8,9,10,17,10,0]//各指标的分数
     },//各指标雷达
     data1:{
     CollegeData:[
         {
         Collegindex:'身心健康',
-        Collegscores:60,
-        Collegranking:122
+        Collegscores:60,//指标的分数
+        Collegranking:122//指标的排名
       },
       {
          Collegindex:'思想政治',
         Collegscores:60,
         Collegranking:122
-      }]
+      }]//各指标在全院排名
       
     },
     data2:{
         ClassData:[{
             Classindex:'身心健康',
-            Classscores:60,
-           Classranking:122
+            Classscores:60,////指标的分数
+           Classranking:122////指标的分数
           },{
           Classindex:'思想政治',
             Classscores:60,
             Classranking:122
-          }]
+          }]//各指标在全班排名
     }
 }

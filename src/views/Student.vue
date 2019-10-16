@@ -3,12 +3,12 @@
   <!-- 第一行 -->
   <el-row>
     <!-- 个人的基本情况卡片 -->
-    <el-col :span="6"><el-card>
+    <el-col :span="7"><el-card>
       <div slot ="header" class="clearfix">
       <span>个人的基本情况</span>
       </div>
-      <div>2019年度第一学期综合素质平均分:{{data.studentCard.term1_avlscore}}</div>
-      <div>2019年度第二学期综合素质平均分:{{data.studentCard.term2_avlscore}}</div>
+      <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
+      <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
       <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
       <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
       <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
@@ -16,7 +16,7 @@
     </el-card>
     </el-col>
     <!-- 雷达图 -->
-    <el-col :span=16  style="margin-left: 100px;">
+    <el-col :span=16  style="margin-left: 50px;">
       <v-chart class="chart" ref="scuhindexscore" autoresize :options="tree1"></v-chart>
     </el-col>
   </el-row>
@@ -129,7 +129,7 @@ export default {
     },
     set_ClassData(){
       let ClassData=this.data['data2']['ClassData']
-      this.ClassData.splice(0,this.ClassData.legend);
+      this.ClassData.splice(0,this.ClassData.length);
       this.data['data2']['ClassData'].forEach(element => {
         this.ClassData.push(element)
       });
@@ -147,10 +147,7 @@ ClassData(){
   },
   data(){
     return{
-
       stateStore:store.state,
-      
-      ClassData:[],
       data:StudentData,
       tree1:{
         title:{text: '各指标雷达图'},
