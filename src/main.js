@@ -9,6 +9,7 @@ import College from './views/College.vue'
 import Class from './views/Class.vue'
 import Student from './views/Student.vue'
 import Login from './views/Login.vue'
+import Data from './views/Data.vue'
 //引入echarts
 import ECharts from 'vue-echarts'
 //每个用到的图或者组件在这里引入
@@ -40,6 +41,9 @@ const routes =[
   },
   {
     path:"/login",component:Login,name:"login"
+  },
+  {
+    path:"/data",component:Data,name:"data"
   }
 ]
 
