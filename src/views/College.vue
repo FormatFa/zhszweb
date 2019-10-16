@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <!-- 第一行 -->
     <el-row >
       <!-- 卡片 -->
@@ -61,7 +62,7 @@
 
       <!-- 各学年变化趋势 -->
       <el-col :span="16">
-        <v-chart  class="chart" autoresize :options="trendOption"> </v-chart>
+        <v-chart  ref="trend" class="chart" autoresize :options="trendOption"> </v-chart>
       </el-col>
 
     </el-row>
@@ -96,6 +97,7 @@ export default {
       this.set_classtop()
       this.set_gpa_score()
       this.set_range()
+      this.set_trend()
     })
 
   },
@@ -150,8 +152,10 @@ export default {
       console.log(this.stateStore.termName())
       let option= {
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()} ${this.nowIndex} TOP5班级` },
+        tooltip:{},
         xAxis: {
-          type:"value"
+          type:"value",
+          name:"分数"
         },
         yAxis: {
           type:"category",
@@ -173,7 +177,8 @@ export default {
       let term1_scores = this.data['range']['term1_scores']
       let term2_scores = this.data['range']['term2_scores']
       let option = {
-          title:{text:`${this.stateStore.year} 年度综合素质总各分区间次数分布`},
+        tooltip:{},
+          title:{text:`${this.stateStore.year} 年度综合素质总分各区间分布`},
           xAxis:{
             data:["(0-10]","(10-20]","(20-30]"]
           },
@@ -212,7 +217,7 @@ export default {
         ])
       }
       let option={
-
+tooltip:{},
        title: { text:"GPA成绩与综合素质总分的关系" },
         xAxis: {
           name:"GPA"
@@ -229,6 +234,38 @@ export default {
     },
     set_trend(){
 
+      let chart = this.$refs['trend']
+      let option={
+         title:{text:"学院各年平均分变化"},
+      xAxis:{
+        name:"年度",
+        data:this.data['trend']['years'],
+      },
+      yAxis:{
+        name:"综合平均分"
+      },
+      legend:{},
+      series:
+      [
+       {
+         stack:"年度",
+         name:"第一学期",
+         type:'line',
+         data:this.data['trend']['term1'],
+         areaStyle:{}
+       },
+       {
+         stack:"年度",
+         name:"第二学期",
+         type:'line',
+         data:this.data['trend']['term2'],
+         areaStyle:{}
+       }
+      ]
+      }
+      console.log("趋势..")
+      console.log(option)
+      chart.mergeOptions(option)
     },
     //各个指标测评分均分（饼图联动）
     setIndex()
@@ -244,6 +281,7 @@ export default {
         })
       }
       let option={ 
+        tooltip:{},
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()}  各项指标平均分数` },
         series: {
           type: "pie",

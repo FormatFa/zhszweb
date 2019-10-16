@@ -8,7 +8,8 @@ import { resolve, reject } from 'q'
 // },err=>{
 
 // })
-
+//设置baseurl,后面的请求都会用这个接起来
+//axios.defaults.baseURL="https://blog.csdn.net"
 // 封装get,post方法
 axios.interceptors.response.use(response=>{
     console.log("请求拦截:成功")
@@ -30,7 +31,7 @@ export function get(url,params)
             params:params
         }).then(res=>{resolve(res.data)}).
         catch(err=>{
-            reject(err.data)
+            reject(err)
         })
     } )
 
@@ -42,7 +43,7 @@ export function post(url,params)
 
     return new Promise( (resolve,reject)=>{
         axios.post(url,QS.stringify(params)).then(res=>{resolve(res.data)}).catch(err=>{
-            reject(err.data)
+            reject(err)
         })
     } )
 }

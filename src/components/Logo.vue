@@ -2,15 +2,15 @@
   <div v-loading.fullscreen="loading">
       <el-row >
         <el-col  :span="8">
-          <img  style="width: 100%;height: 60px" src="/logo.jpg"/>
+          <img  @click="home" style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
       <el-row v-if="isLogin" type="flex" justify="end" :span="10" >
-          <el-button @click="login()">登录</el-button>
+          <!-- <el-button @click="login()">登录</el-button> -->
 
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
-            <el-option v-for="item in years" :key="item.value" :label="item + '年度'" :value="item.value"></el-option>
+            <el-option v-for="item in years" :key="item" :label="item + '年度'" :value="item"></el-option>
           </el-select>
 
           <!-- 学期选择 -->
@@ -49,17 +49,47 @@ export default {
         //请求成功有，设置图表
         this.selectYear()
     }).catch(err=>{
+      this.loading=false
       this.$message.error("请求年度数据失败。")
         console.log("请求学年失败..")
+        let data={
+          years:[
+    '2018',
+    '2019'],
+    //所有班级
+    classes:[{
+          label:"17", value:"17", children:[
+            {label:"大数据",value:"bigdata",children:[
+              {
+                label:"1班",value:1
+              }
+            ]},
+            {label:"云计算",value:"clound"}
+          ]
+      },
+      {
+         label:"18",value:"18",children:[{label:"大数据",value:"bigdata"},
+            {label:"云计算",value:"clound"}]
+      }
+      ]
+        }
         //页面第一次请求
-        for(let i =2008;i<2018;i+=1){this.years.push(i.toString())}
+        for(let i =0;i<data.years.length;i+=1){this.years.push(data.years[i])}
+        this.classes=data.classes
  this.selectYear()
     }).then(()=>{
     })
 
+
+
     },2000)
     
-    
+
+this.$router.afterEach((to,from)=>{
+  console.log("全局after each")
+  //跳转到某个路由后，更新数据
+  this.selectYear()
+})
 this.$router.beforeEach((to, from, next) => {
     console.log("test....."+this.$router.currentRoute.name)
     this.isLogin= to.name!="login"
@@ -71,10 +101,15 @@ this.$router.beforeEach((to, from, next) => {
  
   },
   methods:{
+    home(){
+ this.$router.push({
+        name:"college"
+      })
+    },
     intoClass(value){
       console.log("进入班级:"+value)
       console.log(value)
-      let id = value.join(",")
+      let id = value.join("")
       this.$router.push({
         name:"class",
         params:{
@@ -112,12 +147,20 @@ this.$router.beforeEach((to, from, next) => {
         console.log("请求学生2")
         this.requestStudent()
       }
+      //什么都不是
+      //选择的
+      else{
+        this.loading=false
+      }
         },2000)
       
 
     },
     requestCollege(){
-            get("xxx").then(res=>{
+            get("xxx",{
+              year:"2018",
+              term:"term1"
+            }).then(res=>{
             console.log("请求学院数据:..")
             console.log(res)
         }).catch(err=>{
@@ -131,7 +174,7 @@ this.$router.beforeEach((to, from, next) => {
         })
     },
         requestClass(){
-            get("xxx").then(res=>{
+            get("xxx",{}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
         }).catch(err=>{
