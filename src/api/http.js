@@ -35,6 +35,12 @@ axios.interceptors.response.use(response=>{
             console.log("-------------重定向................")
             //router.replace({name:"login"})
             break
+        case 403:
+                Message({
+                    type:"error",
+                    message:"没登录，重定向到登录界面"
+                })
+            break
     }
     // console.log("请求拦截:错误界面")
     // console.log(err)

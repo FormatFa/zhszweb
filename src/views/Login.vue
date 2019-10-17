@@ -85,9 +85,10 @@ export default {
                 password:this.password
             }).then(res=>{
                 console.log("请求成功")
+                console.log(res)
                 this.isShow=false
                 // 登录成功，跳转到首页
-                this.$router.push("college")
+                //this.$router.push("college")
                 
 
                 //保存cookes
