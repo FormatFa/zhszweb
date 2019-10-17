@@ -73,11 +73,19 @@ method:get
 url:/studentData
 method:get
 参数:
-参数:{
+返回:{
     //学生id
     studentid:"xxx",
     //请求的年度
     year:"2019",
     请求的学期
     term:"term1"
+}
+
+
+5. 数据管理->基本信息
+url:/datainfo
+参数
+{
+    
 }

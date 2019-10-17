@@ -88,6 +88,9 @@ export default {
                 this.isShow=false
                 // 登录成功，跳转到首页
                 this.$router.push("college")
+                
+
+                //保存cookes
             }).catch(err=>{
 
                 console.log("请求失败")

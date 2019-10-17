@@ -1,6 +1,8 @@
 import axios from 'axios'
 import QS from 'qs'
 import { resolve, reject } from 'q'
+import router from '../router.js'
+import { Message } from 'element-ui';
 //拦截请求
 
 // axios.interceptors.request.use(config=>{
@@ -9,7 +11,7 @@ import { resolve, reject } from 'q'
 
 // })
 //设置baseurl,后面的请求都会用这个接起来
-//axios.defaults.baseURL="https://blog.csdn.net"
+axios.defaults.baseURL="http://localhost:5000"
 // 封装get,post方法
 axios.interceptors.response.use(response=>{
     console.log("请求拦截:成功")
@@ -19,9 +21,25 @@ axios.interceptors.response.use(response=>{
         return Promise.reject(response)
 
 },err=>{
-    console.log("请求拦截:错误界面")
+
+    console.log("拦截失败")
+    console.log(err.response)
+    switch(err.response.status)
+    {
+        //没有登录,重定向到登录界面
+        case 401:
+            Message({
+                type:"error",
+                message:"没登录，重定向到登录界面"
+            })
+            console.log("-------------重定向................")
+            //router.replace({name:"login"})
+            break
+    }
+    // console.log("请求拦截:错误界面")
+    // console.log(err)
     //请求错误
-    return Promise.reject(err.response)
+    return Promise.reject(err)
 
 })
 export function get(url,params)

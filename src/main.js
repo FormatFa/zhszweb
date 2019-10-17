@@ -3,13 +3,9 @@ import App from './App.vue'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VueRouter from 'vue-router'
+import router from './router.js'
 
-import College from './views/College.vue'
-import Class from './views/Class.vue'
-import Student from './views/Student.vue'
-import Login from './views/Login.vue'
-import Data from './views/Data.vue'
+
 //引入echarts
 import ECharts from 'vue-echarts'
 //每个用到的图或者组件在这里引入
@@ -27,29 +23,9 @@ Vue.component('v-chart',ECharts)
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(VueRouter)
 
-const routes =[
-  {
-    path:"/",component:College,name:"college"
-  },
-  {
-    path:"/student/:studentid",component:Student,name:"student"
-  },
-  {
-    path:"/class/:classid",component:Class,name:"class"
-  },
-  {
-    path:"/login",component:Login,name:"login"
-  },
-  {
-    path:"/data",component:Data,name:"data"
-  }
-]
 
-const router = new VueRouter({
-  routes: routes
-})
+
 
 new Vue({
   render: h => h(App),

@@ -2,12 +2,12 @@
   
     <div>
 
-        <el-row>
+        <el-row :gutter="40">
 
             <el-col :span=8>
                 <el-card>
                     <div slot="header">
-                        <span>【综合素质数据】概览</span>
+                        <span>【综合素质数据】</span>
                     </div>
                     <div>
                         记录数:1000
@@ -15,15 +15,6 @@
                       <div>
                         共有x年数据
                     </div>
-                </el-card>
-            </el-col>
-
-
-      <el-col :span=8>
-             
-                    
-                        <span>上传新数据</span>
-                    
                         <el-upload
                         drag
                         @on-error="error"
@@ -32,9 +23,20 @@
                         action=""
                         :auto-upload="false"
                         >
-                        <el-button style="float: right; padding: 3px 0" type="text">选择文件</el-button>
+                         <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                         </el-upload>
                         <el-button @click="submitUpload">上传</el-button>
+
+                </el-card>
+            </el-col>
+
+
+      <el-col :span=8>
+             
+                    
+            
         
             </el-col>
 
@@ -46,10 +48,20 @@
 </template>
 
 <script>
+import {apiData} from '../api/api.js'
 export default {
     name:"datamanage",
-    methods:{
+    created(){
+        console.log("组件创建...")
+        //请求数据
+        apiData().then(res=>{
+            console.log("请求成功..")
+        }).catch(err=>{
+            console.log("请求失败.")
+        })
 
+    },
+    methods:{
         // 上传文件件
         submitUpload(){
             this.$refs.upload.submit();

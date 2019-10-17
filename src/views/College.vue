@@ -9,9 +9,9 @@
           <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
-          <div>2019年度总平均分:{{data.basicCard.year_score}}</div>
-          <div>2019年度第一学期平均分:{{data.basicCard.term1_score}}</div>
-          <div>2019年度第二学期平均分:{{data.basicCard.term2_score}}↑</div>
+          <div>{{this.stateStore.year}}年度总平均分:{{data.basicCard.year_score}}</div>
+          <div>{{this.stateStore.year}}年度第一学期平均分:{{data.basicCard.term1_score}}</div>
+          <div>{{this.stateStore.year}}年度第二学期平均分:{{data.basicCard.term2_score}}</div>
         </el-card>
         
         <!-- 设置顶部那个20px  -->
@@ -26,7 +26,7 @@
 
       <!-- 1.2 top5柱状图  -->
       <el-col :span="8" :xs="20">
-        <v-chart  class="chart" ref="classtop" autoresize :options="test"></v-chart>
+        <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize :options="test"></v-chart>
       </el-col>
     <!-- 饼图 -->
       <el-col :span="6">
@@ -103,7 +103,12 @@ export default {
   },
   name: "College",
   methods:{
-    
+    //柱状图点击进入班级
+    intoClass(params){
+      console.log("进入班级..")
+      console.log(params)
+
+    },
     //饼图选择事件
     indexChange(event){
         console.log("选择饼图:"+event.name)
@@ -153,6 +158,10 @@ export default {
       let option= {
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()} ${this.nowIndex} TOP5班级` },
         tooltip:{},
+       
+        grid:{
+          left:'20%'
+        },
         xAxis: {
           type:"value",
           name:"分数"
@@ -236,6 +245,7 @@ tooltip:{},
 
       let chart = this.$refs['trend']
       let option={
+        tooltip:{},
          title:{text:"学院各年平均分变化"},
       xAxis:{
         name:"年度",
@@ -282,8 +292,13 @@ tooltip:{},
       }
       let option={ 
         tooltip:{},
+      
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()}  各项指标平均分数` },
         series: {
+             label:{
+          show:true,
+          // formatter:"{a}{d}"
+        },
           type: "pie",
           // 单选模式
           selectedMode:"single",

@@ -48,12 +48,14 @@ export default {
       apiYears().then(res=>{
         //请求成功有，设置图表
         this.selectYear()
-    }).catch(err=>{
+    })
+    .catch(err=>{
       this.loading=false
       this.$message.error("请求年度数据失败。")
         console.log("请求学年失败..")
+        console.log(err)
         let data={
-          years:[
+    years:[
     '2018',
     '2019'],
     //所有班级
@@ -74,10 +76,9 @@ export default {
       ]
         }
         //页面第一次请求
-        for(let i =0;i<data.years.length;i+=1){this.years.push(data.years[i])}
-        this.classes=data.classes
- this.selectYear()
-    }).then(()=>{
+        // for(let i =0;i<data.years.length;i+=1){this.years.push(data.years[i])}
+        // this.classes=data.classes
+        //this.selectYear()
     })
 
 
@@ -157,7 +158,7 @@ this.$router.beforeEach((to, from, next) => {
 
     },
     requestCollege(){
-            get("xxx",{
+            get("/test",{
               year:"2018",
               term:"term1"
             }).then(res=>{
