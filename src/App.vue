@@ -16,17 +16,18 @@
 </template>
 
 <script>
-
+import Canvas from './api/canvas-nest.min.js'
 import Logo from './components/Logo.vue'
 export default {
   name: 'app',
   components: {
-    Logo
+    Logo,
+    Canvas
   }
 }
 </script>
 
 <style>
-
-
+html,body{cursor:url('./images/mouse.png'),auto};
+html,body{cursor:url('./images/kk.png'),pointer}
 </style>

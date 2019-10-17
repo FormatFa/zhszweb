@@ -9,7 +9,7 @@
         <el-row type="flex" justify="center">
             <el-col :span="15">
                 
-    <el-carousel height="400px" >
+    <el-carousel height="500px" >
         <el-carousel-item>
             <img src="/img1.jpg" width="100%" height="100%">
         </el-carousel-item>
@@ -110,5 +110,6 @@ export default {
 </script>
 
 <style>
-
+/* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
+html,body{cursor:url('../images/mouse.png'),auto}
 </style>
