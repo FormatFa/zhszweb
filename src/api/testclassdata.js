@@ -41,6 +41,9 @@ export const ClassData={
             {value:7,name:'31-40'},
             {value:4,name:'41-50'}
           ]
-    }
+    },
+    scores:{
+        score:40
+      }
 
 }

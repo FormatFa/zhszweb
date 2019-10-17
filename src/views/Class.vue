@@ -70,7 +70,7 @@
    <el-row>
     <el-collapse v-model="activeNames" @ change="handleChange">
      <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
-       <div>这只是一个测试，重复这只是个测试</div>
+       <div>{{proposal}}</div>
        <div>艹，老子吧想干了</div>
      </el-collapse-item>
    </el-collapse>
@@ -103,6 +103,15 @@ export default {
       this.set_studentnames()
       this.set_topstudent()
       this.set_totalscores()
+      if (data.scores.score>0&&data.scores.score<=15){
+        this.proposal="凉了"
+      }
+      else if (data.scores.score>15&&data.scores.score<=30){
+        this.proposal="勉强狗活"
+      }
+      else if (data.scores.score>30&&data.scores.score<=50){
+        this.proposal="可以没毛病"
+      }
     })
   
   },
@@ -290,7 +299,7 @@ export default {
 
   data:function(){
     return{
-
+        proposal:[],
         stateStore:store.state,
         nowIndex:"总分",
         data:ClassData,

@@ -55,7 +55,7 @@
     <el-col>
       <el-collapse v-model="activeNames" @change="handleChange">
         <el-collapse-item title="建议" name="1">
-          <div>好丑的图啊！不想画了。</div>
+          <div>{{proposal}}</div>
         </el-collapse-item>
       </el-collapse>
     </el-col>
@@ -77,6 +77,15 @@ export default {
       console.log(data)
       this.data=data
       this.set_suchindexscore()
+      if(data.scores.score>0&&data.scores.score<=15){
+        this.proposal= "退学算了"
+      }
+      else if(data.scores.score>15&&data.scores.score<=30){
+        this.proposal="勉强还过的去"
+      }
+      else if(data.scores.score>30&&data.scores.score<=50){
+      this.proposal="还不错"
+    }
       // this.set_CollegeData()
       // this.set_ClassData()
   
@@ -147,8 +156,10 @@ ClassData(){
   },
   data(){
     return{
+      proposal:[],
       stateStore:store.state,
       data:StudentData,
+
       tree1:{
         title:{text: '各指标雷达图'},
         tooltip:{},

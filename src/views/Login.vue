@@ -9,7 +9,7 @@
         <el-row type="flex" justify="center">
             <el-col :span="15">
                 
-    <el-carousel height="500px" >
+    <el-carousel height="600px" >
         <el-carousel-item>
             <img src="/img1.jpg" width="100%" height="100%">
         </el-carousel-item>

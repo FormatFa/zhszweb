@@ -36,5 +36,8 @@ export const StudentData={
             Classscores:60,
             Classranking:122
           }]//各指标在全班排名
+    },
+    scores:{
+      score:40
     }
-}
+  }
