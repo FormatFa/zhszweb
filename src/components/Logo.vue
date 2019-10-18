@@ -190,16 +190,17 @@ this.$router.beforeEach((to, from, next) => {
         })
     },
         requestStudent(){
-            get("xxx").then(res=>{
+            get("http://10.10.164.153:5000").then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
+               this.loading=false
+              EventBus.$emit("studentDataLoad",StudentData)
             }).catch(err=>{
-              console.log("请求数据失败>>>")
+              console.log("请求数据失败>>>----------")
               console.log(err)
               //设置成测试数据
               //发送事件
-              this.loading=false
-              EventBus.$emit("studentDataLoad",StudentData)
+             
             })
         }
     
