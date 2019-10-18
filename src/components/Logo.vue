@@ -5,7 +5,7 @@
           <img  @click="home" style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
-      <el-row v-if="isLogin" type="flex" justify="end" :span="10" >
+      <el-row  type="flex" justify="end" :span="10" >
           <!-- <el-button @click="login()">登录</el-button> -->
 
           <!-- 年度选择 -->
@@ -190,10 +190,15 @@ this.$router.beforeEach((to, from, next) => {
         })
     },
         requestStudent(){
-            get("http://10.10.164.153:5000").then(res=>{
+            get("/api/",{name:store.state.nowStudent}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
+              console.log(typeof res)
+              
+              
                this.loading=false
+               //StudentData
+               Object.assign(StudentData,res)
               EventBus.$emit("studentDataLoad",StudentData)
             }).catch(err=>{
               console.log("请求数据失败>>>----------")

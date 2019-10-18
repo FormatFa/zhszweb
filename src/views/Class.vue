@@ -118,6 +118,7 @@ export default {
   methods:{
     intoStudent(com){
       console.log("进入学生:"+com)
+        store.setStudent(com)
          this.$router.push({
         name:"student",
         params:{

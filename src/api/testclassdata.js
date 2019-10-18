@@ -18,7 +18,7 @@ export const ClassData={
         suchscores:[13,8,9,10,17,10,0]//各指标的分数
     },
     //班级名单
-    students:{student:["渣渣辉1","渣渣辉2"]},//班级个人的名单
+    students:{student:["陈秋明","渣渣辉2","赵旺"]},//班级个人的名单
 
     //各指标的top数据
     topstudent:{

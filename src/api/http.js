@@ -11,7 +11,7 @@ import { Message } from 'element-ui';
 
 // })
 //设置baseurl,后面的请求都会用这个接起来
-axios.defaults.baseURL="http://localhost:5000"
+//axios.defaults.baseURL="http://localhost:5000"
 
 axios.defaults.withCredentials=true
 

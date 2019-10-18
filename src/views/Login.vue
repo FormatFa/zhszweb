@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div id="background">
         
         <!-- <el-dialog
         title="登录"
