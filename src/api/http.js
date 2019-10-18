@@ -12,6 +12,9 @@ import { Message } from 'element-ui';
 // })
 //设置baseurl,后面的请求都会用这个接起来
 axios.defaults.baseURL="http://localhost:5000"
+
+axios.defaults.withCredentials=true
+
 // 封装get,post方法
 axios.interceptors.response.use(response=>{
     console.log("请求拦截:成功")
@@ -23,6 +26,10 @@ axios.interceptors.response.use(response=>{
 },err=>{
 
     console.log("拦截失败")
+    if(err['response']===undefined)
+    {
+        return  Promise.reject(err)
+    }
     console.log(err.response)
     switch(err.response.status)
     {
@@ -33,12 +40,12 @@ axios.interceptors.response.use(response=>{
                 message:"没登录，重定向到登录界面"
             })
             console.log("-------------重定向................")
-            //router.replace({name:"login"})
+            router.replace({name:"login"})
             break
         case 403:
                 Message({
                     type:"error",
-                    message:"没登录，重定向到登录界面"
+                    message:"403"
                 })
             break
     }
@@ -64,7 +71,8 @@ export function get(url,params)
 //
 export function post(url,params)
 {
-
+    console.log("post：参数:")
+    console.log(params)
     return new Promise( (resolve,reject)=>{
         axios.post(url,QS.stringify(params)).then(res=>{resolve(res.data)}).catch(err=>{
             reject(err)

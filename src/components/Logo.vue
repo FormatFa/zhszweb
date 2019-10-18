@@ -207,7 +207,7 @@ this.$router.beforeEach((to, from, next) => {
   data(){
     return {
       //是否登录
-         isLogin:true,
+         isLogin:false,
       loading:false,
        year:store.state.year,
        term:store.state.term, 
