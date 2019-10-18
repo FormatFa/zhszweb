@@ -1,7 +1,7 @@
 <template>
 
-    <div id="background">
-        
+    <div id="logo">
+    
         <!-- <el-dialog
         title="登录"
         :visible.sync="isShow"
@@ -21,7 +21,7 @@
         </el-carousel-item>
     </el-carousel>
             </el-col>
-            <el-col  :offset="6" :span="6" style="margin-left: 100px;"><el-card>
+            <el-col  :offset="8" :span="6" style="margin-left: 100px;margin-top: 80px"><el-card>
             <el-form :rules="rules" ref="loginForm">
                 <el-form-item label="用户名" prop="name" >
                     <el-input v-model="login.username"></el-input>
@@ -41,7 +41,7 @@
         <!-- </el-dialog> -->
 
 
-
+    
     </div>
     
 </template>
@@ -52,8 +52,8 @@ import {apiLogin,apiYears} from '../api/api.js'
 
 import {EventBus} from '../event-bus.js'
 export default {
-
-    name:"Test",
+    
+    name:"logo",
     created(){
         console.log("create....")
         EventBus.$on("showLogin",()=>{
@@ -132,4 +132,11 @@ export default {
 <style>
 /* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
 html,body{cursor:url('../images/mouse.png'),auto}
+#logo{
+    background: url("../images/img5.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+}
 </style>
