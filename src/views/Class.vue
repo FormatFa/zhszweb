@@ -91,9 +91,11 @@ export default {
     next()
   },
   beforeRouteUpdate(){
-    console.log("导航更新..")
+    console.log("班级导航更新..请求数据")
+    EventBus.$emit("requestData","班级")
   },
   mounted(){
+      console.log("Class mounted")  
         EventBus.$on("classDataLoad",data=>{
       console.log("班级界面请求到数据...")
       console.log(data)
@@ -113,6 +115,8 @@ export default {
         this.proposal="可以没毛病"
       }
     })
+    //请求数据
+    EventBus.$emit("requestData","班级")
   
   },
   methods:{
@@ -170,6 +174,7 @@ export default {
 
 
     }
+   
     this.$refs['suchindexscore'].mergeOptions(option)
     
 

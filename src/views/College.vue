@@ -77,6 +77,10 @@ import {EventBus} from '../event-bus.js'
 import {college} from '../api/testdata.js'
 export default {
 
+  //vue生命周期函数
+  beforeRouteUpdate(to,from,next){
+    console.log("学院,before update")
+  },
   //生命周期函数
 
   //组件创建时

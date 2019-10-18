@@ -35,7 +35,7 @@ export const ClassData={
     totalscores:{
         ranges:['0-10','11-20','21-30','31-40','41-50'],//分数区间
         allscores:[
-            {value:20,name:'0-10'},//value是分数区间占有多少个人
+            {value:320,name:'0-10'},//value是分数区间占有多少个人
             {value:9,name:'11-20'},
             {value:8,name:'21-30'},
             {value:7,name:'31-40'},

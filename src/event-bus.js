@@ -13,4 +13,14 @@ collegeDataLoad(data)
 }
 2. 班级加载
 classDataLoad
+
+
+3. 学生加载
+
+
+
+进入学院或者班级界面后，发送请求数据参数给Logo组件
+事件名:
+requestData
+
 */

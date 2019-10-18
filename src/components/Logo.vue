@@ -39,6 +39,12 @@ import {ClassData} from '../api/testclassdata.js'
 import {StudentData} from '../api/teststudent'
 export default {
 
+ mounted(){
+        EventBus.$on("requestData",(from)=>{
+            console.log(`来自:${from}的请求重新加载数据事件`)
+            this.selectYear()
+        })
+    },
   //请求年度数据，顺便验证登录
   created(){
     console.log("创建logo组件.......")
@@ -89,19 +95,20 @@ export default {
 this.$router.afterEach((to,from)=>{
   console.log("全局after each")
   //跳转到某个路由后，更新数据
-  this.selectYear()
+  //this.selectYear()
 })
-this.$router.beforeEach((to, from, next) => {
-    console.log("test....."+this.$router.currentRoute.name)
-    this.isLogin= to.name!="login"
-    next();
-})
+// this.$router.beforeEach((to, from, next) => {
+//     console.log("test....."+this.$router.currentRoute.name)
+//     this.isLogin= to.name!="login"
+//     next();
+// })
 
   },
   computed:{
  
   },
   methods:{
+    //跳转到首页
     home(){
  this.$router.push({
         name:"college"
@@ -117,7 +124,7 @@ this.$router.beforeEach((to, from, next) => {
           classid:id
         }
       })
-      this.selectYear()
+      //this.selectYear()
 
     },
     login(){
@@ -175,7 +182,8 @@ this.$router.beforeEach((to, from, next) => {
         })
     },
         requestClass(){
-            get("xxx",{}).then(res=>{
+          console.log("-------------------请求班级数据------------------")
+            get("/api/class",{}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
         }).catch(err=>{

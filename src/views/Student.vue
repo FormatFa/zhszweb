@@ -90,6 +90,8 @@ export default {
       // this.set_ClassData()
   
     })
+    
+    EventBus.$emit("requestData","班级")
   },
   methods:{
     handleChange(val){
