@@ -10,14 +10,14 @@
       <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
       <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
       <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
-      <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
-      <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+      <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
       <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+      <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term2_cranking}}</div>
     </el-card>
     </el-col>
     <!-- 雷达图 -->
     <el-col :span=16  style="margin-left: 50px;">
-      <v-chart class="chart" ref="scuhindexscore" autoresize :options="tree1"></v-chart>
+      <v-chart class="chart" ref="scuhindexscore" autoresize ></v-chart>
     </el-col>
   </el-row>
   <!-- 第二行 -->
@@ -77,6 +77,7 @@ export default {
       console.log(data)
       this.data=data
       this.set_suchindexscore()
+      this.hideLoad()
       if(data.scores.score>0&&data.scores.score<=15){
         this.proposal= "退学算了"
       }
@@ -90,13 +91,24 @@ export default {
       // this.set_ClassData()
   
     })
-    
-    EventBus.$emit("requestData","班级")
+    this.showLoad()
+    EventBus.$emit("requestData","个人")
   },
+   
   methods:{
     handleChange(val){
       console.log(val)
     },//建议
+    showLoad(){
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].showLoading()
+      })},
+       hideLoad(){
+        //遍历所有图表组件实例，调用隐藏加载
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].hideLoading()
+      })
+    },
     set_suchindexscore(){
       console.log("显示个人当前学期的雷达图")
       let suchnames=this.data['suchindexscore']['suchnames']

@@ -11,8 +11,8 @@ export const store = {
         year:"2019",
         //当前选择的学期
         term:"term1",
-        //当前选择学生
-        nowStudent:"",
+        //
+        nowClass:"",
         i:1,
         // 学院数据
         collegeData:{
@@ -37,6 +37,9 @@ export const store = {
     },
     setStudent(stu){
         this.state.nowStudent=stu
+    },
+    setClass(clazz){
+        this.state.nowClass=clazz
     },
     setYear(year){
         this.state.year=year

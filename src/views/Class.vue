@@ -60,7 +60,7 @@
        </el-col>
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
-        <v-chart class="chart" ref="totalscores"  autoresize :options="tree3"></v-chart>
+        <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
       </el-col>
    </el-row>
 
@@ -97,6 +97,8 @@ export default {
   mounted(){
       console.log("Class mounted")  
         EventBus.$on("classDataLoad",data=>{
+          //关闭图表加载
+          this.hideLoad()
       console.log("班级界面请求到数据...")
       console.log(data)
       this.data=data
@@ -115,11 +117,23 @@ export default {
         this.proposal="可以没毛病"
       }
     })
+    this.showLoad()
     //请求数据
     EventBus.$emit("requestData","班级")
   
   },
   methods:{
+    showLoad(){
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].showLoading()
+      })},
+       hideLoad(){
+        //遍历所有图表组件实例，调用隐藏加载
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].hideLoading()
+      })
+    },
+
     intoStudent(com){
       console.log("进入学生:"+com)
         store.setStudent(com)
@@ -243,7 +257,6 @@ export default {
       let ranges=this.data['totalscores']['ranges']
       let allscores=this.data['totalscores']['allscores']
       let option={
-        
          title:{text:`${this.stateStore.termName()}总分区间漏斗图`},
      tooltip:{trigger:'item',
      fromatter: "{a} <br/>{b} : {c}%"},
@@ -299,7 +312,11 @@ export default {
 
 
       }
-      this.$refs['totalscores'].mergeOptions(option)
+      console.log(this.$refs['totalscores'])
+      console.log(option)
+      //this.$refs['totalscores'].setOption (option)
+  
+      this.$refs['totalscores'].mergeOptions(option,false)
     }
   },
 

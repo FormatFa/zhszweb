@@ -59,7 +59,7 @@ export default {
       this.loading=false
       this.$message.error("请求年度数据失败。")
         console.log("请求学年失败..")
-        console.log(err)
+       
         let data={
     years:[
     '2018',
@@ -117,7 +117,9 @@ this.$router.afterEach((to,from)=>{
     intoClass(value){
       console.log("进入班级:"+value)
       console.log(value)
+      
       let id = value.join("")
+      store.setClass(id)
       this.$router.push({
         name:"class",
         params:{
@@ -152,8 +154,10 @@ this.$router.afterEach((to,from)=>{
       }
       else if (this.$router.currentRoute.name=="student")
       {
+
         console.log("请求学生2")
-        this.requestStudent()
+        console.log(this.$router.currentRoute)
+        this.requestStudent(this.$router.currentRoute.params['studentid'])
       }
       //什么都不是
       //选择的
@@ -166,14 +170,13 @@ this.$router.afterEach((to,from)=>{
     },
     requestCollege(){
             get("/test",{
-              year:"2018",
-              term:"term1"
+            year:store.state.year,term:store.state.term
             }).then(res=>{
             console.log("请求学院数据:..")
             console.log(res)
         }).catch(err=>{
             console.log("请求数据失败>>>")
-            console.log(err)
+          
             //设置成测试数据
             //发送事件
             this.loading=false
@@ -183,7 +186,7 @@ this.$router.afterEach((to,from)=>{
     },
         requestClass(){
           console.log("-------------------请求班级数据------------------")
-            get("/api/class",{}).then(res=>{
+            get("/api/class",{classid:store.state.nowClass,year:store.state.year,term:store.state.term}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
         }).catch(err=>{
@@ -197,8 +200,10 @@ this.$router.afterEach((to,from)=>{
             
         })
     },
-        requestStudent(){
-            get("/api/",{name:store.state.nowStudent}).then(res=>{
+        requestStudent(studentid){
+          console.log("学生数据")
+          console.log(this.$router.params)
+            get("/api/student",{name:studentid,year:store.state.year,term:store.state.term}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
               console.log(typeof res)

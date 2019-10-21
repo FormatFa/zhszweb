@@ -4,7 +4,7 @@
     <!-- 第一行 -->
     <el-row >
       <!-- 卡片 -->
-      <el-col :span="8" :xs="20" >
+      <el-col :span="5" :xs="20" style="margin-top: 80px">
         <el-card>
           <div slot="header" class="clearfix">
             <span>基本情况</span>
@@ -15,22 +15,22 @@
         </el-card>
         
         <!-- 设置顶部那个20px  -->
-        <el-card style="margin-top: 20px">
+        <!-- <el-card style="margin-top: 20px">
           <div slot="header" class="clearfix">
             <span>其他情况</span>
           </div>
           <div>1</div>
           <div> 2 </div>
-        </el-card>
+        </el-card> -->
       </el-col>
 
       <!-- 1.2 top5柱状图  -->
-      <el-col :span="8" :xs="20">
-        <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize :options="test"></v-chart>
+      <el-col :span="8" :xs="20"  style="margin-left: 120px">
+        <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize ></v-chart>
       </el-col>
     <!-- 饼图 -->
-      <el-col :span="6">
-        <v-chart  theme="dark" class="chart" autoresize :options="pietest" ref="index" v-on:pieselectchanged="indexChange"></v-chart>
+      <el-col :span="6"  style="margin-left: 120px">
+        <v-chart  theme="dark" class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
       </el-col>
     </el-row>
 
@@ -47,7 +47,7 @@
       
       <!-- 分数分布柱状图 -->
       <el-col :span="16">
-        <v-chart class="chart" ref="range" autoresize :options="rangeOption" ></v-chart>
+        <v-chart class="chart" ref="range" autoresize ></v-chart>
       </el-col>
     </el-row>
 
@@ -57,12 +57,12 @@
     <el-row>
 
       <el-col :span="8">
-        <v-chart class="chart"  ref="gpa_score" autoresize :options="scattertest"> </v-chart>
+        <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
       </el-col>
 
       <!-- 各学年变化趋势 -->
       <el-col :span="16">
-        <v-chart  ref="trend" class="chart" autoresize :options="trendOption"> </v-chart>
+        <v-chart  ref="trend" class="chart" autoresize > </v-chart>
       </el-col>
 
     </el-row>
@@ -76,11 +76,17 @@ import {store} from '../store.js'
 import {EventBus} from '../event-bus.js'
 import {college} from '../api/testdata.js'
 export default {
-
+  beforeRouteEnter(to,from,next){
+    console.log("before router enter")
+    
+    next()
+  },
   //vue生命周期函数
   beforeRouteUpdate(to,from,next){
     console.log("学院,before update")
+      
   },
+
   //生命周期函数
 
   //组件创建时
@@ -93,6 +99,7 @@ export default {
     console.log("挂载 mounted...")
     
         //监听事件
+        
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
       console.log(data)
@@ -102,8 +109,12 @@ export default {
       this.set_gpa_score()
       this.set_range()
       this.set_trend()
+      //隐藏加载
+      this.hideLoad()
+      
     })
-
+  this.showLoad()
+  EventBus.$emit("requestData","学院")
   },
   name: "College",
   methods:{
@@ -112,6 +123,16 @@ export default {
       console.log("进入班级..")
       console.log(params)
 
+    },//调用加载
+    showLoad(){
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].showLoading()
+      })},
+       hideLoad(){
+        //遍历所有图表组件实例，调用隐藏加载
+       Object.keys( this.$refs).forEach(key => {
+        this.$refs[key].hideLoading()
+      })
     },
     //饼图选择事件
     indexChange(event){
