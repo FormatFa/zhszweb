@@ -71,7 +71,7 @@
     <el-collapse v-model="activeNames" @ change="handleChange">
      <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
        <div>{{proposal}}</div>
-       <div>艹，老子吧想干了</div>
+      
      </el-collapse-item>
    </el-collapse>
    </el-row>
@@ -107,13 +107,22 @@ export default {
       this.set_studentnames()
       this.set_topstudent()
       this.set_totalscores()
-      if (data.scores.score>0&&data.scores.score<=15){
+
+      let score=0
+    
+      if(store.state.term==="term1")
+      score=this.data.classCard.term1_score;
+      else
+      score=this.data.classCard.term2_score;
+      console.log(store.state.term+"score:"+score)
+      console.log(this.data.classCard.term1_score)
+      if (score>=0&&score<=15){
         this.proposal="凉了"
       }
-      else if (data.scores.score>15&&data.scores.score<=30){
+      else if (score>15&&score<=30){
         this.proposal="勉强狗活"
       }
-      else if (data.scores.score>30&&data.scores.score<=50){
+      else if (score>30&&score<=50){
         this.proposal="可以没毛病"
       }
     })
@@ -166,7 +175,7 @@ export default {
         legend:{data:suchnames},
         radar:{name:{
           textStyle:{
-            color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
+            color:'#000',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
             indicator:[{name:'思想政治',max:20},
             {name:'身心健康',max:20},
             {name:'创新创业',max:20},

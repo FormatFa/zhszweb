@@ -20,7 +20,7 @@
                         @on-error="error"
                         @on-success="success"
                         ref="upload"
-                        action=""
+                        action="/api/upload"
                         :auto-upload="false"
                         >
                          <i class="el-icon-upload"></i>

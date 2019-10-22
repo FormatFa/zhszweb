@@ -1,206 +1,228 @@
 <template>
-<div>
-  <!-- 第一行 -->
-  <el-row>
-    <!-- 个人的基本情况卡片 -->
-    <el-col :span="7"><el-card>
-      <div slot ="header" class="clearfix">
-      <span>个人的基本情况</span>
-      </div>
-      <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
-      <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
-      <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
-      <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
-      <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
-      <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term2_cranking}}</div>
-    </el-card>
-    </el-col>
-    <!-- 雷达图 -->
-    <el-col :span=16  style="margin-left: 50px;">
-      <v-chart class="chart" ref="scuhindexscore" autoresize ></v-chart>
-    </el-col>
-  </el-row>
-  <!-- 第二行 -->
-  <el-row>
-    <el-col :span=10>
-      <div>各个指标在全院的排名</div>
-    </el-col>
-    <el-col :span=10 style="margin-left: 100px;">
-      <div>各个指标在全班的排名</div>
-      
-    </el-col>
-  </el-row>
-  <!-- 第三行 -->
-  <el-row>
-    <!-- 各个指标在全院的排名 -->
-    <el-col :span=10>
-      <el-table :data="CollegeData" border style="width: 100%" >
-        <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
-        <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
-        <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
-      </el-table>
-    </el-col>
-    <!-- 各个指标在全班的排名 -->
-    <el-col :span=10>
-      <el-table :data="ClassData" border style="width: 100%;margin-left: 100px;">
-        <el-table-column prop="Classindex" label="各指标" width="180"></el-table-column>
-        <el-table-column prop="Classscores" label="分数" width="180"></el-table-column>
-        <el-table-column prop="Classranking" label="排名" width="180"></el-table-column>
-      </el-table>
-    </el-col>
-  </el-row>
-  <!-- 第三行 -->
-  <el-row>
-    <!-- 建议 -->
-    <el-col>
-      <el-collapse v-model="activeNames" @change="handleChange">
-        <el-collapse-item title="建议" name="1">
-          <div>{{proposal}}</div>
-        </el-collapse-item>
-      </el-collapse>
-    </el-col>
-  </el-row>
-</div>
+  <div>
+    <!-- 第一行 -->
+    <el-row>
+      <!-- 个人的基本情况卡片 -->
+      <el-col :span="7">
+        <el-card>
+          <div slot="header" class="clearfix">
+            <span>个人的基本情况</span>
+          </div>
+          <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
+          <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
+          <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
+          <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
+          <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+          <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term2_cranking}}</div>
+        </el-card>
+      </el-col>
+      <!-- 雷达图 -->
+      <el-col :span="16" style="margin-left: 50px;">
+        <v-chart class="chart" ref="scuhindexscore" autoresize></v-chart>
+      </el-col>
+    </el-row>
+    <!-- 第二行 -->
+    <el-row>
+      <el-col :span="10">
+        <div>各个指标在全院的排名</div>
+      </el-col>
+      <el-col :span="10" style="margin-left: 100px;">
+        <div>各个指标在全班的排名</div>
+      </el-col>
+    </el-row>
+    <!-- 第三行 -->
+    <el-row>
+      <!-- 各个指标在全院的排名 -->
+      <el-col :span="10">
+        <el-table :data="CollegeData" border style="width: 100%">
+          <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
+          <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
+          <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
+        </el-table>
+      </el-col>
+      <!-- 各个指标在全班的排名 -->
+      <el-col :span="10">
+        <el-table :data="ClassData" border style="width: 100%;margin-left: 100px;">
+          <el-table-column prop="Classindex" label="各指标" width="180"></el-table-column>
+          <el-table-column prop="Classscores" label="分数" width="180"></el-table-column>
+          <el-table-column prop="Classranking" label="排名" width="180"></el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
+    <!-- 第三行 -->
+    <el-row>
+      <!-- 建议 -->
+      <el-col>
+        <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse-item title="建议" name="1">
+            <div>{{proposal}}</div>
+          </el-collapse-item>
+        </el-collapse>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
-import {StudentData} from '../api/teststudent.js'
-import {store} from '../store.js'
-import {EventBus} from '../event-bus.js'
+import { StudentData } from "../api/teststudent.js";
+import { store } from "../store.js";
+import { EventBus } from "../event-bus.js";
 
 export default {
-  name:'student',
-  mounted(){
-                
-    EventBus.$on("studentDataLoad",data=>{
-      console.log("个人界面请求数据")
-      console.log(data)
-      this.data=data
-      this.set_suchindexscore()
-      this.hideLoad()
-      if(data.scores.score>0&&data.scores.score<=15){
-        this.proposal= "退学算了"
+  name: "student",
+  mounted() {
+    EventBus.$on("studentDataLoad", data => {
+      console.log("个人界面请求数据");
+      console.log(data);
+      this.data = data;
+      this.set_suchindexscore();
+      this.hideLoad();
+      let score = 0;
+      if (store.state.term === "term1")
+        score = this.data.studentCard.term1_avlscore;
+      else score = this.data.studentCard.term2_avlscore;
+      if (score >= 0 && score <= 15) {
+        this.proposal = "退学算了";
+      } else if (score > 15 && score <= 30) {
+        this.proposal = "勉强还过的去";
+      } else if (score > 30 && score <= 50) {
+        this.proposal = "还不错";
+      } else if (score > 50 && score <= 100) {
+        this.proposal = "你咋不上天呢";
       }
-      else if(data.scores.score>15&&data.scores.score<=30){
-        this.proposal="勉强还过的去"
-      }
-      else if(data.scores.score>30&&data.scores.score<=50){
-      this.proposal="还不错"
-    }
       // this.set_CollegeData()
       // this.set_ClassData()
-  
-    })
-    this.showLoad()
-    EventBus.$emit("requestData","个人")
+    });
+    this.showLoad();
+    EventBus.$emit("requestData", "个人");
   },
-   
-  methods:{
-    handleChange(val){
-      console.log(val)
-    },//建议
-    showLoad(){
-       Object.keys( this.$refs).forEach(key => {
-        this.$refs[key].showLoading()
-      })},
-       hideLoad(){
-        //遍历所有图表组件实例，调用隐藏加载
-       Object.keys( this.$refs).forEach(key => {
-        this.$refs[key].hideLoading()
-      })
+
+  methods: {
+    handleChange(val) {
+      console.log(val);
+    }, //建议
+    showLoad() {
+      Object.keys(this.$refs).forEach(key => {
+        this.$refs[key].showLoading();
+      });
     },
-    set_suchindexscore(){
-      console.log("显示个人当前学期的雷达图")
-      let suchnames=this.data['suchindexscore']['suchnames']
-      let suchscores=this.data['suchindexscore']['suchscores']
+    hideLoad() {
+      //遍历所有图表组件实例，调用隐藏加载
+      Object.keys(this.$refs).forEach(key => {
+        this.$refs[key].hideLoading();
+      });
+    },
+    set_suchindexscore() {
+      console.log("显示个人当前学期的雷达图");
+      let suchnames = this.data["suchindexscore"]["suchnames"];
+      let suchscores = this.data["suchindexscore"]["suchscores"];
       let option={
-        title:{text: `${this.stateStore.termName()}各指标雷达图`},
+        title: { text: `${this.stateStore.termName()}各指标雷达图` },
         tooltip:{},
-        legend:{data:suchnames},
-        radar:{name:{
-          textStyle:{
-            color:'#fff',
-            borderRadius:3,
-            padding:[3,5]
+        radar:{
+          shape :'circle',
+          axisLine :{
+            
+          },
+          indicator:[
+                   { name: "思想政治", max: 5 , color:"black"},
+            { name: "身心健康", max: 5 ,color:"red"},
+            { name: "创新创业", max: 5 ,color:"orange"},
+            { name: "技术技能", max: 5 ,color:"pink"},
+            { name: "志愿服务", max: 5 ,color:"green"},
+            { name: "人文艺术", max: 5 ,color:"blue"},
+            { name: "综合素质理论", max: 5 ,color:"purple"}
+          ]
+        },
+        series:[
+          {
+            type:"radar",
+            data:[
+              {
+                value:suchscores
+              }
+            ]
           }
-        },
-        indicator:[
-          {name:'思想政治',max:20},
-            {name:'身心健康',max:20},
-            {name:'创新创业',max:20},
-            {name:'技术技能',max:20},
-            {name:'志愿服务',max:20},
-            {name:'人文艺术',max:20},
-            {name:'综合素质理论',max:20}
+
         ]
-        },
-        series:[{name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
-            type:'radar',
-            data:[{value:suchscores
-              }]
-              }]
+
       }
-      this.$refs['scuhindexscore'].mergeOptions(option)
+     
+      console.log(option);
+      this.$refs["scuhindexscore"].mergeOptions(option);
     },
 
-    set_CollegeData(){
-      let CollegeData=this.data['data1']['CollegeData']
-      this.CollegeData.splice(0,this.CollegeData.length);
-      this.data['data1']['CollegeData'].forEach(element => {
-        this.CollegeData.push(element)
+    set_CollegeData() {
+      let CollegeData = this.data["data1"]["CollegeData"];
+      this.CollegeData.splice(0, this.CollegeData.length);
+      this.data["data1"]["CollegeData"].forEach(element => {
+        this.CollegeData.push(element);
       });
     },
-    set_ClassData(){
-      let ClassData=this.data['data2']['ClassData']
-      this.ClassData.splice(0,this.ClassData.length);
-      this.data['data2']['ClassData'].forEach(element => {
-        this.ClassData.push(element)
+    set_ClassData() {
+      let ClassData = this.data["data2"]["ClassData"];
+      this.ClassData.splice(0, this.ClassData.length);
+      this.data["data2"]["ClassData"].forEach(element => {
+        this.ClassData.push(element);
       });
-     
     }
   },
 
-  computed:{
-CollegeData(){
-  return this.data.data1.CollegeData
-},
-ClassData(){
-  return this.data.data2.ClassData
-}
+  computed: {
+    CollegeData() {
+      return this.data.data1.CollegeData;
+    },
+    ClassData() {
+      return this.data.data2.ClassData;
+    }
   },
-  data(){
-    return{
-      proposal:[],
-      stateStore:store.state,
-      data:StudentData,
+  data() {
+    return {
+      proposal: [],
+      stateStore: store.state,
+      data: StudentData,
 
-      tree1:{
-        title:{text: '各指标雷达图'},
-        tooltip:{},
-        legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
-        radar:{name:{
-          textStyle:{
-            color:'#fff',
-            borderRadius:3,
-            padding:[3,5]
+      tree1: {
+        title: { text: "各指标雷达图" },
+        tooltip: {},
+        legend: {
+          data: [
+            "思想政治",
+            "身心健康",
+            "创新创业",
+            "技术技能",
+            "志愿服务",
+            "人文艺术",
+            "综合素质理论"
+          ]
+        },
+        radar: {
+          name: {
+            textStyle: {
+              color: "#fff",
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: [
+            { name: "思想政治", max: 20 },
+            { name: "身心健康", max: 20 },
+            { name: "创新创业", max: 20 },
+            { name: "技术技能", max: 20 },
+            { name: "志愿服务", max: 20 },
+            { name: "人文艺术", max: 20 },
+            { name: "综合素质理论", max: 20 }
+          ]
+        },
+        series: [
+          {
+            name:
+              "思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论",
+            type: "radar",
+            data: [{ value: [13, 8, 9, 10, 17, 10, 0], name: "第一学期" }]
           }
-        },
-        indicator:[
-          {name:'思想政治',max:20},
-            {name:'身心健康',max:20},
-            {name:'创新创业',max:20},
-            {name:'技术技能',max:20},
-            {name:'志愿服务',max:20},
-            {name:'人文艺术',max:20},
-            {name:'综合素质理论',max:20}
         ]
-        },
-        series:[{name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
-            type:'radar',
-            data:[{value:[13,8,9,10,17,10,0],name:'第一学期'
-              }]
-              }]
-      },//雷达图
+      }, //雷达图
       // CollegeData:[{
       //   Collegindex:'身心健康',
       //   Collegscores:60,
@@ -219,14 +241,11 @@ ClassData(){
       //   Classscores:60,
       //   Classranking:122
       // }],
-      activeNames: ['1']
-    }
-
+      activeNames: ["1"]
+    };
   }
-
-}
+};
 </script>
 
 <style>
-
 </style>

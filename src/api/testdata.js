@@ -19,9 +19,11 @@ export const college={
             //按平均分的top
             classes:[{
                 name:"17大数据1班",
+                id:"17bigdata1",
                 score:129
             },{
                 name:"17大数据2班",
+                id:"17bigdata2",
                 score:80
             }],
             students:[

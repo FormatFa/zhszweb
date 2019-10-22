@@ -89,7 +89,7 @@ export default {
 
 
 
-    },2000)
+    },0)
     
 
 this.$router.afterEach((to,from)=>{
@@ -164,7 +164,7 @@ this.$router.afterEach((to,from)=>{
       else{
         this.loading=false
       }
-        },2000)
+        },0)
       
 
     },
@@ -218,6 +218,7 @@ this.$router.afterEach((to,from)=>{
               console.log(err)
               //设置成测试数据
               //发送事件
+                 EventBus.$emit("studentDataLoad",StudentData)
              
             })
         }

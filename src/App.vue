@@ -1,33 +1,36 @@
 <template>
-<el-container>
+  <el-container>
+    <el-header>
+      <Logo></Logo>
+    </el-header>
 
-  <el-header>
-    <Logo></Logo>
-
-  </el-header>
-
-
-  <el-main>
-     <router-view></router-view>
-  </el-main>
-
-
-</el-container>
+    <el-main>
+      <router-view></router-view>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-import Canvas from './api/canvas-nest.min.js'
-import Logo from './components/Logo.vue'
+import Canvas from "./api/canvas-nest.min.js";
+import Logo from "./components/Logo.vue";
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Logo,
     Canvas
   }
-}
+};
 </script>
 
 <style>
-html,body{cursor:url('./images/mouse.png'),auto};
-html,body{cursor:url('./images/kk.png'),pointer}
+html,
+body {
+  cursor: url("./images/mouse.png"), auto;
+  background-color: #081951;
+}
+html,
+body {
+  cursor: url("./images/kk.png"), pointer;
+}
+
 </style>

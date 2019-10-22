@@ -7,7 +7,7 @@ export const ClassData={
     },//班级姓名及人数
 //排名
     classCard:{
-        "term1_score":0,//第一学期的综合素平均分
+        "term1_score":15,//第一学期的综合素平均分
         "term2_score":1,//第二学期的综合素平均分
         "term1_paiming":9,//第一学期在全院的排名
         "term2_paiming":6//第二学期在全院的排名
@@ -18,7 +18,7 @@ export const ClassData={
         suchscores:[13,8,9,10,17,10,0]//各指标的分数
     },
     //班级名单
-    students:{student:["陈秋明","渣渣辉2","赵旺"]},//班级个人的名单
+    students:{student:["陈秋明","梁家辉","赵旺","梁建成"]},//班级个人的名单
 
     //各指标的top数据
     topstudent:{

@@ -5,7 +5,7 @@
     <el-row >
       <!-- 卡片 -->
       <el-col :span="5" :xs="20" style="margin-top: 80px">
-        <el-card>
+        <el-card  v-bind:style="{ backgroundColor:'#0f4c95' }">
           <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
@@ -76,17 +76,7 @@ import {store} from '../store.js'
 import {EventBus} from '../event-bus.js'
 import {college} from '../api/testdata.js'
 export default {
-  beforeRouteEnter(to,from,next){
-    console.log("before router enter")
-    
-    next()
-  },
   //vue生命周期函数
-  beforeRouteUpdate(to,from,next){
-    console.log("学院,before update")
-      
-  },
-
   //生命周期函数
 
   //组件创建时
@@ -98,7 +88,7 @@ export default {
   mounted(){
     console.log("挂载 mounted...")
     
-        //监听事件
+    //监听事件
         
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
@@ -113,7 +103,9 @@ export default {
       this.hideLoad()
       
     })
+  //显示加载数据和初始化图表
   this.showLoad()
+  //发送请求给Logo组件，请求学院数据
   EventBus.$emit("requestData","学院")
   },
   name: "College",
@@ -122,12 +114,21 @@ export default {
     intoClass(params){
       console.log("进入班级..")
       console.log(params)
+      console.log(params.name)
+    this.$router.push({
+        name:"class",
+        params:{
+          classid:params.name
+        }
+      })
 
-    },//调用加载
+    },
+    //调用加载
     showLoad(){
        Object.keys( this.$refs).forEach(key => {
         this.$refs[key].showLoading()
       })},
+
        hideLoad(){
         //遍历所有图表组件实例，调用隐藏加载
        Object.keys( this.$refs).forEach(key => {
@@ -137,9 +138,10 @@ export default {
     //饼图选择事件
     indexChange(event){
         console.log("选择饼图:"+event.name)
-        console.log(event)
+
         //获取已经选择的指标，没有就是默认总和
         let now="平均分";
+        //获取那个是选择了的
         for(let index in event.selected)
         {
           if(event.selected[index]==true)
@@ -147,39 +149,29 @@ export default {
             now=index;
           }
         }
+
         console.log("选择的指标:"+now)
         this.nowIndex=now;
-        //设置班级top图表
+        //更新设置班级top图表
         this.set_classtop()
     },
 
-
-
-    //设置卡片数据
-    setCard()
-    {
-
-    },
     set_studenttop(){
       let students = this.data['top'][this.nowIndex]['students']
-      
-      
     },
+    //设置班级图表top数据
     set_classtop(){
-
-      
       let chart = this.$refs['classtop'];
       let classes = this.data['top'][this.nowIndex]['classes']
       let names = [];
       let scores = [];
+      let ids = [];
       classes.forEach(element => {
         names.push(element['name'])
         scores.push(element['score'])
         
       });
       //查看当前选择的饼图，饼图选择是什么就显示对应的数据
-      console.log("set class top")
-      console.log(this.stateStore.termName())
       let option= {
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()} ${this.nowIndex} TOP5班级` },
         tooltip:{},
@@ -214,7 +206,7 @@ export default {
         tooltip:{},
           title:{text:`${this.stateStore.year} 年度综合素质总分各区间分布`},
           xAxis:{
-            data:["(0-10]","(10-20]","(20-30]"]
+            data:ranges
           },
           yAxis:{},
           legend:{
@@ -251,7 +243,7 @@ export default {
         ])
       }
       let option={
-tooltip:{},
+        tooltip:{},
        title: { text:"GPA成绩与综合素质总分的关系" },
         xAxis: {
           name:"GPA"
@@ -274,6 +266,7 @@ tooltip:{},
          title:{text:"学院各年平均分变化"},
       xAxis:{
         name:"年度",
+        boundaryGap:false,
         data:this.data['trend']['years'],
       },
       yAxis:{
@@ -287,14 +280,43 @@ tooltip:{},
          name:"第一学期",
          type:'line',
          data:this.data['trend']['term1'],
-         areaStyle:{}
+         areaStyle:{
+           color:{
+                 type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [{
+        offset: 1, color: 'black' // 0% 处的颜色
+    }, {
+        offset: 0, color: '#18aec9' // 100% 处的颜色
+    }],
+    global: false // 缺省为 false
+           }
+           
+         }
        },
        {
          stack:"年度",
          name:"第二学期",
          type:'line',
          data:this.data['trend']['term2'],
-         areaStyle:{}
+         areaStyle:{
+           color:{
+                 type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [{
+        offset: 1, color: 'black' // 0% 处的颜色
+    }, {
+        offset: 0, color: "#644a94" // 100% 处的颜色
+    }],
+    global: false // 缺省为 false
+           }
+         }
        }
       ]
       }
@@ -484,7 +506,14 @@ tooltip:{},
 <style scoped>
 .chart {
 width: 100%;
+border: 2px solid #0f4c95;
+box-shadow:0 0 13px #000 inset;
 
+
+}
+el-table {
+  border: 2px solid #0f4c95;
+box-shadow:0 0 13px #000 inset;
 
 }
 </style>

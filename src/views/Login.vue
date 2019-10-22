@@ -1,6 +1,6 @@
 <template>
 
-    <div id="logo">
+    <div >
     
         <!-- <el-dialog
         title="登录"
@@ -132,11 +132,11 @@ export default {
 <style>
 /* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
 html,body{cursor:url('../images/mouse.png'),auto}
-#logo{
+/* #logo{
     background: url("../images/img5.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
     width: 100%
-}
+} */
 </style>
