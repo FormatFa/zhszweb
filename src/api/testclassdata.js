@@ -13,10 +13,10 @@ export const ClassData={
         "term2_paiming":6//第二学期在全院的排名
     },
     //各指标的雷达图
-    suchindexscore:{
-        suchnames:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论'],
-        suchscores:[13,8,9,10,17,10,0]//各指标的分数
-    },
+    suchindexscores:[
+        {value:[13,8,9,10,17,10,0],name:'学院指标平均分'},
+        {value:[10,5,19,16,5,11,0],name:'班级指标平均分'}
+    ],
     //班级名单
     students:{student:["陈秋明","梁家辉","赵旺","梁建成"]},//班级个人的名单
 
