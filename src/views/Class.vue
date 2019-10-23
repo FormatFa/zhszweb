@@ -12,30 +12,37 @@
           <div>人数:{{data.classjbCard.students}}</div>
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
-      <el-col :span="12" style="margin-left: 100px;">
+   
+      <el-col :span="10" style="margin-left: 100px;">
+        <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
+        </el-card>
       </el-col>
+   
     <!-- 班级名单的下拉框 -->
-      <el-col :span="4"><el-dropdown @command="intoStudent" style="margin-left: 120px;">
     
+      <el-col :span="5"><el-dropdown @command="intoStudent" style="margin-left: 250px;">
+        <el-card>
               <span class="el-dropdown-link">
           班级同学名单
           <i class="el0icon-arrow-down el-icon--right"></i>
         </span>
-
+        </el-card>
         <el-dropdown-menu slot="dropdown">
          <el-dropdown-item  :command="people" :key="people" v-for="people in peoples">
             {{people}}
          </el-dropdown-item>
         </el-dropdown-menu>
         </el-dropdown>
+      
         </el-col>
+    
   </el-row>
 
   <!-- 第二行 -->
    <el-row type="flex" justify="end" align="center">
      <!-- 各种关于综合素质的评分 -->
-     <el-col :span="5">
+     <el-col :span="5" style="margin-right: 50px;">
        <el-card>
          <div slot="header" class="clearfix">
            <span>综合素质均分及排名</span>
@@ -48,7 +55,9 @@
      </el-col>
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
-     <el-col :span="10" ><el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 150px;">
+     
+     <el-col :span="15" ><el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 350px;">
+      
        <el-option
        v-for="item in options"
        :key="item.value"
@@ -57,10 +66,14 @@
        </el-select>
        <!-- top5柱状图 -->
         <v-chart class="chart" ref="topstudent" autoresize ></v-chart>
+ 
        </el-col>
+    
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
+        <el-card>
         <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
+        </el-card>
       </el-col>
    </el-row>
 
@@ -167,12 +180,14 @@ export default {
     set_suchindexscore()
     {
     console.log("显示雷达图，当前学期")
-    let suchnames=this.data['suchindexscore']['suchnames']
-    let suchscores=this.data['suchindexscore']['suchscores']
+    // let suchnames=this.data['suchindexscore']['suchnames']
+    let suchindexscores=this.data['suchindexscores']
+   
     let option={
+      
           title:{text:`${this.stateStore.termName()} 各指标雷达图`},
         tooltip:{},
-        legend:{data:suchnames},
+        legend:{data:['学院指标平均分','班级指标平均分'],right:0},
         radar:{name:{
           textStyle:{
             color:'#000',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
@@ -185,13 +200,14 @@ export default {
             {name:'综合素质理论',max:20}
             ]
             },
+             
             series:[{
-              name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
+              name:'学院指标平均分vs班级指标平均分',
             type:'radar',
-            data:[
-              {value:suchscores
-              }
-              ]
+            data:
+suchindexscores
+             
+              
               }]
 
 
@@ -471,4 +487,6 @@ export default {
   .el-icon-arrow-down {
     font-size: 12px;
   }
+  
+  
 </style>

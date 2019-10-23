@@ -114,11 +114,12 @@ export default {
     },
     set_suchindexscore() {
       console.log("显示个人当前学期的雷达图");
-      let suchnames = this.data["suchindexscore"]["suchnames"];
-      let suchscores = this.data["suchindexscore"]["suchscores"];
+      // let suchnames = this.data["suchindexscore"]["suchnames"];
+      let suchindexscores = this.data['suchindexscores']
       let option={
-        title: { text: `${this.stateStore.termName()}各指标雷达图` },
+        title: { text:`${this.stateStore.termName()} 各指标雷达图` },
         tooltip:{},
+         legend:{data:['学院指标平均分','班级指标平均分','学生指标分数']},
         radar:{
           shape :'circle',
           axisLine :{
@@ -135,13 +136,9 @@ export default {
           ]
         },
         series:[
-          {
+          { name:'学院指标平均分vs班级指标平均分vs学生指标分数',
             type:"radar",
-            data:[
-              {
-                value:suchscores
-              }
-            ]
+            data:suchindexscores
           }
 
         ]

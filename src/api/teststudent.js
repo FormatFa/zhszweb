@@ -8,10 +8,11 @@ export const StudentData={
         "term1_cranking":12,//第一学期综合素质在全班排名
         "term2_cranking":11//第二学期综合素质在全班排名
     },//基本信息卡片
-    suchindexscore:{
-        suchnames:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论'],
-        suchscores:[13,8,9,10,17,10,0]//各指标的分数
-    },//各指标雷达
+    suchindexscores:[
+      {value:[13,8,9,10,17,10,0],name:'学院指标平均分'},
+      {value:[10,5,19,16,5,11,0],name:'班级指标平均分'},
+      {value:[16,9,6,20,1,18,0],name:'学生指标分数'}//各指标的分数
+  ],//各指标雷达
     data1:{
     CollegeData:[
         {
