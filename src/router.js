@@ -5,6 +5,7 @@ import Class from './views/Class.vue'
 import Student from './views/Student.vue'
 import Login from './views/Login.vue'
 import Data from './views/Data.vue'
+import Register from './views/Register'
 Vue.use(VueRouter)
 const routes =[
     {
@@ -21,6 +22,9 @@ const routes =[
     },
     {
       path:"/data",component:Data,name:"data"
+    },
+    {
+      path:"/register",component:Register,name:"register"
     }
   ]
   

@@ -2,17 +2,37 @@
   <div>
 
     <!-- 第一行 -->
-    <el-row >
+    <el-row gutter="40" >
       <!-- 卡片 -->
-      <el-col :span="5" :xs="20" style="margin-top: 80px">
-        <el-card >
+      <el-col :span="5" :xs="20" >
+        <!-- <el-card height=400>
           <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
           <div>{{this.stateStore.year}}年度总平均分:{{data.basicCard.year_score}}</div>
           <div>{{this.stateStore.year}}年度第一学期平均分:{{data.basicCard.term1_score}}</div>
           <div>{{this.stateStore.year}}年度第二学期平均分:{{data.basicCard.term2_score}}</div>
+        </el-card> -->
+            <el-card>
+          <div slot="header" class="clearfix">
+            <span>{{this.stateStore.year}}年度总平均分</span>
+          </div>
+          <div class="cardtext">{{data.basicCard.year_score}}</div>
         </el-card>
+        <el-card>
+          <div slot="header" class="clearfix">
+            <span>{{this.stateStore.year}}年度第一学期平均分</span>
+          </div>
+          <div class="cardtext">{{data.basicCard.term1_score}}</div>
+        </el-card>
+          <el-card>
+          <div slot="header" class="clearfix">
+            <span>{{this.stateStore.year}}年度第二学期平均分</span>
+          </div>
+          <div class="cardtext">{{data.basicCard.term1_score}}</div>
+        </el-card>
+  
+        
         
         <!-- 设置顶部那个20px  -->
         <!-- <el-card style="margin-top: 20px">
@@ -24,30 +44,43 @@
         </el-card> -->
       </el-col>
         <!-- 饼图 -->
-      <el-col :span="6"  style="margin-left: 120px">
-        <v-chart  class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
+        
+      <el-col :span="8"  >
+        <el-card>
+           <el-tooltip class="item" effect="dark" content="点击饼图块切换不同指标的数据" placement="bottom">
+      <v-chart  class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
+    </el-tooltip>
+        
+        </el-card>
       </el-col>
       <!-- 1.2 top5柱状图  -->
-      <el-col :span="8" :xs="20"  style="margin-left: 120px">
+      <el-col :span="11" :xs="20" >
+         <el-card>
         <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize ></v-chart>
+         </el-card>
       </el-col>
   
     </el-row>
 
     <!-- 第二行 -->
-    <el-row>  
+    <el-row gutter="40">  
       <!-- top 50表格  -->
       <el-col :span="8">
+         <el-card>
         <div style="text-align:center;font-weight:bold">{{this.stateStore.year}} 年度 {{this.stateStore.termName()}} {{this.nowIndex}} TOP50 学生</div>
-        <el-table :data="studenttop50" height="300">
+        <el-table :data="studenttop50" height="400">
         <el-table-column type="index" width="50"></el-table-column>
         <el-table-column property="name" label="姓名"></el-table-column>
         <el-table-column property="score" label="分数"></el-table-column>
-      </el-table></el-col>
+      </el-table>
+       </el-card>
+      </el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col offset="4" :span="12">
+      <el-col  :span="12">
+         <el-card>
         <v-chart class="chart" ref="range" autoresize ></v-chart>
+         </el-card>
       </el-col>
     </el-row>
 
@@ -211,9 +244,12 @@ export default {
         tooltip:{},
           title:{text:`${this.stateStore.year} 年度综合素质总分各区间分布`},
           xAxis:{
-            data:ranges
+            data:ranges,
+            name:"分数区间"
           },
-          yAxis:{},
+          yAxis:{
+            name:"个数/人"
+          },
           legend:{
             right:0
           },
@@ -226,6 +262,7 @@ export default {
             data:term1_scores
            },
            { 
+
              stack:"总和",
              name:"第二学期",
              type:"bar",
@@ -512,6 +549,10 @@ export default {
 </script>
 
 <style scoped>
+/* 卡片文字样式 */
+.cardtext {
+color:red;font-size:30px;
+}
 .chart {
 width: 100%;
  /* border: 2px solid #a9b4c2;  */
