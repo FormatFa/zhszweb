@@ -5,7 +5,7 @@
     <el-row >
       <!-- 卡片 -->
       <el-col :span="5" :xs="20" style="margin-top: 80px">
-        <el-card  v-bind:style="{ backgroundColor:'#0f4c95' }">
+        <el-card >
           <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
@@ -23,15 +23,15 @@
           <div> 2 </div>
         </el-card> -->
       </el-col>
-
+        <!-- 饼图 -->
+      <el-col :span="6"  style="margin-left: 120px">
+        <v-chart  class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
+      </el-col>
       <!-- 1.2 top5柱状图  -->
       <el-col :span="8" :xs="20"  style="margin-left: 120px">
         <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize ></v-chart>
       </el-col>
-    <!-- 饼图 -->
-      <el-col :span="6"  style="margin-left: 120px">
-        <v-chart  theme="dark" class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
-      </el-col>
+  
     </el-row>
 
     <!-- 第二行 -->
@@ -46,7 +46,7 @@
       </el-table></el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col :span="16">
+      <el-col offset="4" :span="12">
         <v-chart class="chart" ref="range" autoresize ></v-chart>
       </el-col>
     </el-row>
@@ -54,15 +54,20 @@
 
 
     <!-- 第三行 -->
-    <el-row>
+    <el-row :gutter="15">
 
       <el-col :span="8">
-        <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
+        <el-card>
+          <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
+        </el-card>
+        
       </el-col>
 
       <!-- 各学年变化趋势 -->
       <el-col :span="16">
+        <el-card>
         <v-chart  ref="trend" class="chart" autoresize > </v-chart>
+         </el-card>
       </el-col>
 
     </el-row>
@@ -243,6 +248,7 @@ export default {
         ])
       }
       let option={
+          backgroundColor:"white",
         tooltip:{},
        title: { text:"GPA成绩与综合素质总分的关系" },
         xAxis: {
@@ -262,6 +268,7 @@ export default {
 
       let chart = this.$refs['trend']
       let option={
+         backgroundColor:"white",
         tooltip:{},
          title:{text:"学院各年平均分变化"},
       xAxis:{
@@ -281,19 +288,19 @@ export default {
          type:'line',
          data:this.data['trend']['term1'],
          areaStyle:{
-           color:{
-                 type: 'linear',
-    x: 0,
-    y: 0,
-    x2: 0,
-    y2: 1,
-    colorStops: [{
-        offset: 1, color: 'black' // 0% 处的颜色
-    }, {
-        offset: 0, color: '#18aec9' // 100% 处的颜色
-    }],
-    global: false // 缺省为 false
-           }
+    //        color:{
+    //              type: 'linear',
+    // x: 0,
+    // y: 0,
+    // x2: 0,
+    // y2: 1,
+    // colorStops: [{
+    //     offset: 1, color: 'black' // 0% 处的颜色
+    // }, {
+    //     offset: 0, color: '#18aec9' // 100% 处的颜色
+    // }],
+    // global: false // 缺省为 false
+    //        }
            
          }
        },
@@ -303,19 +310,19 @@ export default {
          type:'line',
          data:this.data['trend']['term2'],
          areaStyle:{
-           color:{
-                 type: 'linear',
-    x: 0,
-    y: 0,
-    x2: 0,
-    y2: 1,
-    colorStops: [{
-        offset: 1, color: 'black' // 0% 处的颜色
-    }, {
-        offset: 0, color: "#644a94" // 100% 处的颜色
-    }],
-    global: false // 缺省为 false
-           }
+    //        color:{
+    //              type: 'linear',
+    // x: 0,
+    // y: 0,
+    // x2: 0,
+    // y2: 1,
+    // colorStops: [{
+    //     offset: 1, color: 'black' // 0% 处的颜色
+    // }, {
+    //     offset: 0, color: "#644a94" // 100% 处的颜色
+    // }],
+    // global: false // 缺省为 false
+    //        }
          }
        }
       ]
@@ -463,6 +470,7 @@ export default {
     },
     //变化趋势
     trendOption:{
+     
       title:{text:"学院各年平均分变化"},
       xAxis:{
         name:"年度",
@@ -506,14 +514,12 @@ export default {
 <style scoped>
 .chart {
 width: 100%;
-border: 2px solid #0f4c95;
-box-shadow:0 0 13px #000 inset;
-
-
+ /* border: 2px solid #a9b4c2;  */
+/* box-shadow:0 0 13px #000 inset;  */
 }
 el-table {
-  border: 2px solid #0f4c95;
-box-shadow:0 0 13px #000 inset;
+  /* border: 2px solid #0f4c95;
+box-shadow:0 0 13px #000 inset; */
 
 }
 </style>

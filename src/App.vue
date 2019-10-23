@@ -26,11 +26,15 @@ export default {
 html,
 body {
   cursor: url("./images/mouse.png"), auto;
-  background-color: #081951;
+   /* background-color:#d1dbee;   */
 }
 html,
 body {
   cursor: url("./images/kk.png"), pointer;
 }
-
+/* .chart {
+width: 100%;
+ border: 2px solid #a9b4c2; 
+ box-shadow:0 0 13px #000 inset;  
+} */
 </style>
