@@ -5,7 +5,7 @@
           <img  @click="home" style="width: 100%;height: 60px" src="/logo.jpg"/>
         </el-col>
       
-      <el-row  type="flex" justify="end" :span="10" >
+      <el-row v-if="showSelect" type="flex" justify="end" :span="10" >
           <!-- <el-button @click="login()">登录</el-button> -->
 
           <!-- 年度选择 -->
@@ -44,6 +44,8 @@ export default {
             console.log(`来自:${from}的请求重新加载数据事件`)
             this.selectYear()
         })
+        console.log("mounted")
+        this.showSelect= this.isShowSelect();
     },
   //请求年度数据，顺便验证登录
   created(){
@@ -97,17 +99,22 @@ this.$router.afterEach((to,from)=>{
   //跳转到某个路由后，更新数据
   //this.selectYear()
 })
-// this.$router.beforeEach((to, from, next) => {
-//     console.log("test....."+this.$router.currentRoute.name)
-//     this.isLogin= to.name!="login"
-//     next();
-// })
+this.$router.beforeEach((to, from, next) => {
+    console.log("test....."+this.$router.currentRoute.name)
+    this.showSelect= this.isShowSelect();
+    next();
+})
 
   },
   computed:{
  
   },
   methods:{
+      isShowSelect(name){
+        console.log(this.$router)
+        console.log(this.$router.name)
+  return this.$router.name!="login" && this.$router.name!="data"
+      },
     //跳转到首页
     home(){
  this.$router.push({
@@ -227,7 +234,7 @@ this.$router.afterEach((to,from)=>{
   data(){
     return {
       //是否登录
-         isLogin:false,
+         showSelect:false,
       loading:false,
        year:store.state.year,
        term:store.state.term, 

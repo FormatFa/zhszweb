@@ -1,7 +1,7 @@
 import {get,post} from "./http.js"
-export const apiLogin=p=>post('/auth/login',p)
+export const apiLogin=p=>post('/api/auth/login',p)
 //注册接口
-export const apiRegister=p=>post('/auth/register',p)
+export const apiRegister=p=>post('/api/auth/register',p)
 //首页年度数据
 export const apiYears=p=>get('/test')
 

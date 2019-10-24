@@ -28,10 +28,10 @@
             </div></div>
       
                      <el-form>
-                    <el-form-item label="用户名">
+                    <el-form-item :error="errors.username" label="用户名" prop="username">
                     <el-input placeholder="用户名" v-model="reg.username"> </el-input>
                     </el-form-item>
-                    <el-form-item label="密码">
+                    <el-form-item :error="errors.password" label="密码" prop="password">
                     <el-input placeholder="密码" v-model="reg.password"> </el-input>
                 </el-form-item>
                 <el-form-item>
@@ -58,7 +58,7 @@ export default {
     // 注册用户
     methods:{
         submit(){
-            apiRegister({
+            apiRegister( {
                 username:this.reg.username,
                 password:this.reg.password
             }).then(res=>{
@@ -68,19 +68,43 @@ export default {
           showClose: true,
           message: '注册成功，正在跳转到登录界面...',
           type: 'success'
-        });
+            });
+            this.$router.replace({
+                name:"login"
+            })
+
+
             }).catch(err=>{
-                console.log("注册失败:")
                 console.log(err)
+                let data = err.data
+                console.log("注册失败:")
+                console.log(data)
+                this.$message({
+                    type:"error",
+                    message:"注册失败"
+                })
+                if(data.message.username !== undefined)
+                this.errors.username=data.message.username.join(",");
+                 if(data.message.password !== undefined)
+                this.errors.password=data.message.password.join(",");
+                //设置表单的错误信息
+                console.log(data.message.username.join(","))
+                console.log( this.errors.username)
+              
             })
         }
     },
     data(){
         return {
+            //表单的错误信息
+            errors:{
+                    username:"jojo",
+                password:"jojo"
+            },
 
             reg:{
                 username:"jojo",
-                password:"jojo"
+                password:"jojojojo"
             }
         }
     }

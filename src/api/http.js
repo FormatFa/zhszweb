@@ -11,9 +11,11 @@ import { Message } from 'element-ui';
 
 // })
 //设置baseurl,后面的请求都会用这个接起来
-//axios.defaults.baseURL="http://localhost:5000"
-
+//axios.defaults.baseURL="http://127.0.0.1:5000/"
+//axios.defaults.baseURL="/"
 axios.defaults.withCredentials=true
+//默认是表单格式，现在改成json
+axios.defaults.headers.post['Content-Type'] = 'Content-Type：application/json;charset=UTF-8';
 
 // 封装get,post方法
 axios.interceptors.response.use(response=>{
@@ -26,8 +28,10 @@ axios.interceptors.response.use(response=>{
 },err=>{
 
     console.log("拦截失败")
+    console.log(err)
     if(err['response']===undefined)
     {
+    
         return  Promise.reject(err)
     }
     console.log(err.response)
@@ -74,8 +78,8 @@ export function post(url,params)
     console.log("post：参数:")
     console.log(params)
     return new Promise( (resolve,reject)=>{
-        axios.post(url,QS.stringify(params)).then(res=>{resolve(res.data)}).catch(err=>{
-            reject(err)
+        axios.post(url,params).then(res=>{resolve(res.data)}).catch(err=>{
+            reject(err.response)
         })
     } )
 }

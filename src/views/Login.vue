@@ -23,11 +23,11 @@
             </el-col>
             <el-col  :offset="8" :span="6" style="margin-left: 100px;margin-top: 80px"><el-card>
             <el-form :rules="rules" ref="loginForm">
-                <el-form-item label="用户名" prop="name" >
+                <el-form-item :error="errors.username" label="用户名" prop="name" >
                     <el-input v-model="login.username"></el-input>
                 </el-form-item>
 
-                <el-form-item label="密码" prop="password">
+                <el-form-item :error="errors.password" label="密码" prop="password">
                     <el-input v-model="login.password"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -63,6 +63,11 @@ export default {
     },
     data(){
         return {
+            errors:{
+                    username:"jojo",
+                password:"jojo"
+            }
+            ,
         rules:{
             name:[
                 {required:true,message:"请输入用户名", trigger: 'blur'}
@@ -75,8 +80,8 @@ export default {
 
         isShow:true,
         login:{
-         username:"",   
-         password:""
+         username:"jojo",   
+         password:"jojojojo"
         }
         }
     },
@@ -112,16 +117,30 @@ export default {
                     type:"success",
                     message:"登录成功，正在跳转到页面"
                 })
-                this.$router.push({name:"college"})
+                window.setTimeout(() => {
+                    // this.$router.push({name:"college"})
+                }, 3000);
+               
                 //保存cookes
             }).catch(err=>{
                 console.log("请求失败")
-                if(err.response.status===403){
-                this.$message.error("账号或密登录错误:"+err.response.data.message.username+"\n"+err.response.data.message.password)
-                }
+                console.log(err)
+                 let data = err.data
+                 if(err.status==403)
+                this.$message({
+                    type:"error",
+                    message:"注册失败,请检查用户名或密码"
+                })
                 else{
-                    this.$message.error("请求登录数据失败,请检查网络连接"+err.response)
+                  this.$message({
+                    type:"error",
+                    message:"注册失败,请检查网络连接"
+                })  
                 }
+                if(data.message.username !== undefined)
+                this.errors.username=data.message.username.join(",");
+                 if(data.message.password !== undefined)
+                this.errors.password=data.message.password.join(",");
             })
         }
     }

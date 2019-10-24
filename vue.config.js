@@ -10,7 +10,7 @@ module.exports = {
       port: '8080',
       proxy: {
         '/api': {
-          target: 'http://10.10.164.187:5000', // 要请求的地址
+          target: 'http://127.0.0.1:5000', // 要请求的地址
           ws: true,
           changeOrigin: true,
           pathRewrite: {

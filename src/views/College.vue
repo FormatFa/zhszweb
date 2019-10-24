@@ -2,7 +2,7 @@
   <div>
 
     <!-- 第一行 -->
-    <el-row gutter="40" >
+    <el-row :gutter="40" >
       <!-- 卡片 -->
       <el-col :span="5" :xs="20" >
         <!-- <el-card height=400>
@@ -63,9 +63,9 @@
     </el-row>
 
     <!-- 第二行 -->
-    <el-row gutter="40">  
+    <el-row :gutter="40" >  
       <!-- top 50表格  -->
-      <el-col :span="8">
+      <el-col :span="5">
          <el-card>
         <div style="text-align:center;font-weight:bold">{{this.stateStore.year}} 年度 {{this.stateStore.termName()}} {{this.nowIndex}} TOP50 学生</div>
         <el-table :data="studenttop50" height="400">
