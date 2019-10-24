@@ -9,9 +9,9 @@ export const StudentData={
         "term2_cranking":11//第二学期综合素质在全班排名
     },//基本信息卡片
     suchindexscores:[
-      {value:[13,8,9,10,17,10,0],name:'学院指标平均分'},
-      {value:[10,5,19,16,5,11,0],name:'班级指标平均分'},
-      {value:[16,9,6,20,1,18,0],name:'学生指标分数'}//各指标的分数
+      {value:[1,3,3,1,2,1,0],name:'学院指标平均分'},
+      {value:[4,3,1,1,2,1,0],name:'班级指标平均分'},
+      {value:[1,4,3,2,1,1,0],name:'学生指标分数'}//各指标的分数
   ],//各指标雷达
     data1:{
     CollegeData:[

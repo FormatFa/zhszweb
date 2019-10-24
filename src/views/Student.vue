@@ -17,36 +17,36 @@
         </el-card>
       </el-col>
       <!-- 雷达图 -->
-      <el-col :span="16" style="margin-left: 50px;">
+      <el-col :span="10" style="margin-left: 150px;">
+        <el-card>
         <v-chart class="chart" ref="scuhindexscore" autoresize></v-chart>
+        </el-card>
       </el-col>
     </el-row>
+    
     <!-- 第二行 -->
-    <el-row>
-      <el-col :span="10">
-        <div>各个指标在全院的排名</div>
-      </el-col>
-      <el-col :span="10" style="margin-left: 100px;">
-        <div>各个指标在全班的排名</div>
-      </el-col>
-    </el-row>
-    <!-- 第三行 -->
-    <el-row>
+    <el-row style="margin-top:25px">
       <!-- 各个指标在全院的排名 -->
       <el-col :span="10">
+        <el-card>
+        <div>各个指标在全院的排名</div>
         <el-table :data="CollegeData" border style="width: 100%">
           <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
           <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
           <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
         </el-table>
+        </el-card>
       </el-col>
       <!-- 各个指标在全班的排名 -->
       <el-col :span="10">
-        <el-table :data="ClassData" border style="width: 100%;margin-left: 100px;">
+        <el-card style="margin-left: 100px">
+         <div>各个指标在全班的排名</div>
+        <el-table :data="ClassData" border style="width: 100%;">
           <el-table-column prop="Classindex" label="各指标" width="180"></el-table-column>
           <el-table-column prop="Classscores" label="分数" width="180"></el-table-column>
           <el-table-column prop="Classranking" label="排名" width="180"></el-table-column>
         </el-table>
+        </el-card>
       </el-col>
     </el-row>
     <!-- 第三行 -->
@@ -119,7 +119,7 @@ export default {
       let option={
         title: { text:`${this.stateStore.termName()} 各指标雷达图` },
         tooltip:{},
-         legend:{data:['学院指标平均分','班级指标平均分','学生指标分数']},
+         legend:{data:['学院指标平均分','班级指标平均分','学生指标分数'],right:5},
         radar:{
           shape :'circle',
           axisLine :{

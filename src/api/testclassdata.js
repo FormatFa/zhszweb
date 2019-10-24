@@ -18,7 +18,7 @@ export const ClassData={
         {value:[10,5,19,16,5,11,0],name:'班级指标平均分'}
     ],
     //班级名单
-    students:{student:["陈秋明","梁家辉","赵旺","梁建成"]},//班级个人的名单
+    students:{student:["陈秋明","梁家辉","赵旺","梁建成","渣渣"]},//班级个人的名单
 
     //各指标的top数据
     topstudent:{
