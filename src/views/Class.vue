@@ -4,7 +4,7 @@
     <el-row >
     <!-- 卡片 -->
     <!-- 基本情况 -->
-      <el-col :span="5"><el-card >
+      <el-col :span="3"><el-card >
         <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
@@ -13,7 +13,7 @@
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
    
-      <el-col :span="10" style="margin-left: 100px;">
+      <el-col :span="11" style="margin-left: 100px;">
         <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
         </el-card>
@@ -21,7 +21,7 @@
    
     <!-- 班级名单的下拉框 -->
     
-      <el-col :span="5"><el-dropdown @command="intoStudent" style="margin-left: 250px;">
+      <el-col :span="6"><el-dropdown @command="intoStudent"  style="margin-left: 300px;">
         <el-card>
               <span class="el-dropdown-link">
           班级同学名单
@@ -40,7 +40,7 @@
   </el-row>
 
   <!-- 第二行 -->
-   <el-row type="flex" justify="end" align="center">
+   <el-row type="flex" justify="end" align="center" style="margin-top: 25px;">
      <!-- 各种关于综合素质的评分 -->
      <el-col :span="5" style="margin-right: 50px;">
        <el-card>
@@ -56,25 +56,30 @@
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
      
-     <el-col :span="15" ><el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 350px;">
-      
+     <el-col :span="15" >
+         <el-card>
+       <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 350px;" size="small"> 
+    
        <el-option
        v-for="item in options"
        :key="item.value"
        :label="item.label"
        :value="item.value"></el-option>
        </el-select>
+       
        <!-- top5柱状图 -->
         <v-chart class="chart" ref="topstudent" autoresize ></v-chart>
- 
+        
+  </el-card>
        </el-col>
-    
+   
        <!-- 总分区间漏斗图 -->
       <el-col :span="9">
-        <el-card>
+        <el-card body-style="padding:36px">
         <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
         </el-card>
       </el-col>
+     
    </el-row>
 
 
@@ -487,6 +492,7 @@ suchindexscores
   .el-icon-arrow-down {
     font-size: 12px;
   }
+  
   
   
 </style>
