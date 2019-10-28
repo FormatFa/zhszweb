@@ -6,13 +6,18 @@
       <el-col :span="7">
         <el-card>
           <div slot="header" class="clearfix">
-            <span>个人的基本情况</span>
+            <span>个人第一学期的基本情况</span>
           </div>
           <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
-          <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
           <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
-          <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
           <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
+        </el-card>
+         <el-card>
+          <div slot="header" class="clearfix">
+            <span>个人第二学期的基本情况</span>
+          </div>
+          <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
+          <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
           <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term2_cranking}}</div>
         </el-card>
       </el-col>

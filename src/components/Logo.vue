@@ -131,7 +131,7 @@ this.$router.beforeEach((to, from, next) => {
       this.$router.push({
         name:"class",
         params:{
-          classid:id
+          classid:"17大数据1"
         }
       })
       //this.selectYear()
@@ -158,7 +158,10 @@ this.$router.beforeEach((to, from, next) => {
       }
       else if(this.$router.currentRoute.name=="class")
       {
-        this.requestClass()
+        //获取当前路由的参数，传给请求数据函数
+        let classid = this.$router.currentRoute.params['classid'];
+
+        this.requestClass(classid)
       }
       else if (this.$router.currentRoute.name=="student")
       {
@@ -192,11 +195,13 @@ this.$router.beforeEach((to, from, next) => {
             EventBus.$emit("collegeDataLoad",college)
         })
     },
-        requestClass(){
+        requestClass(classid){
           console.log("-------------------请求班级数据------------------")
-            get("/api/class",{classid:store.state.nowClass,year:store.state.year,term:store.state.term}).then(res=>{
+            get("/api/class",{classid:classid,year:store.state.year,term:store.state.term}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
+           
+            EventBus.$emit("classDataLoad",ClassData)
         }).catch(err=>{
             console.log("请求数据失败>>>")
             console.log(err)

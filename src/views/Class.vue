@@ -45,12 +45,17 @@
      <el-col :span="5" style="margin-right: 50px;">
        <el-card>
          <div slot="header" class="clearfix">
-           <span>综合素质均分及排名</span>
+           <span>第一学期综合素质均分及排名</span>
          </div>
-           <div>2019年度第一学期综合素质平均分:{{data.classCard.term1_score}}</div>
-        <div>2019年度第二学期综合素质平均分:{{data.classCard.term2_score}}</div>
-        <div>2019年度第一学期在全院排名:{{data.classCard.term1_paiming}}</div>
-        <div>2019年度第二学期在全院排名:{{data.classCard.term2_paiming}}</div>
+           <div>第一学期综合素质平均分:{{data.classCard.term1_score}}</div>
+        <div>第一学期在全院排名:{{data.classCard.term1_paiming}}</div>
+       </el-card>
+       <el-card>
+         <div slot="header" class="clearfix">
+           <span>第二学期综合素质均分及排名</span>
+         </div>
+        <div>第二学期综合素质平均分:{{data.classCard.term2_score}}</div>
+        <div>第二学期在全院排名:{{data.classCard.term2_paiming}}</div>
        </el-card>
      </el-col>
      <!-- 下拉框 -->

@@ -1,13 +1,15 @@
 export const StudentData={
     //基本信息
-    studentCard:{
+    studentCard1:{
         "term1_avlscore":34,//第一学期综合素质平均分
-        "term2_avlscore":33,//第一学期综合素质平均分
         "term1_yranking":299,//第一学期综合素质在全院排名
-        "term2_yranking":333,//第二学期综合素质在全院排名
         "term1_cranking":12,//第一学期综合素质在全班排名
-        "term2_cranking":11//第二学期综合素质在全班排名
-    },//基本信息卡片
+    },
+    studentCard2:{
+      "term2_avlscore":33,//第一学期综合素质平均分
+      "term2_yranking":333,//第二学期综合素质在全院排名
+      "term2_cranking":11//第二学期综合素质在全班排名
+  },//基本信息卡片
     suchindexscores:[
       {value:[1,3,3,1,2,1,0],name:'学院指标平均分'},
       {value:[4,3,1,1,2,1,0],name:'班级指标平均分'},
