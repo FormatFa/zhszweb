@@ -100,7 +100,7 @@ this.$router.afterEach((to,from)=>{
   //this.selectYear()
 })
 this.$router.beforeEach((to, from, next) => {
-    console.log("test....."+this.$router.currentRoute.name)
+    console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
     this.showSelect= this.isShowSelect();
     next();
 })
@@ -111,6 +111,7 @@ this.$router.beforeEach((to, from, next) => {
   },
   methods:{
       isShowSelect(name){
+        console.log("isShowSelect 当前路由和名字")
         console.log(this.$router)
         console.log(this.$router.name)
   return this.$router.name!="login" && this.$router.name!="data"

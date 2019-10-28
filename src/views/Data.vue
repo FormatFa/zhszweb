@@ -42,6 +42,11 @@
 
         </el-row>
 
+        <el-row>
+            <el-table></el-table>
+            
+
+        </el-row>
 
     </div>
 

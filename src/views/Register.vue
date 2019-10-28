@@ -84,12 +84,19 @@ export default {
                     message:"注册失败"
                 })
                 if(data.message.username !== undefined)
-                this.errors.username=data.message.username.join(",");
+               {
+                     let temp = data.message.username.join(",");
+                    if(temp.indexOf('already exists!'))
+                    this.errors.username="用户名已存在"
+               }
                  if(data.message.password !== undefined)
-                this.errors.password=data.message.password.join(",");
-                //设置表单的错误信息
-                console.log(data.message.username.join(","))
-                console.log( this.errors.username)
+                  {
+                     //转换成中文
+                    let temp = data.message.password.join(",");
+                    if(temp=="Field must be between 8 and 16 characters long.")
+                this.errors.password="密码必须在8到16各长度之间"
+                 }
+      
               
             })
         }
