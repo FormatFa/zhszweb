@@ -17,7 +17,7 @@
         </el-card>
       </el-col>
       <!-- 雷达图 -->
-      <el-col :span="10" style="margin-left: 150px;">
+      <el-col :span="11" style="margin-left: 150px;">
         <el-card>
         <v-chart class="chart" ref="scuhindexscore" autoresize></v-chart>
         </el-card>
@@ -56,6 +56,7 @@
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item title="建议" name="1">
             <div>{{proposal}}</div>
+            <div>{{proposal2}}</div>
           </el-collapse-item>
         </el-collapse>
       </el-col>
@@ -78,6 +79,14 @@ export default {
       this.set_suchindexscore();
       this.hideLoad();
       let score = 0;
+      let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']
+      let minIndex=0
+      let temp=this.data.suchindexscores[2].value;
+      for (let i=0;i<=temp.length-2;i+=1){
+        if (temp[i]<temp[minIndex]){minIndex=i}
+      }
+      this.proposal2="你的"+indexs[minIndex]+"指标较低，有待加强"
+
       if (store.state.term === "term1")
         score = this.data.studentCard.term1_avlscore;
       else score = this.data.studentCard.term2_avlscore;
@@ -176,6 +185,7 @@ export default {
   data() {
     return {
       proposal: [],
+      proposal2:[],
       stateStore: store.state,
       data: StudentData,
 

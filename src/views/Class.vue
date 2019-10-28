@@ -13,7 +13,7 @@
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
    
-      <el-col :span="11" style="margin-left: 100px;">
+      <el-col :span="11" style="margin-left: 90px;">
         <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
         </el-card>
@@ -56,9 +56,9 @@
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
      
-     <el-col :span="15" >
+     <el-col :span="15" style="margin-right: 10px;">
          <el-card>
-       <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 350px;" size="small"> 
+       <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 300px;" size="small"> 
     
        <el-option
        v-for="item in options"
@@ -74,8 +74,8 @@
        </el-col>
    
        <!-- 总分区间漏斗图 -->
-      <el-col :span="9">
-        <el-card body-style="padding:36px">
+      <el-col :span="9" style="margin-left: 1px;">
+        <el-card body-style="padding:36px" >
         <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
         </el-card>
       </el-col>
