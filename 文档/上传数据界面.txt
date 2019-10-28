@@ -17,3 +17,6 @@ college grade   year    term    count   status
  学院,年级，年度，学期
 
 1. 每个年度有六个文件，六条记录， 各年级和各学期
+
+
+
