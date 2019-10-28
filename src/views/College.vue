@@ -13,19 +13,19 @@
           <div>{{this.stateStore.year}}年度第一学期平均分:{{data.basicCard.term1_score}}</div>
           <div>{{this.stateStore.year}}年度第二学期平均分:{{data.basicCard.term2_score}}</div>
         </el-card> -->
-            <el-card>
+            <el-card body-style="padding:26px">
           <div slot="header" class="clearfix">
             <span>{{this.stateStore.year}}年度总平均分</span>
           </div>
           <div class="cardtext">{{data.basicCard.year_score}}</div>
-        </el-card>
-        <el-card>
+        </el-card >
+        <el-card body-style="padding:26px">
           <div slot="header" class="clearfix">
             <span>{{this.stateStore.year}}年度第一学期平均分</span>
           </div>
           <div class="cardtext">{{data.basicCard.term1_score}}</div>
         </el-card>
-          <el-card>
+          <el-card body-style="padding:26px">
           <div slot="header" class="clearfix">
             <span>{{this.stateStore.year}}年度第二学期平均分</span>
           </div>
@@ -63,7 +63,7 @@
     </el-row>
 
     <!-- 第二行 -->
-    <el-row :gutter="40" >  
+    <el-row :gutter="40" style="margin-top: 25px;">  
       <!-- top 50表格  -->
       <el-col :span="5">
          <el-card>
@@ -77,8 +77,8 @@
       </el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col  :span="12">
-         <el-card>
+      <el-col  :span="19">
+         <el-card body-style="padding:30px">
         <v-chart class="chart" ref="range" autoresize ></v-chart>
          </el-card>
       </el-col>
@@ -87,7 +87,7 @@
 
 
     <!-- 第三行 -->
-    <el-row :gutter="15">
+    <el-row :gutter="15" style="margin-top: 25px;">
 
       <el-col :span="8">
         <el-card>
