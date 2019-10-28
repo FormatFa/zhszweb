@@ -89,6 +89,7 @@
     <el-collapse v-model="activeNames" @ change="handleChange">
      <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
        <div>{{proposal}}</div>
+       <div>{{proposal2}}</div>
       
      </el-collapse-item>
    </el-collapse>
@@ -113,6 +114,7 @@ export default {
     EventBus.$emit("requestData","班级")
   },
   mounted(){
+     let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']
       console.log("Class mounted")  
         EventBus.$on("classDataLoad",data=>{
           //关闭图表加载
@@ -125,6 +127,16 @@ export default {
       this.set_studentnames()
       this.set_topstudent()
       this.set_totalscores()
+      let minIndex=0
+      let temp=this.data.suchindexscores[1].value;
+      console.log("判断索引...")
+      console.log(temp)
+      for(let i=0;i<temp.length-2;i+=1)
+      {
+          if(temp[i]<temp[minIndex])minIndex=i
+      }
+//temp[]
+      this.proposal2="你的"+indexs[minIndex]+"指标较低,有待加强"
 
       let score=0
     
@@ -143,6 +155,7 @@ export default {
       else if (score>30&&score<=50){
         this.proposal="可以没毛病"
       }
+
     })
     this.showLoad()
     //请求数据
@@ -353,6 +366,7 @@ suchindexscores
   data:function(){
     return{
         proposal:[],
+        proposal2:"",
         stateStore:store.state,
         nowIndex:"总分",
         data:ClassData,
