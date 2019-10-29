@@ -2,7 +2,7 @@
   <div>
 
       <el-row >
-          <el-col :span="4" :xs="0">
+          <el-col :span="9" :xs="0" style="margin-top: 10">
               <el-carousel height="1000px">
                   <el-carousel-item>
                       <img src="/01-1.jpg"  >
@@ -16,12 +16,12 @@
               </el-carousel>
           </el-col>
 
-          <el-col :span="20" :xs="24">
+          <el-col :span="15" :xs="24">
 
 
             
             <el-row type="flex" justify="center">
-                <el-col :span="6">
+                <el-col :span="6" :xs="20">
                             <div style="font-size:44px;margin-bottom: 20px;">欢迎注册</div>
 <div style="font-size:28px;margin-bottom: 64px;">每一天,乐在沟通<div style="color:#359eff;float:right;">
             

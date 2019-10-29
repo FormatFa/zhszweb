@@ -1,10 +1,10 @@
 <template>
 <div>
   <!-- 第一行 -->
-    <el-row >
+    <el-row :gutter="40">
     <!-- 卡片 -->
     <!-- 基本情况 -->
-      <el-col :span="3"><el-card >
+      <el-col :span="4" :xs="20"><el-card >
         <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
@@ -13,7 +13,7 @@
       </el-card></el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
    
-      <el-col :span="11" style="margin-left: 90px;">
+      <el-col :span="11" >
         <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
         </el-card>
@@ -21,8 +21,9 @@
    
     <!-- 班级名单的下拉框 -->
     
-      <el-col :span="6"><el-dropdown @command="intoStudent"  style="margin-left: 300px;">
-        <el-card>
+      <el-col :span="9" >
+        <!-- <el-dropdown @command="intoStudent"  style="margin-left: 300px;"> -->
+        <!-- <el-card>
               <span class="el-dropdown-link">
           班级同学名单
           <i class="el0icon-arrow-down el-icon--right"></i>
@@ -33,30 +34,41 @@
             {{people}}
          </el-dropdown-item>
         </el-dropdown-menu>
-        </el-dropdown>
-      
+        </el-dropdown> -->
+        <el-card >
+        <el-table  @row-click="intoStudent" :data="peoples" height="400" style="width: 100%">
+          
+          <el-table-column prop="name" label="班级同学名单"></el-table-column>
+          
+        </el-table>
+        </el-card>
         </el-col>
     
   </el-row>
 
   <!-- 第二行 -->
-   <el-row type="flex" justify="end" align="center" style="margin-top: 25px;">
+   <el-row :gutter="40"  style="margin-top: 25px;" >
      <!-- 各种关于综合素质的评分 -->
-     <el-col :span="5" style="margin-right: 50px;">
+     <el-col :span="4" :xs="20">
        <el-card>
          <div slot="header" class="clearfix">
-           <span>综合素质均分及排名</span>
+           <span>第一学期综合素质均分及排名</span>
          </div>
-           <div>2019年度第一学期综合素质平均分:{{data.classCard.term1_score}}</div>
-        <div>2019年度第二学期综合素质平均分:{{data.classCard.term2_score}}</div>
-        <div>2019年度第一学期在全院排名:{{data.classCard.term1_paiming}}</div>
-        <div>2019年度第二学期在全院排名:{{data.classCard.term2_paiming}}</div>
+           <div>第一学期综合素质平均分:{{data.classCard1.term1_score}}</div>
+        <div>第一学期在全院排名:{{data.classCard1.term1_paiming}}</div>
+       </el-card>
+       <el-card>
+         <div slot="header" class="clearfix">
+           <span>第二学期综合素质均分及排名</span>
+         </div>
+        <div>第二学期综合素质平均分:{{data.classCard2.term2_score}}</div>
+        <div>第二学期在全院排名:{{data.classCard2.term2_paiming}}</div>
        </el-card>
      </el-col>
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
      
-     <el-col :span="15" style="margin-right: 10px;">
+     <el-col :span="11" >
          <el-card>
        <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 300px;" size="small"> 
     
@@ -74,7 +86,7 @@
        </el-col>
    
        <!-- 总分区间漏斗图 -->
-      <el-col :span="9" style="margin-left: 1px;">
+      <el-col :span="9" >
         <el-card body-style="padding:36px" >
         <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
         </el-card>
@@ -141,11 +153,11 @@ export default {
       let score=0
     
       if(store.state.term==="term1")
-      score=this.data.classCard.term1_score;
+      score=this.data.classCard1.term1_score;
       else
-      score=this.data.classCard.term2_score;
+      score=this.data.classCard2.term2_score;
       console.log(store.state.term+"score:"+score)
-      console.log(this.data.classCard.term1_score)
+      console.log(this.data.classCard1.term1_score)
       if (score>=0&&score<=15){
         this.proposal="凉了"
       }
@@ -174,13 +186,15 @@ export default {
       })
     },
 
-    intoStudent(com){
-      console.log("进入学生:"+com)
-        store.setStudent(com)
+    intoStudent(row, column, event){
+      console.log(row)
+      console.log(column)
+      console.log("进入学生:"+row+" "+column+" "+event)
+      
          this.$router.push({
         name:"student",
         params:{
-          studentid:com
+          studentid:row.name
         }
       })
     },
@@ -200,6 +214,20 @@ export default {
     console.log("显示雷达图，当前学期")
     // let suchnames=this.data['suchindexscore']['suchnames']
     let suchindexscores=this.data['suchindexscores']
+    let maxvalue = -1;
+
+      
+      for(let i =0;i<suchindexscores.length;i+=1)
+      {
+        for(let j =0;j<suchindexscores[i].value.length;j+=1)
+        {
+
+      
+          if(suchindexscores[i].value[j]>maxvalue)
+          maxvalue=suchindexscores[i].value[j]
+        }
+      }//循环对比的出指标的最大值
+
    
     let option={
       
@@ -209,13 +237,13 @@ export default {
         radar:{name:{
           textStyle:{
             color:'#000',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
-            indicator:[{name:'思想政治',max:20},
-            {name:'身心健康',max:20},
-            {name:'创新创业',max:20},
-            {name:'技术技能',max:20},
-            {name:'志愿服务',max:20},
-            {name:'人文艺术',max:20},
-            {name:'综合素质理论',max:20}
+            indicator:[{name:'思想政治',max:maxvalue},
+            {name:'身心健康',max:maxvalue},
+            {name:'创新创业',max:maxvalue},
+            {name:'技术技能',max:maxvalue},
+            {name:'志愿服务',max:maxvalue},
+            {name:'人文艺术',max:maxvalue},
+            {name:'综合素质理论',max:maxvalue}
             ]
             },
              
@@ -241,7 +269,11 @@ suchindexscores
       let student=this.data['students']['student']
       this.peoples.splice(0,this.peoples.length); 
       for(let i =0;i<student.length;i+=1)
-      this.peoples.push(student[i])
+      this.peoples.push(
+        {
+        name:student[i]
+        }
+        )
       
     },
 

@@ -6,10 +6,12 @@ export const ClassData={
         "students":43
     },//班级姓名及人数
 //排名
-    classCard:{
+    classCard1:{
         "term1_score":15,//第一学期的综合素平均分
-        "term2_score":1,//第二学期的综合素平均分
         "term1_paiming":9,//第一学期在全院的排名
+    },
+    classCard2:{
+        "term2_score":1,//第二学期的综合素平均分
         "term2_paiming":6//第二学期在全院的排名
     },
     //各指标的雷达图

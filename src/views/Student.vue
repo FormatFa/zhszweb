@@ -1,23 +1,28 @@
 <template>
   <div>
     <!-- 第一行 -->
-    <el-row>
+    <el-row :gutter="40">
       <!-- 个人的基本情况卡片 -->
-      <el-col :span="7">
-        <el-card>
+      <el-col :span="12">
+        <el-card  body-style="padding:34px">
           <div slot="header" class="clearfix">
-            <span>个人的基本情况</span>
+            <span style="font-size:25px">个人第一学期的基本情况</span>
           </div>
-          <div>2019年度第一学期综合素质分:{{data.studentCard.term1_avlscore}}</div>
-          <div>2019年度第二学期综合素质分:{{data.studentCard.term2_avlscore}}</div>
-          <div>2019年度第一学期综合素质全院排名:{{data.studentCard.term1_yranking}}</div>
-          <div>2019年度第二学期综合素质全院排名:{{data.studentCard.term2_yranking}}</div>
-          <div>2019年度第一学期综合素质全班排名:{{data.studentCard.term1_cranking}}</div>
-          <div>2019年度第二学期综合素质全班排名:{{data.studentCard.term2_cranking}}</div>
+          <div style="font-size:20px">第一学期综合素质分:{{data.studentCard1.term1_avlscore}}</div>
+          <div style="font-size:20px">第一学期综合素质全院排名:{{data.studentCard1.term1_yranking}}</div>
+          <div style="font-size:20px">第一学期综合素质全班排名:{{data.studentCard1.term1_cranking}}</div>
+        </el-card>
+         <el-card  body-style="padding:34px">
+          <div slot="header" class="clearfix">
+            <span style="font-size:25px">个人第二学期的基本情况</span>
+          </div>
+          <div style="font-size:20px">第二学期综合素质分:{{data.studentCard2.term2_avlscore}}</div>
+          <div style="font-size:20px">第二学期综合素质全院排名:{{data.studentCard2.term2_yranking}}</div>
+          <div style="font-size:20px">第二学期综合素质全班排名:{{data.studentCard2.term2_cranking}}</div>
         </el-card>
       </el-col>
       <!-- 雷达图 -->
-      <el-col :span="11" style="margin-left: 150px;">
+      <el-col :span="12" >
         <el-card>
         <v-chart class="chart" ref="scuhindexscore" autoresize></v-chart>
         </el-card>
@@ -25,12 +30,12 @@
     </el-row>
     
     <!-- 第二行 -->
-    <el-row style="margin-top:25px">
+    <el-row :gutter="40" style="margin-top: 25px;">
       <!-- 各个指标在全院的排名 -->
-      <el-col :span="10">
-        <el-card>
-        <div>各个指标在全院的排名</div>
-        <el-table :data="CollegeData" border style="width: 100%">
+      <el-col :span="12">
+        <el-card >
+        <div style="font-size:20px">各个指标在全院的排名</div>
+        <el-table :data="CollegeData"  fit  align="center">
           <el-table-column prop="Collegindex" label="各指标" width="180"></el-table-column>
           <el-table-column prop="Collegscores" label="分数" width="180"></el-table-column>
           <el-table-column prop="Collegranking" label="排名" width="180"></el-table-column>
@@ -38,10 +43,10 @@
         </el-card>
       </el-col>
       <!-- 各个指标在全班的排名 -->
-      <el-col :span="10">
-        <el-card style="margin-left: 100px">
-         <div>各个指标在全班的排名</div>
-        <el-table :data="ClassData" border style="width: 100%;">
+      <el-col :span="12">
+        <el-card >
+         <div style="font-size:20px">各个指标在全班的排名</div>
+        <el-table :data="ClassData"  fit align="center">
           <el-table-column prop="Classindex" label="各指标" width="180"></el-table-column>
           <el-table-column prop="Classscores" label="分数" width="180"></el-table-column>
           <el-table-column prop="Classranking" label="排名" width="180"></el-table-column>
@@ -88,8 +93,8 @@ export default {
       this.proposal2="你的"+indexs[minIndex]+"指标较低，有待加强"
 
       if (store.state.term === "term1")
-        score = this.data.studentCard.term1_avlscore;
-      else score = this.data.studentCard.term2_avlscore;
+        score = this.data.studentCard1.term1_avlscore;
+      else score = this.data.studentCard2.term2_avlscore;
       if (score >= 0 && score <= 15) {
         this.proposal = "退学算了";
       } else if (score > 15 && score <= 30) {
@@ -125,6 +130,21 @@ export default {
       console.log("显示个人当前学期的雷达图");
       // let suchnames = this.data["suchindexscore"]["suchnames"];
       let suchindexscores = this.data['suchindexscores']
+
+      let maxvalue = -1;
+
+      
+      for(let i =0;i<suchindexscores.length;i+=1)
+      {
+        for(let j =0;j<suchindexscores[i].value.length;j+=1)
+        {
+
+      
+          if(suchindexscores[i].value[j]>maxvalue)
+          maxvalue=suchindexscores[i].value[j]
+        }
+      }//循环对比的出指标的最大值
+
       let option={
         title: { text:`${this.stateStore.termName()} 各指标雷达图` },
         tooltip:{},
@@ -135,13 +155,13 @@ export default {
             
           },
           indicator:[
-                   { name: "思想政治", max: 5 , color:"black"},
-            { name: "身心健康", max: 5 ,color:"red"},
-            { name: "创新创业", max: 5 ,color:"orange"},
-            { name: "技术技能", max: 5 ,color:"pink"},
-            { name: "志愿服务", max: 5 ,color:"green"},
-            { name: "人文艺术", max: 5 ,color:"blue"},
-            { name: "综合素质理论", max: 5 ,color:"purple"}
+                   { name: "思想政治", max: maxvalue , color:"black"},
+            { name: "身心健康", max: maxvalue ,color:"red"},
+            { name: "创新创业", max: maxvalue ,color:"orange"},
+            { name: "技术技能", max: maxvalue ,color:"pink"},
+            { name: "志愿服务", max: maxvalue ,color:"green"},
+            { name: "人文艺术", max: maxvalue ,color:"blue"},
+            { name: "综合素质理论", max: maxvalue ,color:"purple"}
           ]
         },
         series:[
