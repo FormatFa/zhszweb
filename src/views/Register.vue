@@ -24,7 +24,7 @@
                 <el-col :span="6">
                             <div style="font-size:44px;margin-bottom: 20px;">欢迎注册</div>
 <div style="font-size:28px;margin-bottom: 64px;">每一天,乐在沟通<div style="color:#359eff;float:right;">
-            免费靓号
+            
             </div></div>
       
                      <el-form>

@@ -11,13 +11,13 @@
                 
     <el-carousel height="600px" >
         <el-carousel-item>
-            <img src="/img1.jpg" width="100%" height="100%">
+            <img src="/img (2).jpg" width="100%" height="100%">
         </el-carousel-item>
             <el-carousel-item>
-            <img src="/img2.jpg" width="100%" height="100%">
+            <img src="/img (1).jpg" width="100%" height="100%">
         </el-carousel-item>
         <el-carousel-item>
-            <img src="/img3.jpg" width="100%" height="100%">
+            <img src="/img (3).jpg" width="100%" height="100%">
         </el-carousel-item>
     </el-carousel>
             </el-col>
@@ -33,7 +33,7 @@
                 <el-form-item>
                     <el-button  v-on:click="submitLogin" size="medium">立即登录</el-button>
                 </el-form-item>
-                <a  href="#" @click="register()">没有账号?立即注册领取豪华大礼包</a>
+                <a  href="#" @click="register()">没有账号?</a>
             </el-form>
         </el-card>
         </el-col>
