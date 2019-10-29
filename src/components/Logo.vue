@@ -200,7 +200,8 @@ this.$router.beforeEach((to, from, next) => {
             get("/api/class",{classid:classid,year:store.state.year,term:store.state.term}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
-           
+             this.loading=false
+            Object.assign(ClassData,res)
             EventBus.$emit("classDataLoad",ClassData)
         }).catch(err=>{
             console.log("请求数据失败>>>")
