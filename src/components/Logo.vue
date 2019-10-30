@@ -2,7 +2,7 @@
   <div v-loading.fullscreen="loading">
       <el-row >
         <el-col  :span="8">
-          <img  @click="home" style="width: 100%;height: 60px" src="/logo.jpg"/>
+          <img  @click="home" style="width: 400px; " src="/logo.jpg"/>
         </el-col>
       
       <el-row v-if="showSelect" type="flex" justify="end" :span="10" >
@@ -45,7 +45,7 @@ export default {
             this.selectYear()
         })
         console.log("mounted")
-        this.showSelect= this.isShowSelect();
+       
     },
   //请求年度数据，顺便验证登录
   created(){
@@ -101,7 +101,7 @@ this.$router.afterEach((to,from)=>{
 })
 this.$router.beforeEach((to, from, next) => {
     console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
-    this.showSelect= this.isShowSelect();
+    this.showSelect= this.isShowSelect(to.name);
     next();
 })
 
@@ -112,9 +112,9 @@ this.$router.beforeEach((to, from, next) => {
   methods:{
       isShowSelect(name){
         console.log("isShowSelect 当前路由和名字")
-        console.log(this.$router)
-        console.log(this.$router.name)
-  return this.$router.name!="login" && this.$router.name!="data"
+        console.log(name)
+  
+  return name!="login" && name!="data"
       },
     //跳转到首页
     home(){
@@ -209,8 +209,10 @@ this.$router.beforeEach((to, from, next) => {
             //设置成测试数据
             //发送事件
             this.loading=false
-            EventBus.$emit("classDataLoad",ClassData)
-           
+           EventBus.$emit("classDataLoad",ClassData)
+            this.$alert(err,"服务器响应失败，显示测试数据",{
+            confirmButtonText:"确定"
+          })
             
         })
     },
@@ -228,11 +230,13 @@ this.$router.beforeEach((to, from, next) => {
                Object.assign(StudentData,res)
               EventBus.$emit("studentDataLoad",StudentData)
             }).catch(err=>{
+            this.$alert(err,"服务器响应失败",{
+            confirmButtonText:"确定"
+          })
               console.log("请求数据失败>>>----------")
               console.log(err)
+               this.loading=false
               //设置成测试数据
-              //发送事件
-                 EventBus.$emit("studentDataLoad",StudentData)
              
             })
         }

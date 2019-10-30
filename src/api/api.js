@@ -9,5 +9,6 @@ export const apiYears=p=>get('/test')
 //数据库基本信息
 export const apiData=p=>get('xx')
 //请求某个年度的数据文件信息
-export const apiFiles=p=>post("xx")
+
+// 请求解析某个文件
 

@@ -17,8 +17,15 @@ axios.defaults.withCredentials=true
 //默认是表单格式，现在改成json
 axios.defaults.headers.post['Content-Type'] = 'Content-Type：application/json;charset=UTF-8';
 
+// 拦截请求
+// axios.interceptors.request.use(config=>{
+//     return config;
+// },err=>{
+//     return Promise.reject(err)
+// })
 // 封装get,post方法
 axios.interceptors.response.use(response=>{
+    
     console.log("请求拦截:成功")
     if(response.status===200)
         return Promise.resolve(response)
@@ -61,6 +68,7 @@ axios.interceptors.response.use(response=>{
 })
 export function get(url,params)
 {
+    
     return new Promise( (resolve,reject)=>{
         axios.get(url,{
             params:params
