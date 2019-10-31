@@ -18,7 +18,7 @@ export const store = {
         collegeData:{
             
         },
-
+        
         //获取当前学期
         termName(){
             if(this.term=="term1")

@@ -10,7 +10,7 @@
       <el-col :span="10">
         <el-card>
           <div slot="header">
-            <span>综合素质数据管理</span>
+            <span>综合素质数据文件管理</span>
           
             <!-- 设置在右边 -->
             <el-date-picker
@@ -20,9 +20,11 @@
               type="year"
               placeholder="选择学年度"
             ></el-date-picker>
-              <div style="float:right;">选择数据年份</div>
+              <div style="float:right;">选择指定年度的数据</div>
           </div>
 
+
+          <div>数据文件管理，每个年度对应三个年级,每个年级2个学期，共6个数据文件</div>
           <el-table  :data="files" :row-class-name="fileStateClassName">
             <el-table-column label="学院" prop="college"></el-table-column>
             <el-table-column label="年度" prop="year"></el-table-column>

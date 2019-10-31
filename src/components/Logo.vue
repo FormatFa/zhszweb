@@ -34,9 +34,10 @@ import {store} from '../store.js'
 import {college} from '../api/testdata'
 import {EventBus} from '../event-bus.js'
 import {get,post} from '../api/http.js'
-import {apiLogin,apiYears} from '../api/api.js'
+import {apiLogin,apiLogoNav} from '../api/api.js'
 import {ClassData} from '../api/testclassdata.js'
 import {StudentData} from '../api/teststudent'
+import {arrayFill} from '../utils/tools.js'
 export default {
 
  mounted(){
@@ -55,12 +56,22 @@ export default {
     this.loading=true
     window.setTimeout(()=>{
 
-      apiYears().then(res=>{
+      // 学年数据,包括所有年份,这个年度的所有班级，
+      apiLogoNav().then(res=>{
         //请求成功有，设置图表
+        console.log("请求logo导航数据成功!!")
+        console.log(res);
+        // 设置班级的数据
+        arrayFill(this.classes,res.data.classes);
+        // 设置年度选择框的数据
+    arrayFill(this.years,res.data.years);
+        console.log("组件的班级...")
+        console.log(this.classes)
         this.selectYear()
     })
     .catch(err=>{
       this.loading=false
+      
       this.$message.error("请求年度数据失败。")
         console.log("请求学年失败..")
        
@@ -128,16 +139,15 @@ this.$router.beforeEach((to, from, next) => {
         name:"college"
       })
     },
-    intoClass(value){
+    intoClass(value,value2){
+
       console.log("进入班级:"+value)
-      console.log(value)
       
       let id = value.join("")
-      store.setClass(id)
       this.$router.push({
         name:"class",
         params:{
-          classid:"17大数据1"
+          classid:id
         }
       })
       //this.selectYear()
@@ -186,19 +196,22 @@ this.$router.beforeEach((to, from, next) => {
 
     },
     requestCollege(){
-            get("/test",{
+            get("/api/nav/collage",{
             year:store.state.year,term:store.state.term
             }).then(res=>{
-            console.log("请求学院数据:..")
+            console.log("请求学院数据成功:..")
             console.log(res)
+            this.loading=false
+            Object.assign(college,res)
+            EventBus.$emit("collegeDataLoad",college)
         }).catch(err=>{
             console.log("请求数据失败>>>")
           
             //设置成测试数据
             //发送事件
             this.loading=false
-            console.log("发送学院数据...")
-            EventBus.$emit("collegeDataLoad",college)
+            // console.log("发送学院数据...")
+            // EventBus.$emit("collegeDataLoad",college)
         })
     },
         requestClass(classid){

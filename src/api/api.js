@@ -5,3 +5,6 @@ export const apiRegister=p=>post('/api/auth/register',p)
 //首页年度数据
 export const apiYears=p=>get('/test')
 
+// logo年度等数据
+export const apiLogoNav=p=>post('/api/nav/classes',p)
+
