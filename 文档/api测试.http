@@ -42,3 +42,8 @@ Content-Type: application/json
 {
     "year":2019
 }
+
+### 
+
+#测试api连接
+GET  http://192.168.56.101:5000/nav/classes

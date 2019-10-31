@@ -45,6 +45,7 @@ export default {
             this.selectYear()
         })
         console.log("mounted")
+        console.log(this.$router)
          this.showSelect= this.isShowSelect(this.$router.name);
        
     },

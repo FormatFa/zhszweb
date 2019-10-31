@@ -7,10 +7,11 @@
     </el-row>
     <!--  -->
     <el-row>
-      <el-col :span="15">
+      <el-col :span="10">
         <el-card>
           <div slot="header">
             <span>综合素质数据管理</span>
+          
             <!-- 设置在右边 -->
             <el-date-picker
               style="float:right;"
@@ -19,6 +20,7 @@
               type="year"
               placeholder="选择学年度"
             ></el-date-picker>
+              <div style="float:right;">选择数据年份</div>
           </div>
 
           <el-table  :data="files" :row-class-name="fileStateClassName">
@@ -127,7 +129,7 @@ export default {
       console.log("解析数据:");
       console.log(param);
       // 时间较长，显示全屏进度条
-      Loading.service({ fullscreen: true });
+      Loading.service({ text:"解析数据到数据库中....",fullscreen: true });
       let postparam = {
         // 学年
         year: param.year,
@@ -187,7 +189,13 @@ export default {
     },
     fileStateClassName(row, rowIndex) {
       console.log(row);
-      return "fileStateClassName";
+      console.log(row.statecode)
+      if(row.row.statecode==0)
+      return "file-no-upload";
+      else if(row.row.statecode==1)
+      {
+        return "file-ok"
+      }
     },
     changeYear(date) {
       this.switchYear(date.getFullYear());
@@ -232,9 +240,10 @@ export default {
 <style >
 /* 没上传文件 */
 .el-table .file-no-upload {
-  background: goldenrod;
+  background: oldlace;
 }
-.file_ok {
-  background: green;
+.el-table .file-ok {
+
+  background:  #f0f9eb;
 }
 </style>
