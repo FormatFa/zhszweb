@@ -45,6 +45,7 @@ export default {
             this.selectYear()
         })
         console.log("mounted")
+         this.showSelect= this.isShowSelect(this.$router.name);
        
     },
   //请求年度数据，顺便验证登录
@@ -108,6 +109,10 @@ this.$router.beforeEach((to, from, next) => {
   },
   computed:{
  
+  },
+  beforeRouteEnter(to,from,next){
+    console.log("beforeRouteEnter....")
+    console.log(to)
   },
   methods:{
       isShowSelect(name){
