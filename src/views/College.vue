@@ -77,10 +77,17 @@
       </el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col  :span="11">
+      <el-col  :span="8">
          <el-card body-style="padding:30px">
         <v-chart class="chart" ref="range" autoresize ></v-chart>
          </el-card>
+      </el-col>
+<!-- 散点图 -->
+      <el-col :span="11">
+        <el-card body-style="padding:30px">
+          <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
+        </el-card>
+        
       </el-col>
     </el-row>
 
@@ -89,15 +96,10 @@
     <!-- 第三行 -->
     <el-row :gutter="15" style="margin-top: 25px;">
 
-      <el-col :span="8">
-        <el-card>
-          <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
-        </el-card>
-        
-      </el-col>
+      
 
       <!-- 各学年变化趋势 -->
-      <el-col :span="16">
+      <el-col :span="24">
         <el-card>
         <v-chart  ref="trend" class="chart" autoresize > </v-chart>
          </el-card>
@@ -276,6 +278,7 @@ export default {
     },
     set_gpa_score(){
         //gpa成绩关系
+      
       let gpa_scores = []
       for(let i =0 ;i<this.data['gpa_score']['gpas'].length;i+=1)
       {
