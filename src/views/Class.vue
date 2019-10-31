@@ -148,7 +148,7 @@ export default {
           if(temp[i]<temp[minIndex])minIndex=i
       }
 //temp[]
-      this.proposal2="你的"+indexs[minIndex]+"指标较低,有待加强"
+      this.proposal2="班级"+indexs[minIndex]+"指标较低,有待加强"
 
       let score=0
     
@@ -316,7 +316,7 @@ suchindexscores
          type:'value'
        }],
        series:[{
-         name:'分数是',
+         name:'分数',
          type:'bar',
          barWidth:'60',
          data:scores
