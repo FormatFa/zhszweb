@@ -77,7 +77,7 @@
       </el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col  :span="19">
+      <el-col  :span="11">
          <el-card body-style="padding:30px">
         <v-chart class="chart" ref="range" autoresize ></v-chart>
          </el-card>
