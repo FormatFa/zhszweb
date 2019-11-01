@@ -46,7 +46,7 @@ Content-Type: application/json
 ### 
 
 #测试api连接
-GET  http://192.168.56.101:5000/nav/classes
+POST  http://192.168.56.101:5000/nav/classes
 
 ### 
 #测试学院

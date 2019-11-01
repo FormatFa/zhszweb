@@ -67,6 +67,7 @@ export default {
     arrayFill(this.years,res.data.years);
         console.log("组件的班级...")
         console.log(this.classes)
+        this.year=this.years[0]
         this.selectYear()
     })
     .catch(err=>{
@@ -196,7 +197,7 @@ this.$router.beforeEach((to, from, next) => {
 
     },
     requestCollege(){
-            get("/api/nav/collage",{
+            post("/api/nav/collage",{
             year:store.state.year,term:store.state.term
             }).then(res=>{
             console.log("请求学院数据成功:..")
@@ -204,6 +205,7 @@ this.$router.beforeEach((to, from, next) => {
             this.loading=false
             Object.assign(college,res)
             EventBus.$emit("collegeDataLoad",college)
+
         }).catch(err=>{
             console.log("请求数据失败>>>")
           

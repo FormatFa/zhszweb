@@ -29,7 +29,7 @@
           <div slot="header" class="clearfix">
             <span>{{this.stateStore.year}}年度第二学期平均分</span>
           </div>
-          <div class="cardtext">{{data.basicCard.term1_score}}</div>
+          <div class="cardtext">{{data.basicCard.term2_score}}</div>
         </el-card>
   
         
@@ -134,6 +134,7 @@ export default {
       console.log("学院界面请求到数据...")
       console.log(data)
       this.data=data
+      this.nowIndex='zh_score'
       this.setIndex()
       this.set_classtop()
       this.set_gpa_score()
@@ -379,6 +380,9 @@ export default {
       let piedata = [];
       for(let i =0;i<this.data.indexes.indexes.length;i+=1)
       {
+        // 不要平均分的
+        if(this.data.indexes.indexes[i]=="zh_score")
+        continue
         piedata.push({
           name:this.data.indexes.indexes[i],
           value:this.data.indexes.scores[i]
@@ -386,7 +390,7 @@ export default {
       }
       let option={ 
         tooltip:{},
-      
+  
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()}  各项指标平均分数` },
         series: {
              label:{
@@ -417,6 +421,13 @@ export default {
     //表格的数据，用计算属性 , nowIndex改变，这里的也会改变
     studenttop50()
     {
+      console.log("now index:"+this.nowIndex)
+      if( ! this.nowIndex in  this.data['top'])
+      {
+        console.log("当前指标不存在:"+this.nowIndex);
+        return;
+      }
+      // 如果没有，一开始没请求数据时是没有的
        let students = this.data['top'][this.nowIndex]['students']
        return students;
     }
