@@ -53,8 +53,14 @@
 </template>
 
 <script>
+// import Div from '../api/jquery.js'
+// import Canvas from '../api/vector.js'
 import {apiRegister} from '../api/api.js'
 export default {
+    // components:{
+    //     Div,
+    //     Canvas
+    // },
     // 注册用户
     methods:{
         submit(){
