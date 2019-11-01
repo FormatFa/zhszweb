@@ -210,8 +210,8 @@ this.$router.beforeEach((to, from, next) => {
             //设置成测试数据
             //发送事件
             this.loading=false
-            // console.log("发送学院数据...")
-            // EventBus.$emit("collegeDataLoad",college)
+            console.log("发送学院数据...")
+            EventBus.$emit("collegeDataLoad",college)
         })
     },
         requestClass(classid){
