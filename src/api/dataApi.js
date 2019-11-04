@@ -6,3 +6,6 @@ export const apiParse=p=>post("/api/folder/handle",p)
 export const apiFiles=p=>post("/api/folder/files",p)
 export const apiDelete=p=>post("/api/folder/delete",p)
 export const apiTruncate=p=>post("/api/folder/truncate")
+
+// 获取已上传的数据api
+export const apiUploaded=p=>post("/api/folder/uploaded")
