@@ -19,6 +19,7 @@ import 'echarts/lib/component/legend'//图例
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/theme/dark'
+
 Vue.component('v-chart',ECharts)
 Vue.config.productionTip = false
 

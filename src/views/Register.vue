@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id=bg>
 
       <el-row >
           <el-col :span="9" :xs="0" style="margin-top: 10">
@@ -53,14 +53,14 @@
 </template>
 
 <script>
-// import Div from '../api/jquery.js'
-// import Canvas from '../api/vector.js'
+// import Div from '../api/jquery.js';
+// import canvas from '../api/vector.js';
 import {apiRegister} from '../api/api.js'
 export default {
     // components:{
-    //     Div,
-    //     Canvas
+    //     canvas
     // },
+    name:"bg",
     // 注册用户
     methods:{
         submit(){
@@ -126,5 +126,11 @@ export default {
 </script>
 
 <style>
-
+* #bg{
+    background: url("../images/44ce51cbfee3ac0249cd771f2ad9a7c2.jpg");
+    background-size: 100% 100%;
+    height: 100%;
+    position: fixed;
+    width: 100%
+}
 </style>
