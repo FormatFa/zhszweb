@@ -2,7 +2,7 @@
   <div id=bg>
 
       <el-row >
-          <el-col :span="9" :xs="0" style="margin-top: 10">
+          <!-- <el-col :span="9" :xs="0" style="margin-top: 10">
               <el-carousel height="1000px">
                   <el-carousel-item>
                       <img src="/01-1.jpg"  >
@@ -16,7 +16,7 @@
               </el-carousel>
           </el-col>
 
-          <el-col :span="15" :xs="24">
+          <el-col :span="15" :xs="24"> -->
 
 
             
