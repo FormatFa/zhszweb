@@ -99,7 +99,7 @@
       
 
       <!-- 各学年变化趋势 -->
-      <el-col :span="24">
+      <el-col :span="13">
         <el-card>
         <v-chart  ref="trend" class="chart" autoresize > </v-chart>
          </el-card>
@@ -134,7 +134,7 @@ export default {
       console.log("学院界面请求到数据...")
       console.log(data)
       this.data=data
-      this.nowIndex='zh_score'
+      this.nowIndex='平均分'
       this.setIndex()
       this.set_classtop()
       this.set_gpa_score()
@@ -151,7 +151,7 @@ export default {
   },
   name: "College",
   methods:{
-    //柱状图点击进入班级
+    //柱状图点击进入班级事件
     intoClass(params){
       console.log("进入班级..")
       console.log(params)
@@ -197,11 +197,9 @@ export default {
         this.set_classtop()
     },
 
-    set_studenttop(){
-      let students = this.data['top'][this.nowIndex]['students']
-    },
     //设置班级图表top数据
     set_classtop(){
+     console.log("设置班级top数据:"+this.nowIndex)
       let chart = this.$refs['classtop'];
       let classes = this.data['top'][this.nowIndex]['classes']
       let names = [];
@@ -212,6 +210,9 @@ export default {
         scores.push(element['score'])
         
       });
+      names=names.reverse()
+      scores = scores.reverse();
+
       //查看当前选择的饼图，饼图选择是什么就显示对应的数据
       let option= {
         title: { text: `${this.stateStore.year} 年度 ${this.stateStore.termName()} ${this.nowIndex} TOP5班级` },
@@ -222,7 +223,15 @@ export default {
         },
         xAxis: {
           type:"value",
-          name:"分数"
+          name:"分数",
+          boundaryGap :false,
+          axisTick:{
+            interval :0
+          },
+          axisLabel:{
+            interval:0
+          }
+
         },
         yAxis: {
           type:"category",
@@ -244,11 +253,21 @@ export default {
       let term1_scores = this.data['range']['term1_scores']
       let term2_scores = this.data['range']['term2_scores']
       let option = {
-        tooltip:{},
+        tooltip:{
+          formatter:function (params) {
+            let dataIndex= params.dataIndex;
+            let color=params.color;
+            return `<div style="color:${color}">▲</div>第一学期:`+term1_scores[dataIndex]+`<div style="color:${color}">▼</div>第二学期:`+term2_scores[dataIndex]+`<div style="color:${color}">●</div>总和:`+(term1_scores[dataIndex]+term2_scores[dataIndex])
+            
+          }
+        },
           title:{text:`${this.stateStore.year} 年度综合素质总分各区间分布`},
           xAxis:{
             data:ranges,
-            name:"分数区间"
+            name:"分数区间",
+            axisLabel:{
+              interval:0
+            }
           },
           yAxis:{
             name:"个数/人"
@@ -277,9 +296,9 @@ export default {
       this.$refs['range'].mergeOptions(option)
 
     },
-    set_gpa_score(){
-        //gpa成绩关系
-      
+         //gpa成绩关系
+    set_gpa_score(){ 
+   
       let gpa_scores = []
       for(let i =0 ;i<this.data['gpa_score']['gpas'].length;i+=1)
       {
@@ -302,9 +321,10 @@ export default {
           type: "scatter",
           data: gpa_scores
         }
-    }
+        }
     this.$refs['gpa_score'].mergeOptions(option)
     },
+    // 设置趋势图
     set_trend(){
 
       let chart = this.$refs['trend']
@@ -329,20 +349,6 @@ export default {
          type:'line',
          data:this.data['trend']['term1'],
          areaStyle:{
-    //        color:{
-    //              type: 'linear',
-    // x: 0,
-    // y: 0,
-    // x2: 0,
-    // y2: 1,
-    // colorStops: [{
-    //     offset: 1, color: 'black' // 0% 处的颜色
-    // }, {
-    //     offset: 0, color: '#18aec9' // 100% 处的颜色
-    // }],
-    // global: false // 缺省为 false
-    //        }
-           
          }
        },
        {
@@ -351,19 +357,6 @@ export default {
          type:'line',
          data:this.data['trend']['term2'],
          areaStyle:{
-    //        color:{
-    //              type: 'linear',
-    // x: 0,
-    // y: 0,
-    // x2: 0,
-    // y2: 1,
-    // colorStops: [{
-    //     offset: 1, color: 'black' // 0% 处的颜色
-    // }, {
-    //     offset: 0, color: "#644a94" // 100% 处的颜色
-    // }],
-    // global: false // 缺省为 false
-    //        }
          }
        }
       ]
@@ -381,7 +374,7 @@ export default {
       for(let i =0;i<this.data.indexes.indexes.length;i+=1)
       {
         // 不要平均分的
-        if(this.data.indexes.indexes[i]=="zh_score")
+        if(this.data.indexes.indexes[i]=="平均分")
         continue
         piedata.push({
           name:this.data.indexes.indexes[i],
@@ -422,7 +415,7 @@ export default {
     studenttop50()
     {
       console.log("now index:"+this.nowIndex)
-      if( ! this.nowIndex in  this.data['top'])
+      if( ! this.nowIndex in  Object.keys( this.data['top']))
       {
         console.log("当前指标不存在:"+this.nowIndex);
         return;
@@ -451,112 +444,8 @@ export default {
       stateStore:store.state,
       //学院数据
       data:college,
-      //区间
-      rangeOption:{
-          title:{text:"xx年度综合素质总各分区间次数分布"},
-          xAxis:{
-            data:["(0-10]","(10-20]","(20-30]"]
-          },
-          yAxis:{},
-          legend:{
-            right:0
-          },
-          series:[
-           { 
-             name:"第一学期",
-             type:"bar",
-            data:[20,40,45]
-           },
-           { 
-             name:"第二学期",
-             type:"bar",
-            data:[10,20,5]
-           }
-          ]
-      },
-      topdata:topdata,
-      test: {
-        title: { text: "xx年度第y学期 某指标 TOP5班级" },
-        xAxis: {
-          type:"value"
-        },
-        yAxis: {
-          type:"category",
-          
-          data: ["a", "b", "c"]
-
-        },
-        series: {
-          type: "bar",
-          data: [1, 2, 3]
-
-        }
-      },
-      pietest: {
-        title: { text: "xx年度第y学期 各项指标平均分数" },
-        series: {
-          type: "pie",
-          // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
-
-          data: [{ name: "思想政治", value: 12 }, { name: "身心健康", value: 10 },{ name: "创新创业", value: 80 },{ name: "技术技能", value: 19 },{ name: "志愿服务", value: 15 },{ name: "人文艺术", value: 25 },{ name: "综合素质理论", value: 2 } ]
-        }
-      }
-
-
-
-
-    ,scattertest:{
-
-       title: { text:"GPA成绩与综合素质总分的关系" },
-        xAxis: {
-          name:"GPA"
-        },
-        yAxis: {
-          name:"综合素质总分"
-        },
-        series: {
-          type: "scatter",
-          data: scatter
-        }
-    },
-    //变化趋势
-    trendOption:{
-     
-      title:{text:"学院各年平均分变化"},
-      xAxis:{
-        name:"年度",
-        data:["17","18","19","20"]
-      },
-      yAxis:{
-        name:"综合平均分"
-      },
-      legend:{},
-      series:
-      [
-       {
-         stack:"年度",
-         name:"第一学期",
-         type:'line',
-         data:[1,3,4,1],
-         areaStyle:{}
-       },
-       {
-         stack:"年度",
-         name:"第二学期",
-         type:'line',
-         data:[2,4,2,1],
-         areaStyle:{}
-       }
-      ]
-    }
-
-
-
-
-
-
-
-
+      // top数据
+      topdata:topdata
     };
   }
 };

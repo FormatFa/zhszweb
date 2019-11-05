@@ -3,8 +3,13 @@ import {get,post} from "./api/http.js"
 import {college} from './api/testdata.js'
 // 全局
 export const store = {
-
+    
     state:{
+        // 用户登录状态
+        login:{
+            // 用户名
+            username:""
+        },
         //所有年度
         years:['2017','2018','2019'],
         //当前选择的年度
@@ -34,6 +39,9 @@ export const store = {
             }
         }
 
+    },
+    setUserName(username){
+        this.state.login.username=username;
     },
     setStudent(stu){
         this.state.nowStudent=stu

@@ -110,7 +110,8 @@ export default {
                     message:"登录成功，正在跳转到页面"
                 })
                 window.setTimeout(() => {
-                    // this.$router.push({name:"college"})
+                    // 跳转到数据管理界面
+                    this.$router.push({name:"data"})
                 }, 3000);
                
                 //保存cookes

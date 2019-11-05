@@ -3,6 +3,9 @@
     <el-row>
       <el-col>
         <el-button @click="truncateFiles">一键清空表</el-button>
+         <el-button  @click="open_visulization">>可视化页面</el-button>
+        
+
       </el-col>
     </el-row>
     <!--  -->
@@ -60,10 +63,23 @@
       </el-col>
 
 <!-- 上传接口2 -->
-      <el-col :span="14">
+      <el-col :span="14" >      
         <el-card>
           <div slot="header">
             <span>已经上传的数据</span>
+            <div style="float:right">
+              <div style="display:inline;padding-right:20px;" >用户名:{{storeState.login.username}}</div>
+              <el-button type="success" @click="qiandao">每日签到领金币</el-button>
+              <el-button type="danger" @click="logout">退出登录</el-button>
+               </div>
+            <!-- <el-dropdown style="float:right;">
+              <el-button type="primary">{{storeState.login.username}}</el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item></el-dropdown-item>
+                <el-dropdown-item>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown> -->
+            
           </div>
           <span>上传新数据</span>
 
@@ -121,6 +137,10 @@
             </el-table-column>
           </el-table>
         </el-card>
+
+    
+
+
       </el-col>
     </el-row>
   </div>
@@ -134,18 +154,19 @@ import {
   apiDelete,
   apiUploaded
 } from "../api/dataApi.js";
+
 import { Loading } from "element-ui";
 import { arrayFill } from "../utils/tools.js";
+import {apiLogout,apiUserInfo} from '../api/api.js'
+import {store} from '../store.js'
 export default {
   // 组件名称,在调试时有用
   name: "datamanage",
 
-  // 组件创建时
-  created() {
-    console.log("组件创建...");
-  },
+
   data() {
     return {
+      storeState:store.state,
       // 接口2的 用来和选择框
       upload: {
         // 这个选择后变成Date对象
@@ -174,9 +195,35 @@ export default {
 
   // 组件created时请求2019的数据
   created() {
+           console.log("组件创建...");
+           console.log(apiUserInfo)
+    // 请求用户信息
+    apiUserInfo().then(res=>{
+      console.log("获取用户登录信息...")
+      console.log(res)
+      /*
+      {…}
+​
+status: "success"
+​
+user: {…}
+​​
+id: 1
+​​
+username: "jojo"
+​​
+<prototype>: Object { … }
+​
+<prototype>: Object { … }
+      */
+    //  设置用户信息
+
+    store.setUserName(res.user.username);
+    }).catch(err=>{})
     // 请求两个接口的数据
     this.switchYear(2019);
     this.requestUpload();
+ 
   },
   computed: {
     // 选择某个年度后，学期也是确定的,2017年度只有三个学期 17级16级15级
@@ -196,6 +243,25 @@ export default {
     }
   },
   methods: {
+    open_visulization(){
+      this.$router.push({
+        name:"college"
+      })
+    },
+    qiandao(){
+      this.$message({
+        message:"签到成功,金币+10",
+        type:"warning"
+      })
+    },
+    logout(){
+      apiLogout().then(res=>{
+        this.$message({
+          message:"登出成功!"
+        })
+      }).catch(err=>{})
+
+    },
     // 接口1 提交数据
     submitUploadNew() {
       console.log("上传数据...");

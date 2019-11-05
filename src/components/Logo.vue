@@ -240,7 +240,7 @@ this.$router.beforeEach((to, from, next) => {
         requestStudent(studentid){
           console.log("学生数据")
           console.log(this.$router.params)
-            get("/api/student",{name:studentid,year:store.state.year,term:store.state.term}).then(res=>{
+            get("/api/student",{stu_id:studentid,year:store.state.year,term:store.state.term}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
               console.log(typeof res)

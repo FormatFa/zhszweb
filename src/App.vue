@@ -4,7 +4,7 @@
       <Logo></Logo>
     </el-header>
 
-    <el-main style="{padding:'50px'}">
+    <el-main >
       <router-view></router-view>
     </el-main>
   </el-container>
