@@ -20,14 +20,14 @@
 
 
             
-            <el-row type="flex" justify="center">
-                <el-col :span="6" :xs="20">
+            <el-row type="flex" justify="center" style="margin-right:100px; margin-top: 110px">
+                <el-col :span="5" :xs="20">
                             <div style="font-size:44px;margin-bottom: 20px;">欢迎注册</div>
 <div style="font-size:28px;margin-bottom: 64px;">每一天,乐在沟通<div style="color:#359eff;float:right;">
             
             </div></div>
       
-                     <el-form>
+                     <el-form size="medium">
                     <el-form-item :error="errors.username" label="用户名" prop="username">
                     <el-input placeholder="用户名" v-model="reg.username"> </el-input>
                     </el-form-item>
@@ -128,7 +128,7 @@ export default {
 <style>
 * #bg{
     background: url("../images/44ce51cbfee3ac0249cd771f2ad9a7c2.jpg");
-    background-size: 100% 100%;
+    background-size:cover;
     height: 100%;
     position: fixed;
     width: 100%

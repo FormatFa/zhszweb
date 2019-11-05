@@ -1,13 +1,13 @@
 <template>
 
-    <div >
+    <div id=logo>
     
         <!-- <el-dialog
         title="登录"
         :visible.sync="isShow"
         > -->
         <el-row type="flex" justify="center">
-            <el-col :span="15">
+            <!-- <el-col :span="15">
                 
     <el-carousel height="600px" >
         <el-carousel-item>
@@ -20,11 +20,11 @@
             <img src="/img (3).jpg" width="100%" height="100%">
         </el-carousel-item>
     </el-carousel>
-            </el-col>
-            <el-col  :offset="8" :span="6" style="margin-left: 100px;margin-top: 80px"><el-card>
-            <el-form :model="login" :rules="rules" ref="loginForm">
+            </el-col> -->
+            <el-col  :offset="8" :span="5" :xs="20" style="margin-right: 700px;margin-top: 200px" >
+            <el-form :model="login" :rules="rules" ref="loginForm" size="medium">
                 <el-form-item :error="errors.username" label="用户名" prop="username" >
-                    <el-input v-model="login.username"></el-input>
+                    <el-input v-model="login.username" ></el-input>
                 </el-form-item>
 
                 <el-form-item :error="errors.password" label="密码" prop="password">
@@ -35,7 +35,7 @@
                 </el-form-item>
                 <a  href="#" @click="register()">没有账号?</a>
             </el-form>
-        </el-card>
+       
         </el-col>
         </el-row>
             
@@ -163,11 +163,11 @@ export default {
 <style>
 /* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
 html,body{cursor:url('../images/mouse.png'),auto}
-/* #logo{
-    background: url("../images/img5.jpg");
+#logo{
+    background: url("../images/ba8bd4e0f53dbde0eedb58c571a98202.jpg");
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
     width: 100%
-} */
+}
 </style>
