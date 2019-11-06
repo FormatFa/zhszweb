@@ -207,12 +207,12 @@ this.$router.beforeEach((to, from, next) => {
             EventBus.$emit("collegeDataLoad",college)
 
         }).catch(err=>{
-            console.log("请求数据失败>>>")
-          
+            console.warn("请求学院界面数据失败,发送测试数据...>>>")
+            console.log(err)
+            console.log(err+"111")
             //设置成测试数据
             //发送事件
             this.loading=false
-            console.log("发送学院数据...")
             EventBus.$emit("collegeDataLoad",college)
         })
     },

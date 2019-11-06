@@ -203,6 +203,11 @@ export default {
     //设置班级图表top数据
     set_classtop(){
       let chart = this.$refs['classtop'];
+      if(Object.keys(this.data['top']).indexOf(this.nowIndex)==-1)
+      {
+        console.warn("设置班级top图失败,"+this.nowIndex+"不存在")
+        return;
+      }
       let classes = this.data['top'][this.nowIndex]['classes']
       let names = [];
       let scores = [];
@@ -422,7 +427,7 @@ export default {
     studenttop50()
     {
       console.log("now index:"+this.nowIndex)
-      if( ! this.nowIndex in  this.data['top'])
+      if(  Object.keys( this.data['top']).indexOf( this.nowIndex)==-1 )
       {
         console.log("当前指标不存在:"+this.nowIndex);
         return;

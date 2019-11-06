@@ -36,11 +36,10 @@ axios.interceptors.response.use(response=>{
 },err=>{
 
     console.log("拦截失败")
-    console.log(err)
     if(err['response']===undefined)
     {
-    
-        return  Promise.reject(err)
+        console.log("undefined...."+err.message)
+        return  Promise.resolve(err.message)
     }
     console.log(err.response)
     switch(err.response.status)
@@ -88,7 +87,7 @@ export function post(url,params)
     console.log(params)
     return new Promise( (resolve,reject)=>{
         axios.post(url,params).then(res=>{resolve(res.data)}).catch(err=>{
-            reject(err.response)
+            reject(err)
         })
     } )
 }
