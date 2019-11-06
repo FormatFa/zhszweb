@@ -77,7 +77,7 @@ export default {
             ],
             password:[
                 {required:true,message:"请输入密码", trigger: 'blur'},
-                {min:8,max:8,message:"长度为8到16位", trigger: 'blur'   }
+                {min:8,max:16,message:"长度为8到16位", trigger: 'blur'   }
             ]
         },
 
@@ -110,15 +110,14 @@ export default {
                     message:"登录成功，正在跳转到页面"
                 })
                 window.setTimeout(() => {
-                    // this.$router.push({name:"college"})
+                    this.$router.push({name:"data"})
                 }, 3000);
                
                 //保存cookes
             }).catch(err=>{
                 console.log("请求失败")
-                console.log(err)
-                 let data = err.data
-                 if(err.status==403)
+                 let data = err.response.data
+                 if(err.response.status==403)
                 this.$message({
                     type:"error",
                     message:"登录,请检查用户名或密码"
@@ -129,6 +128,24 @@ export default {
                     message:"登录失败,请检查网络连接"
                 })  
                 }
+                console.log(data)
+                if(data.message.username !== undefined)
+               {
+                     let temp = data.message.username.join(",");
+                    if(temp.indexOf('Invalid username')!=-1)
+                    this.errors.username="无效的用户名"
+               }
+                 if(data.message.password !== undefined)
+                  {
+                     //转换成中文
+                    let temp = data.message.password.join(",");
+                    console.log(temp)
+                    if(temp.indexOf("Incorrect password!")!=-1)
+                this.errors.password="密码错误!"
+                 }
+                 console.log(this.errors.password)
+
+
             })
         },
         //打开登录按钮

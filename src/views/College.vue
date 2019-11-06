@@ -134,7 +134,7 @@ export default {
       console.log("学院界面请求到数据...")
       console.log(data)
       this.data=data
-      this.nowIndex='zh_score'
+      this.nowIndex='平均分'
       this.setIndex()
       this.set_classtop()
       this.set_gpa_score()
@@ -386,7 +386,7 @@ export default {
       for(let i =0;i<this.data.indexes.indexes.length;i+=1)
       {
         // 不要平均分的
-        if(this.data.indexes.indexes[i]=="zh_score")
+        if(this.data.indexes.indexes[i]=="平均分")
         continue
         piedata.push({
           name:this.data.indexes.indexes[i],
