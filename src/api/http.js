@@ -14,7 +14,7 @@ import { Message } from 'element-ui';
 //axios.defaults.baseURL="http://127.0.0.1:5000/"
 //axios.defaults.baseURL="/"
 axios.defaults.withCredentials=true
-// axios.defaults.timeout = 1000;
+axios.defaults.timeout = 1000;
 //默认是表单格式，现在改成json
 axios.defaults.headers.post['Content-Type'] = 'Content-Type：application/json;charset=UTF-8';
 

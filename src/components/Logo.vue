@@ -1,11 +1,11 @@
 <template>
-  <div v-loading.fullscreen="loading">
+  <div   class="logo" v-loading.fullscreen="loading">
       <el-row >
         <el-col  :span="8">
           <img  @click="home" style="width: 400px; " src="/logo.jpg"/>
         </el-col>
       
-      <el-row v-if="showSelect" type="flex" justify="end" :span="10" >
+      <el-row v-if="showSelect"  type="flex" justify="end" :span="10" >
           <!-- <el-button @click="login()">登录</el-button> -->
           <!-- 重新请求导航数据 -->
           <el-button @click="requestNav" v-if="years.length==0">请求导航数据</el-button>
@@ -40,30 +40,53 @@ import {ClassData} from '../api/testclassdata.js'
 import {StudentData} from '../api/teststudent'
 import {arrayFill} from '../utils/tools.js'
 export default {
-
+ name:'app-logo',
  mounted(){
+      EventBus.$on("hideLogo",(show)=>{
+            console.log("接受是否loggo:"+show)
+            this.showSelect=show;
+        })
         EventBus.$on("requestData",(from)=>{
             console.log(`来自:${from}的请求重新加载数据事件`)
-            this.selectYear()
+            // this.selectYear()
+            // 先请求导航里的数据
+            this.requestNav()
+
         })
+        console.log("挂载Logog.vue")
+     
         console.log("mounted")
         console.log(this.$router)
-         this.showSelect= this.isShowSelect(this.$router.name);
+         
        
     },
+     beforeRouteUpdate (to, from, next) {
+       console.log("路由更新..")
+     },
   //请求年度数据，顺便验证登录
   created(){
+   
     console.log("创建logo组件.......")
-    this.loading=true
-    this.requestNav()
+    
+    // this.requestNav()
     this.$router.afterEach((to,from)=>{
       console.log("全局after each")
       //跳转到某个路由后，更新数据
       //this.selectYear()
     })
+    // watch:{
+    //   this.$router(to,from){
+    //     let ThisPage=to.name;
+    //     if(ThisPage === 'College' || ThisPage === 'Class' || ThisPage === 'Student'){
+    //       this.footShow = true;
+    //     }else{
+    //       this.footShow =false;
+    //     }
+    //   }
+    // }
     this.$router.beforeEach((to, from, next) => {
         console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
-        this.showSelect= this.isShowSelect(to.name);
+     
         next();
     })
 
@@ -78,8 +101,10 @@ export default {
   methods:{
     // 请求导航数据
     requestNav(){
+      this.loading=true
         // 学年数据,包括所有年份,这个年度的所有班级，
       apiLogoNav().then(res=>{
+         this.loading=false
         //请求成功有，设置图表
         console.log("请求logo导航数据成功!!")
         console.log(res);
@@ -90,19 +115,15 @@ export default {
         console.log("组件的班级...")
         console.log(this.classes)
         this.year=this.years[0]
+        // 请求学院或者班级的数据
         this.selectYear()
     })
     .catch(err=>{
       this.loading=false
       this.showFailDialog("加载年度和班级列表数据失败!!",this.requestNav)
+      this.selectYear()
     })
     },
-      isShowSelect(name){
-        console.log("isShowSelect 当前路由和名字")
-        console.log(name)
-  
-  return name!="login" && name!="data"
-      },
     //跳转到首页
     home(){
  this.$router.push({
@@ -129,6 +150,7 @@ export default {
     //请求数据
     //选择年度 或者 学期事件
     selectYear(){
+      this.showSelect=true;
       console.log("当前路由:")
       console.log(this.$router.currentRoute)
       //根据当前路由的不同，请求不同的数据
@@ -191,6 +213,7 @@ export default {
             this.loading=false
             Object.assign(college,res)
             EventBus.$emit("collegeDataLoad",college)
+          
 
         }).catch(err=>{
             console.warn("请求学院界面数据失败,发送测试数据...>>>")
@@ -201,6 +224,7 @@ export default {
             //发送事件
             this.loading=false
             EventBus.$emit("collegeDataLoad",college)
+           
         })
     },
         requestClass(classid){
@@ -211,6 +235,7 @@ export default {
              this.loading=false
             Object.assign(ClassData,res)
             EventBus.$emit("classDataLoad",ClassData)
+         
         }).catch(err=>{
             console.log("请求数据失败>>>")
             console.log(err)
@@ -219,6 +244,7 @@ export default {
             this.loading=false
            EventBus.$emit("classDataLoad",ClassData)
            this.showFailDialog("获取班级数据失败:\n"+err,this.selectYear)
+  
             
         })
     },
@@ -299,6 +325,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.dis {
+  display: none;
+}
 
 </style>

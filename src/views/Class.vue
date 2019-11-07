@@ -10,7 +10,17 @@
           </div>
           <div>{{data.classjbCard.classname}}</div>
           <div>人数:{{data.classjbCard.students}}</div>
-      </el-card></el-col>
+      </el-card>
+      <el-card>
+        <el-collapse v-model="activeNames" @ change="handleChange">
+     <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
+       <div>{{proposal}}</div>
+       <div>{{proposal2}}</div>
+      
+     </el-collapse-item>
+   </el-collapse>
+      </el-card>
+      </el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
    
       <el-col :span="11" >
@@ -97,7 +107,7 @@
 
    <!-- 第三行 -->
    <!-- 建议 -->
-   <el-row>
+   <!-- <el-row>
     <el-collapse v-model="activeNames" @ change="handleChange">
      <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
        <div>{{proposal}}</div>
@@ -105,7 +115,7 @@
       
      </el-collapse-item>
    </el-collapse>
-   </el-row>
+   </el-row> -->
 
 </div>
 </template>

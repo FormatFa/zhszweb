@@ -11,7 +11,7 @@
                      <img src="/01-3.jpg"  >
                   </el-carousel-item>
                    <el-carousel-item>
-                      <img src="/01-4.jpg" >
+                      <img src="/01-4.jpg" >w
                   </el-carousel-item>
               </el-carousel>
           </el-col>
@@ -56,11 +56,15 @@
 // import Div from '../api/jquery.js';
 // import canvas from '../api/vector.js';
 import {apiRegister} from '../api/api.js'
+import {EventBus} from '../event-bus.js'
 export default {
     // components:{
     //     canvas
     // },
     name:"bg",
+    created(){
+         EventBus.$emit('hideLogo',false);  
+    },
     // 注册用户
     methods:{
         submit(){

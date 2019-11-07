@@ -34,13 +34,26 @@
 <script>
 // import Canvas from "./api/canvas-nest.min.js";
 import Logo from "./components/Logo.vue";
+
 export default {
+  // data(){
+  //   return{
+  //     footer_show: true
+  //   }
+  // },
   name: "app",
+  data(){
+    return{
+ 
+    }
+  },
   components: {
-    Logo,
-    
-    // Canvas
+    Logo
+ 
+  },
+  methods:{
   }
+   
 };
 </script>
 

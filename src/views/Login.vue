@@ -1,6 +1,6 @@
 <template>
 
-    <div id=logo>
+    <div id=login>
     
         <!-- <el-dialog
         title="登录"
@@ -56,12 +56,21 @@ import {EventBus} from '../event-bus.js'
 
 export default {
     
-    name:"logo",
+    name:"login",
+    mounted(){
+     
+
+    },
+    beforeRouteUpdate(){
+  
+    },
     created(){
         console.log("create....")
         EventBus.$on("showLogin",()=>{
             this.isShow=true
         })
+        console.log("发送隐藏")
+      EventBus.$emit('hideLogo',false);  
     },
     data(){
         return {
@@ -110,10 +119,6 @@ export default {
                     message:"登录成功，正在跳转到页面"
                 })
                 window.setTimeout(() => {
-<<<<<<< HEAD
-                    // 跳转到数据管理界面
-=======
->>>>>>> 18da16f06013b5bfdcf64b1029620b21cde5e670
                     this.$router.push({name:"data"})
                 }, 3000);
                
@@ -183,7 +188,7 @@ export default {
 <style>
 /* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
 html,body{cursor:url('../images/mouse.png'),auto}
-#logo{
+#login{
     background: url("../images/ba8bd4e0f53dbde0eedb58c571a98202.jpg");
     background-size: 100% 100%;
     height: 100%;
