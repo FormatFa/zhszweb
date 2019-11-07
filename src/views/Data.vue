@@ -2,14 +2,7 @@
   <div>
     <el-row>
       <el-col>
-<<<<<<< HEAD
-        <el-button @click="truncateFiles">一键清空表</el-button>
-         <el-button  @click="open_visulization">>可视化页面</el-button>
-        
-
-=======
   <router-link :to="{name:'college'}"> <el-button @click="truncateFiles">跳转到可视化界面</el-button>  </router-link>       <el-button @click="truncateFiles">一键清空表</el-button>
->>>>>>> 18da16f06013b5bfdcf64b1029620b21cde5e670
       </el-col>
     </el-row>
     <!--  -->

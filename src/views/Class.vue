@@ -200,11 +200,12 @@ export default {
       console.log(row)
       console.log(column)
       console.log("进入学生:"+row+" "+column+" "+event)
-      
+      console.log(this.$route);
          this.$router.push({
         name:"student",
         params:{
-          studentid:row.name
+          studentid:row.name,
+          classid:this.$route.params['classid']
         }
       })
     },
@@ -410,7 +411,7 @@ suchindexscores
         proposal:[],
         proposal2:"",
         stateStore:store.state,
-        nowIndex:"总分",
+        nowIndex:"总分Top5",
         data:ClassData,
         peoples:["渣渣","渣渣辉"],//班级名单
         // tree1:{title:{text:'各指标雷达图'},
