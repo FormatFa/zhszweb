@@ -24,7 +24,9 @@
       <!-- 雷达图 -->
       <el-col :span="12" >
         <el-card>
-        <v-chart class="chart" ref="scuhindexscore" autoresize></v-chart>
+        <v-chart class="chart" ref="scuhindexscore" autoresize>
+           <!-- 用ref定义一个变量名字，在下面调用 -->
+        </v-chart>
         </el-card>
       </el-col>
     </el-row>
@@ -81,10 +83,13 @@ export default {
       console.log("个人界面请求数据");
       console.log(data);
       this.data = data;
+       //调用定义的变量
       this.set_suchindexscore();
       this.hideLoad();
+
       let score = 0;
-      let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']
+      let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']//用于建议卡片调用
+      //通过判断各指标的循环对比得出最低的指标分数给出建议
       let minIndex=0
       let temp=this.data.suchindexscores[2].value;
       for (let i=0;i<=temp.length-2;i+=1){
@@ -96,18 +101,17 @@ export default {
         score = this.data.studentCard1.term1_avlscore;
       else score = this.data.studentCard2.term2_avlscore;
       if (score >= 0 && score <= 15) {
-        this.proposal = "退学算了";
+        this.proposal = "你的综合素质分较低，有待加强";
       } else if (score > 15 && score <= 30) {
-        this.proposal = "勉强还过的去";
+        this.proposal = "你的综合素质分一般，应该适当加强";
       } else if (score > 30 && score <= 50) {
-        this.proposal = "还不错";
+        this.proposal = "你的综合素质分还不错，继续加油";
       } else if (score > 50 && score <= 100) {
-        this.proposal = "你咋不上天呢";
+        this.proposal = "你的综合素质分挺好的";
       }
-      // this.set_CollegeData()
-      // this.set_ClassData()
     });
     this.showLoad();
+    //请求个人数据
     EventBus.$emit("requestData", "个人");
   },
 
@@ -128,22 +132,17 @@ export default {
     },
     set_suchindexscore() {
       console.log("显示个人当前学期的雷达图");
-      // let suchnames = this.data["suchindexscore"]["suchnames"];
+      //循环对比的出指标的最大值，用于定义雷达的最大临界点
       let suchindexscores = this.data['suchindexscores']
-
-      let maxvalue = -1;
-
-      
+      let maxvalue = -1;    
       for(let i =0;i<suchindexscores.length;i+=1)
       {
         for(let j =0;j<suchindexscores[i].value.length;j+=1)
         {
-
-      
           if(suchindexscores[i].value[j]>maxvalue)
           maxvalue=suchindexscores[i].value[j]
         }
-      }//循环对比的出指标的最大值
+      }
 
       let option={
         title: { text:`${this.stateStore.termName()} 各指标雷达图` },
@@ -175,7 +174,7 @@ export default {
       }
      
       console.log(option);
-      this.$refs["scuhindexscore"].mergeOptions(option);
+      this.$refs["scuhindexscore"].mergeOptions(option);//调用数据写入雷达图
     },
 
     set_CollegeData() {
@@ -184,14 +183,14 @@ export default {
       this.data["data1"]["CollegeData"].forEach(element => {
         this.CollegeData.push(element);
       });
-    },
+    },//各指标在全院的排名
     set_ClassData() {
       let ClassData = this.data["data2"]["ClassData"];
       this.ClassData.splice(0, this.ClassData.length);
       this.data["data2"]["ClassData"].forEach(element => {
         this.ClassData.push(element);
       });
-    }
+    }//各指标在全班的排名
   },
 
   computed: {
@@ -209,66 +208,8 @@ export default {
       stateStore: store.state,
       data: StudentData,
 
-      tree1: {
-        title: { text: "各指标雷达图" },
-        tooltip: {},
-        legend: {
-          data: [
-            "思想政治",
-            "身心健康",
-            "创新创业",
-            "技术技能",
-            "志愿服务",
-            "人文艺术",
-            "综合素质理论"
-          ]
-        },
-        radar: {
-          name: {
-            textStyle: {
-              color: "#fff",
-              borderRadius: 3,
-              padding: [3, 5]
-            }
-          },
-          indicator: [
-            { name: "思想政治", max: 20 },
-            { name: "身心健康", max: 20 },
-            { name: "创新创业", max: 20 },
-            { name: "技术技能", max: 20 },
-            { name: "志愿服务", max: 20 },
-            { name: "人文艺术", max: 20 },
-            { name: "综合素质理论", max: 20 }
-          ]
-        },
-        series: [
-          {
-            name:
-              "思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论",
-            type: "radar",
-            data: [{ value: [13, 8, 9, 10, 17, 10, 0], name: "第一学期" }]
-          }
-        ]
-      }, //雷达图
-      // CollegeData:[{
-      //   Collegindex:'身心健康',
-      //   Collegscores:60,
-      //   Collegranking:122
-      // },{
-      //    Collegindex:'思想政治',
-      //   Collegscores:60,
-      //   Collegranking:122
-      // }],
-      // ClassData:[{
-      //   Classindex:'身心健康',
-      //   Classscores:60,
-      //  Classranking:122
-      // },{
-      // Classindex:'思想政治',
-      //   Classscores:60,
-      //   Classranking:122
-      // }],
-      activeNames: ["1"]
+     
+      activeNames: ["1"]//建议卡片的监听
     };
   }
 };

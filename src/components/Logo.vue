@@ -48,7 +48,6 @@ export default {
         })
         EventBus.$on("requestData",(from)=>{
             console.log(`来自:${from}的请求重新加载数据事件`)
-            // this.selectYear()
             // 先请求导航里的数据
             this.requestNav()
 
@@ -68,22 +67,10 @@ export default {
    
     console.log("创建logo组件.......")
     
-    // this.requestNav()
     this.$router.afterEach((to,from)=>{
       console.log("全局after each")
       //跳转到某个路由后，更新数据
-      //this.selectYear()
     })
-    // watch:{
-    //   this.$router(to,from){
-    //     let ThisPage=to.name;
-    //     if(ThisPage === 'College' || ThisPage === 'Class' || ThisPage === 'Student'){
-    //       this.footShow = true;
-    //     }else{
-    //       this.footShow =false;
-    //     }
-    //   }
-    // }
     this.$router.beforeEach((to, from, next) => {
         console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
      
@@ -141,7 +128,6 @@ export default {
           classid:id
         }
       })
-      //this.selectYear()
 
     },
     login(){
@@ -271,7 +257,7 @@ export default {
               this.showFailDialog("获取学生数据失败:\n"+err,this.selectYear)
                this.loading=false
               //设置成测试数据
-             
+             EventBus.$emit("studentDataLoad",StudentData)
             })
         }
     
