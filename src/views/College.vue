@@ -420,11 +420,7 @@ export default {
     studenttop50()
     {
       console.log("now index:"+this.nowIndex)
-<<<<<<< HEAD
-      if( ! this.nowIndex in  Object.keys( this.data['top']))
-=======
       if(  Object.keys( this.data['top']).indexOf( this.nowIndex)==-1 )
->>>>>>> 18da16f06013b5bfdcf64b1029620b21cde5e670
       {
         console.log("当前指标不存在:"+this.nowIndex);
         return;

@@ -51,3 +51,29 @@ POST  http://192.168.56.101:5000/nav/classes
 ### 
 #测试学院
 GET  http://192.168.56.101:5000/nav/collage
+
+
+
+###
+
+#获取文件状态
+POST http://192.168.56.101:5000/select/banji HTTP/1.1
+Content-Type: application/json
+
+{
+    "year":2018,
+    "term":"term1",
+    "classid":"17oracle1"
+}
+
+###
+#获取文件状态
+POST http://192.168.56.101:5000/select/geren HTTP/1.1
+Content-Type: application/json
+
+{
+    "year":2018,
+    "term":"term1",
+    "stu_id":"郑灿希",
+    "classid":"17移动互联1"
+}

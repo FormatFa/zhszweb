@@ -154,7 +154,7 @@ export default {
 
         console.log("请求学生2")
         console.log(this.$router.currentRoute)
-        this.requestStudent(this.$router.currentRoute.params['studentid'])
+        this.requestStudent(this.$router.currentRoute.params['studentid'],this.$router.currentRoute.params['classid'])
       }
       //什么都不是
       //选择的
@@ -205,7 +205,7 @@ export default {
     },
         requestClass(classid){
           console.log("-------------------请求班级数据------------------")
-            get("/api/class",{classid:classid,year:store.state.year,term:store.state.term}).then(res=>{
+            post("/api/select/banji",{classid:classid,year:store.state.year,term:store.state.term}).then(res=>{
             console.log("请求班级数据:..")
             console.log(res)
              this.loading=false
@@ -222,10 +222,11 @@ export default {
             
         })
     },
-        requestStudent(studentid){
+        requestStudent(studentid,classid){
           console.log("学生数据")
-          console.log(this.$router.params)
-            get("/api/student",{stu_id:studentid,year:store.state.year,term:store.state.term}).then(res=>{
+          console.log(this.$route.params)
+
+            post("/api/select/geren",{stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
               console.log(typeof res)
