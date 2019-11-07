@@ -1,0 +1,24 @@
+{
+    "message": "timeout of 1000ms exceeded",
+    "name": "Error",
+    "stack": "Error: timeout of 1000ms exceeded\n    at createError (webpack-internal:///./node_modules/axios/lib/core/createError.js:16:15)\n    at XMLHttpRequest.handleTimeout (webpack-internal:///./node_modules/axios/lib/adapters/xhr.js:89:14)",
+    "config": {
+        "url": "/api/nav/classes",
+        "method": "post",
+        "headers": {
+            "Accept": "application/json, text/plain, */*"
+        },
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 1000,
+        "withCredentials": true,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1
+    },
+    "code": "ECONNABORTED"
+}

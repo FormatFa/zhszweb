@@ -7,7 +7,8 @@
       
       <el-row v-if="showSelect" type="flex" justify="end" :span="10" >
           <!-- <el-button @click="login()">登录</el-button> -->
-
+          <!-- 重新请求导航数据 -->
+          <el-button @click="requestNav" v-if="years.length==0">请求导航数据</el-button>
           <!-- 年度选择 -->
           <el-select v-model="year" v-on:change="selectYear">
             <el-option v-for="item in years" :key="item" :label="item + '年度'" :value="item"></el-option>
@@ -54,9 +55,30 @@ export default {
   created(){
     console.log("创建logo组件.......")
     this.loading=true
-    window.setTimeout(()=>{
+    this.requestNav()
+    this.$router.afterEach((to,from)=>{
+      console.log("全局after each")
+      //跳转到某个路由后，更新数据
+      //this.selectYear()
+    })
+    this.$router.beforeEach((to, from, next) => {
+        console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
+        this.showSelect= this.isShowSelect(to.name);
+        next();
+    })
 
-      // 学年数据,包括所有年份,这个年度的所有班级，
+  },
+  computed:{
+ 
+  },
+  beforeRouteEnter(to,from,next){
+    console.log("beforeRouteEnter....")
+    console.log(to)
+  },
+  methods:{
+    // 请求导航数据
+    requestNav(){
+        // 学年数据,包括所有年份,这个年度的所有班级，
       apiLogoNav().then(res=>{
         //请求成功有，设置图表
         console.log("请求logo导航数据成功!!")
@@ -72,62 +94,9 @@ export default {
     })
     .catch(err=>{
       this.loading=false
-      
-      this.$message.error("请求年度数据失败。")
-        console.log("请求学年失败..")
-       
-        let data={
-    years:[
-    '2018',
-    '2019'],
-    //所有班级
-    classes:[{
-          label:"17", value:"17", children:[
-            {label:"大数据",value:"bigdata",children:[
-              {
-                label:"1班",value:1
-              }
-            ]},
-            {label:"云计算",value:"clound"}
-          ]
-      },
-      {
-         label:"18",value:"18",children:[{label:"大数据",value:"bigdata"},
-            {label:"云计算",value:"clound"}]
-      }
-      ]
-        }
-        //页面第一次请求
-        // for(let i =0;i<data.years.length;i+=1){this.years.push(data.years[i])}
-        // this.classes=data.classes
-        //this.selectYear()
+      this.showFailDialog("加载年度和班级列表数据失败!!",this.requestNav)
     })
-
-
-
-    },0)
-    
-
-this.$router.afterEach((to,from)=>{
-  console.log("全局after each")
-  //跳转到某个路由后，更新数据
-  //this.selectYear()
-})
-this.$router.beforeEach((to, from, next) => {
-    console.log("Logo.vue beforeEach....."+this.$router.currentRoute.name)
-    this.showSelect= this.isShowSelect(to.name);
-    next();
-})
-
-  },
-  computed:{
- 
-  },
-  beforeRouteEnter(to,from,next){
-    console.log("beforeRouteEnter....")
-    console.log(to)
-  },
-  methods:{
+    },
       isShowSelect(name){
         console.log("isShowSelect 当前路由和名字")
         console.log(name)
@@ -196,6 +165,23 @@ this.$router.beforeEach((to, from, next) => {
       
 
     },
+    // 显示加载失败对话框,各个界面的统一使用,retryCallback为点击重试按钮后重新执行的函数
+    showFailDialog(message,retryCallback){
+      this.$confirm(message,"加载数据失败",{
+        confirmButtonText:"重试",cancelButtonText:"显示测试数据",callback:action=>
+      {
+        
+        console.log("开始重试...")
+        console.log(action)
+        // 如果点击了重试按钮
+        if(action=="confirm"){
+          if(retryCallback!=undefined)
+          retryCallback()
+        }
+      },
+      
+      })
+    },
     requestCollege(){
             post("/api/nav/collage",{
             year:store.state.year,term:store.state.term
@@ -207,12 +193,13 @@ this.$router.beforeEach((to, from, next) => {
             EventBus.$emit("collegeDataLoad",college)
 
         }).catch(err=>{
-            console.log("请求数据失败>>>")
-          
+            console.warn("请求学院界面数据失败,发送测试数据...>>>")
+            console.log(err)
+
+            this.showFailDialog("获取学院数据失败:\n"+err,this.selectYear)
             //设置成测试数据
             //发送事件
             this.loading=false
-            console.log("发送学院数据...")
             EventBus.$emit("collegeDataLoad",college)
         })
     },
@@ -231,9 +218,7 @@ this.$router.beforeEach((to, from, next) => {
             //发送事件
             this.loading=false
            EventBus.$emit("classDataLoad",ClassData)
-            this.$alert(err,"服务器响应失败，显示测试数据",{
-            confirmButtonText:"确定"
-          })
+           this.showFailDialog("获取班级数据失败:\n"+err,this.selectYear)
             
         })
     },
@@ -256,6 +241,7 @@ this.$router.beforeEach((to, from, next) => {
           })
               console.log("请求数据失败>>>----------")
               console.log(err)
+              this.showFailDialog("获取学生数据失败:\n"+err,this.selectYear)
                this.loading=false
               //设置成测试数据
              

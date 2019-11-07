@@ -14,7 +14,7 @@ import { Message } from 'element-ui';
 //axios.defaults.baseURL="http://127.0.0.1:5000/"
 //axios.defaults.baseURL="/"
 axios.defaults.withCredentials=true
-axios.defaults.timeout = 1000;
+// axios.defaults.timeout = 1000;
 //默认是表单格式，现在改成json
 axios.defaults.headers.post['Content-Type'] = 'Content-Type：application/json;charset=UTF-8';
 
@@ -36,11 +36,9 @@ axios.interceptors.response.use(response=>{
 },err=>{
 
     console.log("拦截失败")
-    console.log(err)
     if(err['response']===undefined)
     {
-    
-        return  Promise.reject(err)
+        return  Promise.reject(err.message)
     }
     console.log(err.response)
     switch(err.response.status)
@@ -55,15 +53,15 @@ axios.interceptors.response.use(response=>{
             router.replace({name:"login"})
             break
         case 403:
-                Message({
-                    type:"error",
-                    message:"403"
-                })
+                // Message({
+                //     type:"error",
+                //     message:"403"
+                // })
             break
     }
     // console.log("请求拦截:错误界面")
     // console.log(err)
-    //请求错误
+    //请求错误 ,这里是把整个err对象返回，要获取返回的信息,err.response
     return Promise.reject(err)
 
 })
@@ -88,7 +86,7 @@ export function post(url,params)
     console.log(params)
     return new Promise( (resolve,reject)=>{
         axios.post(url,params).then(res=>{resolve(res.data)}).catch(err=>{
-            reject(err.response)
+            reject(err)
         })
     } )
 }

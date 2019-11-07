@@ -82,7 +82,7 @@ export default {
 
             }).catch(err=>{
                 console.log(err)
-                let data = err.data
+                let data = err.response.data
                 console.log("注册失败:")
                 console.log(data)
                 this.$message({
@@ -92,7 +92,7 @@ export default {
                 if(data.message.username !== undefined)
                {
                      let temp = data.message.username.join(",");
-                    if(temp.indexOf('already exists!'))
+                    if(temp.indexOf('already exists!')!=-1)
                     this.errors.username="用户名已存在"
                }
                  if(data.message.password !== undefined)

@@ -2,10 +2,14 @@
   <div>
     <el-row>
       <el-col>
+<<<<<<< HEAD
         <el-button @click="truncateFiles">一键清空表</el-button>
          <el-button  @click="open_visulization">>可视化页面</el-button>
         
 
+=======
+  <router-link :to="{name:'college'}"> <el-button @click="truncateFiles">跳转到可视化界面</el-button>  </router-link>       <el-button @click="truncateFiles">一键清空表</el-button>
+>>>>>>> 18da16f06013b5bfdcf64b1029620b21cde5e670
       </el-col>
     </el-row>
     <!--  -->
@@ -332,7 +336,9 @@ username: "jojo"
       };
       apiDelete(postparam)
         .then(res => {
-          this.$message({ type: "success", message: "清空数据成功" });
+          console.log("ffff")
+          console.log(res)
+          this.$message({ type: "success", message: "清空数据成功:"+rs.msg });
           // 删除成功刷新数据
           this.switchYear(this.year.getFullYear());
         })
@@ -372,6 +378,9 @@ username: "jojo"
           this.switchYear(this.year.getFullYear());
         })
         .catch(err => {
+            this.$alert( "捕捉到异常:"+err,"解析错误", {
+              confirmButtonText: "确定"
+            });
           Loading.service({ fullscreen: true }).close();
         });
     },
