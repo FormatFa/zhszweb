@@ -11,6 +11,7 @@
           <div>{{data.classjbCard.classname}}</div>
           <div>人数:{{data.classjbCard.students}}</div>
       </el-card>
+      <!-- 根据在院里排名的建议卡片 -->
       <el-card>
         <el-collapse v-model="activeNames" @ change="handleChange">
      <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
@@ -26,27 +27,16 @@
       <el-col :span="11" >
         <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
+        <!-- 用ref定义一个变量名字，在下面调用 -->
         </el-card>
       </el-col>
    
-    <!-- 班级名单的下拉框 -->
+    <!-- 班级名单的表格框 -->
     
       <el-col :span="9" >
-        <!-- <el-dropdown @command="intoStudent"  style="margin-left: 300px;"> -->
-        <!-- <el-card>
-              <span class="el-dropdown-link">
-          班级同学名单
-          <i class="el0icon-arrow-down el-icon--right"></i>
-        </span>
-        </el-card>
-        <el-dropdown-menu slot="dropdown">
-         <el-dropdown-item  :command="people" :key="people" v-for="people in peoples">
-            {{people}}
-         </el-dropdown-item>
-        </el-dropdown-menu>
-        </el-dropdown> -->
         <el-card >
         <el-table  @row-click="intoStudent" :data="peoples" height="400" style="width: 100%">
+          <!-- 用 @row-click监听点击班级名单所发生的跳转事件,定义peoples变量名用于循环列出班级名单 -->
           
           <el-table-column prop="name" label="班级同学名单"></el-table-column>
           
@@ -81,7 +71,7 @@
      <el-col :span="11" >
          <el-card>
        <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 300px;" size="small"> 
-    
+<!-- v-on:change用于改变下拉框指标 v-model用于在更改指标同时改变柱状图的数据 -->
        <el-option
        v-for="item in options"
        :key="item.value"
@@ -91,32 +81,20 @@
        
        <!-- top5柱状图 -->
         <v-chart class="chart" ref="topstudent" autoresize ></v-chart>
-        
+        <!-- 用ref定义一个变量名字，在下面调用 -->
   </el-card>
        </el-col>
    
        <!-- 总分区间漏斗图 -->
       <el-col :span="9" >
         <el-card body-style="padding:36px" >
-        <v-chart class="chart" ref="totalscores"   :options="tree3" autoresize ></v-chart>
+        <v-chart class="chart" ref="totalscores"   autoresize >
+          <!-- 用ref定义一个变量名字，在下面调用 -->
+        </v-chart>
         </el-card>
       </el-col>
      
    </el-row>
-
-
-   <!-- 第三行 -->
-   <!-- 建议 -->
-   <!-- <el-row>
-    <el-collapse v-model="activeNames" @ change="handleChange">
-     <el-collapse-item title="根据在院里的排名，而给你的建议" name="1">
-       <div>{{proposal}}</div>
-       <div>{{proposal2}}</div>
-      
-     </el-collapse-item>
-   </el-collapse>
-   </el-row> -->
-
 </div>
 </template>
 
@@ -136,7 +114,7 @@ export default {
     EventBus.$emit("requestData","班级")
   },
   mounted(){
-     let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']
+     let indexs=['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']//用于建议卡片调用
       console.log("Class mounted")  
         EventBus.$on("classDataLoad",data=>{
           //关闭图表加载
@@ -144,11 +122,13 @@ export default {
       console.log("班级界面请求到数据...")
       console.log(data)
       this.data=data
+      //调用定义的变量
       this.set_topstudent()
       this.set_suchindexscore()
       this.set_studentnames()
       this.set_topstudent()
       this.set_totalscores()
+      //通过判断各指标的循环对比得出最低的指标分数给出建议
       let minIndex=0
       let temp=this.data.suchindexscores[1].value;
       console.log("判断索引...")
@@ -157,7 +137,7 @@ export default {
       {
           if(temp[i]<temp[minIndex])minIndex=i
       }
-//temp[]
+
       this.proposal2="班级"+indexs[minIndex]+"指标较低,有待加强"
 
       let score=0
@@ -169,18 +149,18 @@ export default {
       console.log(store.state.term+"score:"+score)
       console.log(this.data.classCard1.term1_score)
       if (score>=0&&score<=15){
-        this.proposal="凉了"
+        this.proposal="分数较低需要加强"
       }
       else if (score>15&&score<=30){
-        this.proposal="勉强狗活"
+        this.proposal="分数一般继续努力"
       }
       else if (score>30&&score<=50){
-        this.proposal="可以没毛病"
+        this.proposal="分数不错，期待你们班的更好表现"
       }
 
     })
     this.showLoad()
-    //请求数据
+    //请求班级数据
     EventBus.$emit("requestData","班级")
   
   },
@@ -195,7 +175,7 @@ export default {
         this.$refs[key].hideLoading()
       })
     },
-
+    //请求学生界面的路由，进入学生个人界面
     intoStudent(row, column, event){
       console.log(row)
       console.log(column)
@@ -209,6 +189,7 @@ export default {
         }
       })
     },
+    //用于柱状图改变指标
     zhibiaochange(value){
       console.log("改变指标")
       console.log(value)
@@ -223,7 +204,7 @@ export default {
     set_suchindexscore()
     {
     console.log("显示雷达图，当前学期")
-    // let suchnames=this.data['suchindexscore']['suchnames']
+    //循环对比的出指标的最大值，用于定义雷达的最大临界点
     let suchindexscores=this.data['suchindexscores']
     let maxvalue = -1;
 
@@ -237,7 +218,7 @@ export default {
           if(suchindexscores[i].value[j]>maxvalue)
           maxvalue=suchindexscores[i].value[j]
         }
-      }//循环对比的出指标的最大值
+      }
 
    
     let option={
@@ -271,11 +252,12 @@ suchindexscores
 
     }
    
-    this.$refs['suchindexscore'].mergeOptions(option)
+    this.$refs['suchindexscore'].mergeOptions(option)//调用数据写入雷达图
     
 
     }, 
     //班级名单
+    //使用for循环，循环写入班级名单
     set_studentnames(){
       let student=this.data['students']['student']
       this.peoples.splice(0,this.peoples.length); 
@@ -334,7 +316,7 @@ suchindexscores
        }]
      }
 
-     this.$refs['topstudent'].mergeOptions(option)
+     this.$refs['topstudent'].mergeOptions(option)//调用数据写入柱状图
     },
     //总分区间漏斗图
     set_totalscores()
@@ -402,7 +384,7 @@ suchindexscores
       console.log(option)
       //this.$refs['totalscores'].setOption (option)
   
-      this.$refs['totalscores'].mergeOptions(option,false)
+      this.$refs['totalscores'].mergeOptions(option,false)//调用数据写入漏斗图
     }
   },
 
@@ -414,29 +396,8 @@ suchindexscores
         nowIndex:"总分Top5",
         data:ClassData,
         peoples:["渣渣","渣渣辉"],//班级名单
-        // tree1:{title:{text:'各指标雷达图'},
-        // tooltip:{},
-        // legend:{data:['思想政治','身心健康','创新创业','技术技能','志愿服务','人文艺术','综合素质理论']},
-        // radar:{name:{
-        //   textStyle:{
-        //     color:'#fff',backgroundColor:'#999',borderRadius:3,padding:[3,5]}},
-        //     indicator:[{name:'思想政治',max:20},
-        //     {name:'身心健康',max:20},
-        //     {name:'创新创业',max:20},
-        //     {name:'技术技能',max:20},
-        //     {name:'志愿服务',max:20},
-        //     {name:'人文艺术',max:20},
-        //     {name:'综合素质理论',max:20}
-        //     ]
-        //     },
-        //     series:[{
-        //       name:'思想政治vs身心健康vs创新创业vs技术技能vs志愿服务vs人文艺术vs综合素质理论',
-        //     type:'radar',
-        //     data:[
-        //       {value:[13,8,9,10,17,10,0],name:'第一学期'
-        //       }
-        //       ]
-        //       }]},//雷达图
+       
+      //柱状图改变指标的下拉框
       options:[{value:'思想政治',label:'思想政治Top5'},
                {value:'身心健康',label:'身心健康Top5'},
                {value:'创新创业',label:'创新创业Top5'},
@@ -445,96 +406,9 @@ suchindexscores
                {value:'人文艺术',label:'人文艺术Top5'},
                {value:'综合素质理论',label:'综合素质理论Top5'},
                {value:'总分',label:'总分Top5'}],
-               value:'',//下拉框
-    //  tree2:{
-    //    color:['#00E5EE'],
-    //    tooltip:{trigger:'axis',
-    //    axisPointer: {
-    //      type: 'shadow'
-    //    }
-    //    },
-    //    grid:{
-    //      left:'3%',
-    //      right:'4%',
-    //      bottom:'3%',
-    //      containLabel:true
-    //    },
-    //    xAxis:[{
-    //      type:'category',
-    //      data:['渣渣1','渣渣2','渣渣3','渣渣4','渣渣5'],
-    //      axisTick:{
-    //        alignWithLabel:true
-    //      }
-    //    }],
-    //    yAxis:[{
-    //      type:'value'
-    //    }],
-    //    series:[{
-    //      name:'分数是',
-    //      type:'bar',
-    //      barWidth:'60',
-    //      data:[5,6,7,9,15]
-    //    }]
-    //  },//柱状图
-     tree3:{title:{text:'总分区间漏斗图'},
-     tooltip:{trigger:'item',
-     fromatter: "{a} <br/>{b} : {c}%"},
-     toolbox:{
-       feature:{dataView:{readOnly: false},
-       restore: {},
-       saveAsImage:{}
-       }
-     },
-     
-     legend:{
-       data:['0-10','11-20','21-30','31-40','41-50']
-     },
-     calculable: true,
-     series:[
-       {
-         name: '总分区间图',
-         type:'funnel',
-         left:'10%',
-         top:60,
-         bottom:60,
-         width:'80%',
-         min:0,
-         max:50,
-         minSize:'0%',
-         maxSize:'100%',
-         sort:'descending',
-         gap:2,
-         label:{
-           show:true,
-           position:'inside'
-         },
-         labelLine:{
-           length:10,
-           lineStyle:{
-             width:1,
-             type:'solid'
-           }
-         },
-         itemStyle:{
-           borderColor:'#fff',
-           borderWidth:1
-         },
-         emphasis:{
-           label:{
-             fontSize:20
-           }
-         },
-         data:[
-           {value:20,name:'0-10'},
-           {value:9,name:'11-20'},
-           {value:8,name:'21-30'},
-           {value:7,name:'31-40'},
-           {value:4,name:'41-50'}
-         ]
-       }
-     ]
-     },//漏斗图
-    activeNames:[1]
+               value:'',
+   
+    activeNames:[1]//建议卡片的监听
     }
   }
 

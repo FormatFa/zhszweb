@@ -40,37 +40,27 @@ import { ClassData } from "../api/testclassdata.js";
 import { StudentData } from "../api/teststudent";
 import { arrayFill } from "../utils/tools.js";
 export default {
-  name: "app-logo",
-  mounted() {
-    //  接受需要隐藏或者需要显示logo的页面发来的时间
-    EventBus.$on("hideLogo", show => {
-      console.log("接受是否loggo:" + show);
-      this.showSelect = show;
-    });
-    // 接受到学院，班级，个人发来的请求数据事件
-    EventBus.$on("requestData", from => {
-      console.log(`来自:${from}的请求重新加载数据事件`);
-      // this.selectYear()
-      // 先请求导航里的数据
-      this.requestNav();
-    });
-    console.log("mount挂载Logo.vue");
-  },
-
-  beforeRouteUpdate(to, from, next) {
-    console.log("路由更新..");
-  },
+ name:'app-logo',
+ mounted(){
+      EventBus.$on("hideLogo",(show)=>{
+            console.log("接受是否loggo:"+show)
+            this.showSelect=show;
+        })
+        EventBus.$on("requestData",(from)=>{
+            console.log(`来自:${from}的请求重新加载数据事件`)
+            // 先请求导航里的数据
+            this.requestNav()
+        })
+ },
   //请求年度数据，顺便验证登录
-  created() {
-    console.log("创建logo组件.......");
-
-    // this.requestNav()
-    this.$router.afterEach((to, from) => {
-      console.log("全局after each");
+  created(){
+   
+    console.log("创建logo组件.......")
+    
+    this.$router.afterEach((to,from)=>{
+      console.log("全局after each")
       //跳转到某个路由后，更新数据
-      //this.selectYear()
-    });
-    // 进入某个路由时拦截
+    })
     this.$router.beforeEach((to, from, next) => {
       console.log("Logo.vue beforeEach....." + this.$router.currentRoute.name);
 
@@ -128,8 +118,16 @@ export default {
         params: {
           classid: id
         }
+<<<<<<< HEAD
       });
       //this.selectYear()
+=======
+      })
+
+    },
+    login(){
+  EventBus.$emit("showLogin",college)
+>>>>>>> dfd65ea7ccc33970cc50f89a1d58cb56c5c31908
     },
     //请求数据
     //选择年度 或者 学期事件 ,具体请求哪个数据，根据当前的路由决定
@@ -231,6 +229,7 @@ export default {
       console.log("请求学生数据....");
       console.log(this.$route.params);
 
+<<<<<<< HEAD
       post("/api/select/geren", {
         stu_id: studentid,
         year: store.state.year,
@@ -258,6 +257,31 @@ export default {
           //设置成测试数据
         });
     }
+=======
+            post("/api/select/geren",{stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
+              console.log("请求个人的数据:..")
+              console.log(res)
+              console.log(typeof res)
+              
+              
+               this.loading=false
+               //StudentData
+               Object.assign(StudentData,res)
+              EventBus.$emit("studentDataLoad",StudentData)
+            }).catch(err=>{
+            this.$alert(err,"服务器响应失败",{
+            confirmButtonText:"确定"
+          })
+              console.log("请求数据失败>>>----------")
+              console.log(err)
+              this.showFailDialog("获取学生数据失败:\n"+err,this.selectYear)
+               this.loading=false
+              //设置成测试数据
+             EventBus.$emit("studentDataLoad",StudentData)
+            })
+        }
+    
+>>>>>>> dfd65ea7ccc33970cc50f89a1d58cb56c5c31908
   },
   data() {
     return {

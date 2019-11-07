@@ -1,25 +1,5 @@
 <template>
   <div id=bg>
-
-      <el-row >
-          <!-- <el-col :span="9" :xs="0" style="margin-top: 10">
-              <el-carousel height="1000px">
-                  <el-carousel-item>
-                      <img src="/01-1.jpg"  >
-                  </el-carousel-item>
-                    <el-carousel-item>
-                     <img src="/01-3.jpg"  >
-                  </el-carousel-item>
-                   <el-carousel-item>
-                      <img src="/01-4.jpg" >w
-                  </el-carousel-item>
-              </el-carousel>
-          </el-col>
-
-          <el-col :span="15" :xs="24"> -->
-
-
-            
             <el-row type="flex" justify="center" style="margin-right:100px; margin-top: 110px">
                 <el-col :span="5" :xs="20">
                             <div style="font-size:44px;margin-bottom: 20px;">欢迎注册</div>
@@ -44,26 +24,19 @@
                   
                 </el-col>
             </el-row>
-           
-
-          </el-col>
-      </el-row>
 
   </div>
 </template>
 
 <script>
-// import Div from '../api/jquery.js';
-// import canvas from '../api/vector.js';
+
 import {apiRegister} from '../api/api.js'
 import {EventBus} from '../event-bus.js'
 export default {
-    // components:{
-    //     canvas
-    // },
+   
     name:"bg",
     created(){
-         EventBus.$emit('hideLogo',false);  
+         EventBus.$emit('hideLogo',false); //隐藏logo的选择框
     },
     // 注册用户
     methods:{
@@ -130,6 +103,7 @@ export default {
 </script>
 
 <style>
+/* 设置背景图案 */
 * #bg{
     background: url("../images/44ce51cbfee3ac0249cd771f2ad9a7c2.jpg");
     background-size:cover;

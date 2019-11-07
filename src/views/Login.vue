@@ -1,26 +1,7 @@
 <template>
 
     <div id=login>
-    
-        <!-- <el-dialog
-        title="登录"
-        :visible.sync="isShow"
-        > -->
         <el-row type="flex" justify="center">
-            <!-- <el-col :span="15">
-                
-    <el-carousel height="600px" >
-        <el-carousel-item>
-            <img src="/img (1).jpg" width="100%" height="100%">
-        </el-carousel-item>
-            <el-carousel-item>
-            <img src="/img (2).jpg" width="100%" height="100%">
-        </el-carousel-item>
-        <el-carousel-item>
-            <img src="/img (3).jpg" width="100%" height="100%">
-        </el-carousel-item>
-    </el-carousel>
-            </el-col> -->
             <el-col  :offset="8" :span="5" :xs="20" style="margin-right: 700px;margin-top: 200px" >
             <el-form :model="login" :rules="rules" ref="loginForm" size="medium">
                 <el-form-item :error="errors.username" label="用户名" prop="username" >
@@ -38,11 +19,6 @@
        
         </el-col>
         </el-row>
-            
-        <!-- </el-dialog> -->
-
-
-    
     </div>
     
 </template>
@@ -71,7 +47,7 @@ export default {
         })
         console.log("发送隐藏")
       EventBus.$emit('hideLogo',false);  
-    },
+    },//用于隐藏logo的选择框
     data(){
         return {
             //设置错误的显示信息，不定义也可以显示，但登录失败返回的信息要手动设置，所有要指定才能设置
@@ -186,8 +162,9 @@ export default {
 </script>
 
 <style>
-/* html,body{cursor: url(foo.cur), url(http://www.example.com/bar.gif), auto;} */
+/* 鼠标图标的改变 */
 html,body{cursor:url('../images/mouse.png'),auto}
+/* 定义背景图案 */
 #login{
     background: url("../images/ba8bd4e0f53dbde0eedb58c571a98202.jpg");
     background-size: 100% 100%;
