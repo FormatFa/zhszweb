@@ -4,7 +4,7 @@
     <el-row :gutter="40">
     <!-- 卡片 -->
     <!-- 基本情况 -->
-      <el-col :span="4" :xs="20"><el-card >
+      <el-col :span="4" :xs="24"><el-card >
         <div slot="header" class="clearfix">
             <span>基本情况</span>
           </div>
@@ -24,7 +24,7 @@
       </el-col>
    <!-- 各个指标测评分的均分 雷达图 -->
    
-      <el-col :span="11" >
+      <el-col :span="11"  :xs="24">
         <el-card>
         <v-chart class="chart" ref="suchindexscore"  autoresize></v-chart>
         <!-- 用ref定义一个变量名字，在下面调用 -->
@@ -33,7 +33,7 @@
    
     <!-- 班级名单的表格框 -->
     
-      <el-col :span="9" >
+      <el-col :span="9" :xs="24" >
         <el-card >
         <el-table  @row-click="intoStudent" :data="peoples" height="400" style="width: 100%">
           <!-- 用 @row-click监听点击班级名单所发生的跳转事件,定义peoples变量名用于循环列出班级名单 -->
@@ -68,7 +68,7 @@
      <!-- 下拉框 -->
      <!-- 各指标或总分的top 柱状图 -->
      
-     <el-col :span="11" >
+     <el-col :span="11" :xs="24" >
          <el-card>
        <el-select v-on:change="zhibiaochange" v-model="nowIndex"  clearable placeholder="请选择" style="margin-left: 300px;" size="small"> 
 <!-- v-on:change用于改变下拉框指标 v-model用于在更改指标同时改变柱状图的数据 -->
@@ -86,7 +86,7 @@
        </el-col>
    
        <!-- 总分区间漏斗图 -->
-      <el-col :span="9" >
+      <el-col :span="9" :xs="24">
         <el-card body-style="padding:36px" >
         <v-chart class="chart" ref="totalscores"   autoresize >
           <!-- 用ref定义一个变量名字，在下面调用 -->

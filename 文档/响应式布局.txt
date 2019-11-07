@@ -1,0 +1,5 @@
+xs  用于超小型设备 (max-width：768px);
+sm  一般用于小屏设备(min-width：768px);
+md  一般用于中屏设备 (min-width：992px);
+lg  一般用于中屏设备(min-width：992px);
+xl  超大桌面显示器 - 屏幕宽度等于或大于 1200px)

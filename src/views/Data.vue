@@ -66,7 +66,7 @@
             <span>已经上传的数据</span>
             <div style="float:right">
               <div style="display:inline;padding-right:20px;" >用户名:{{storeState.login.username}}</div>
-              <el-button type="success" @click="qiandao">每日签到领金币</el-button>
+              <el-button type="success" @click="qianqiandao">每日签到领金币</el-button>
               <el-button type="danger" @click="logout">退出登录</el-button>
                </div>
             <!-- <el-dropdown style="float:right;">
@@ -192,27 +192,12 @@ export default {
 
   // 组件created时请求2019的数据
   created() {
-           console.log("组件创建...");
-           console.log(apiUserInfo)
+           console.log("组件创建...")
     // 请求用户信息
     apiUserInfo().then(res=>{
       console.log("获取用户登录信息...")
       console.log(res)
-      /*
-      {…}
-​
-status: "success"
-​
-user: {…}
-​​
-id: 1
-​​
-username: "jojo"
-​​
-<prototype>: Object { … }
-​
-<prototype>: Object { … }
-      */
+ 
     //  设置用户信息
 
     store.setUserName(res.user.username);
@@ -240,11 +225,7 @@ username: "jojo"
     }
   },
   methods: {
-    open_visulization(){
-      this.$router.push({
-        name:"college"
-      })
-    },
+
     qiandao(){
       this.$message({
         message:"签到成功,金币+10",
@@ -485,7 +466,7 @@ username: "jojo"
           });
         })
         .catch(err => {
-          this.$alert(err, "请求文件列表失败", {
+          this.$alert(err, "请求已上传的文件列表失败", {
             confirmButtonText: "ok"
           });
           console.log("请求文件列表失败");
@@ -509,7 +490,7 @@ username: "jojo"
 
 
 <style >
-/* 没上传文件 */
+/* 没上传文件的表格颜色 */
 .el-table .file-no-upload {
   background: oldlace;
 }

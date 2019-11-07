@@ -10,9 +10,3 @@ export function arrayFill(a1,a2)
     }
 
 }
-// 通用错误对话框
-export function error(message)
-{
-
-}
-// export default tools

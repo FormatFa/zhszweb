@@ -2,14 +2,14 @@
 
     <div id=login>
         <el-row type="flex" justify="center">
-            <el-col  :offset="8" :span="5" :xs="20" style="margin-right: 700px;margin-top: 200px" >
+            <el-col   :span="5" :xs="20" style="margin-top: 200px" >
             <el-form :model="login" :rules="rules" ref="loginForm" size="medium">
                 <el-form-item :error="errors.username" label="用户名" prop="username" >
                     <el-input v-model="login.username" ></el-input>
                 </el-form-item>
 
                 <el-form-item :error="errors.password" label="密码" prop="password">
-                    <el-input v-model="login.password"></el-input>
+                    <el-input v-model="login.password"  show-password></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button  v-on:click="submitLogin" size="medium">立即登录</el-button>
@@ -170,6 +170,8 @@ html,body{cursor:url('../images/mouse.png'),auto}
     background-size: 100% 100%;
     height: 100%;
     position: fixed;
+    left: 0;
+    top: 0;
     width: 100%
 }
 </style>

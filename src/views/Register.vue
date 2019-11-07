@@ -12,7 +12,10 @@
                     <el-input placeholder="用户名" v-model="reg.username"> </el-input>
                     </el-form-item>
                     <el-form-item :error="errors.password" label="密码" prop="password">
-                    <el-input placeholder="密码" v-model="reg.password"> </el-input>
+                    <el-input placeholder="密码" v-model="reg.password" show-password> </el-input>
+                </el-form-item>
+                <el-form-item :error="errors.password2" label="确认密码" prop="password2">
+                    <el-input placeholder="密码" v-model="reg.password2" show-password> </el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button  type="primary" @click="submit()" size="medium">立即注册</el-button>
@@ -40,7 +43,12 @@ export default {
     },
     // 注册用户
     methods:{
+        
         submit(){
+            if(this.reg.password!=this.reg.password2){
+                this.errors.password2="两次密码不一样";
+                return;
+            }
             apiRegister( {
                 username:this.reg.username,
                 password:this.reg.password
@@ -89,12 +97,14 @@ export default {
             //表单的错误信息
             errors:{
                     username:"jojo",
-                password:"jojo"
+                password:"jojo",
+                password2:"",
             },
 
             reg:{
                 username:"jojo",
-                password:"jojojojo"
+                password:"jojojojo",
+                password2:"jojojojo",
             }
         }
     }
@@ -109,6 +119,8 @@ export default {
     background-size:cover;
     height: 100%;
     position: fixed;
+    left: 0;
+    top:0;
     width: 100%
 }
 </style>

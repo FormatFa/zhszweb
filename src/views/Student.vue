@@ -22,7 +22,7 @@
         </el-card>
       </el-col>
       <!-- 雷达图 -->
-      <el-col :span="12" >
+      <el-col :span="12" :xs="24">
         <el-card>
         <v-chart class="chart" ref="scuhindexscore" autoresize>
            <!-- 用ref定义一个变量名字，在下面调用 -->
@@ -34,7 +34,7 @@
     <!-- 第二行 -->
     <el-row :gutter="40" style="margin-top: 25px;">
       <!-- 各个指标在全院的排名 -->
-      <el-col :span="12">
+      <el-col :span="12" :xs="24">
         <el-card >
         <div style="font-size:20px">各个指标在全院的排名</div>
         <el-table :data="CollegeData"  fit  align="center">
@@ -45,7 +45,7 @@
         </el-card>
       </el-col>
       <!-- 各个指标在全班的排名 -->
-      <el-col :span="12">
+      <el-col :span="12" :xs="24">
         <el-card >
          <div style="font-size:20px">各个指标在全班的排名</div>
         <el-table :data="ClassData"  fit align="center">

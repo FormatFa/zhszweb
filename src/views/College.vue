@@ -4,29 +4,22 @@
     <!-- 第一行 -->
     <el-row :gutter="40" >
       <!-- 卡片 -->
-      <el-col :span="5" :xs="20" >
-        <!-- <el-card height=400>
-          <div slot="header" class="clearfix">
-            <span>基本情况</span>
-          </div>
-          <div>{{this.stateStore.year}}年度总平均分:{{data.basicCard.year_score}}</div>
-          <div>{{this.stateStore.year}}年度第一学期平均分:{{data.basicCard.term1_score}}</div>
-          <div>{{this.stateStore.year}}年度第二学期平均分:{{data.basicCard.term2_score}}</div>
-        </el-card> -->
+      <el-col :span="5" :xs="24" >
+          <!-- cardtext设置 文字的样式-->
             <el-card body-style="padding:26px">
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span>{{this.stateStore.year}}年度总平均分</span>
           </div>
           <div class="cardtext">{{data.basicCard.year_score}}</div>
         </el-card >
         <el-card body-style="padding:26px">
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span>{{this.stateStore.year}}年度第一学期平均分</span>
           </div>
           <div class="cardtext">{{data.basicCard.term1_score}}</div>
         </el-card>
           <el-card body-style="padding:26px">
-          <div slot="header" class="clearfix">
+          <div slot="header">
             <span>{{this.stateStore.year}}年度第二学期平均分</span>
           </div>
           <div class="cardtext">{{data.basicCard.term2_score}}</div>
@@ -45,16 +38,16 @@
       </el-col>
         <!-- 饼图 -->
         
-      <el-col :span="8"  >
+      <el-col :span="8" :xs="24">
         <el-card>
+          <!-- tooltip 设置鼠标在元素上时显示帮助信息 -->
            <el-tooltip class="item" effect="dark" content="点击饼图块切换不同指标的数据" placement="bottom">
       <v-chart  class="chart" autoresize  ref="index" v-on:pieselectchanged="indexChange"></v-chart>
     </el-tooltip>
-        
         </el-card>
       </el-col>
       <!-- 1.2 top5柱状图  -->
-      <el-col :span="11" :xs="20" >
+      <el-col :span="11" :xs="24" >
          <el-card>
         <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize ></v-chart>
          </el-card>
@@ -65,7 +58,7 @@
     <!-- 第二行 -->
     <el-row :gutter="40" style="margin-top: 25px;">  
       <!-- top 50表格  -->
-      <el-col :span="5">
+      <el-col :span="5" :xs="24">
          <el-card>
         <div style="text-align:center;font-weight:bold">{{this.stateStore.year}} 年度 {{this.stateStore.termName()}} {{this.nowIndex}} TOP50 学生</div>
         <el-table :data="studenttop50" height="400">
@@ -77,13 +70,13 @@
       </el-col>
       
       <!-- 分数分布柱状图 -->
-      <el-col  :span="8">
+      <el-col  :span="8" :xs="24">
          <el-card body-style="padding:30px">
         <v-chart class="chart" ref="range" autoresize ></v-chart>
          </el-card>
       </el-col>
 <!-- 散点图 -->
-      <el-col :span="11">
+      <el-col :span="11" :xs="24">
         <el-card body-style="padding:30px">
           <v-chart class="chart"  ref="gpa_score" autoresize > </v-chart>
         </el-card>
@@ -94,12 +87,10 @@
 
 
     <!-- 第三行 -->
-    <el-row :gutter="15" style="margin-top: 25px;">
-
-      
+    <el-row :gutter="15" style="margin-top: 25px;" >
 
       <!-- 各学年变化趋势 -->
-      <el-col :span="13">
+      <el-col :span="13" :xs="24">
         <el-card>
         <v-chart  ref="trend" class="chart" autoresize > </v-chart>
          </el-card>
@@ -117,36 +108,42 @@ import {EventBus} from '../event-bus.js'
 import {college} from '../api/testdata.js'
 export default {
   //vue生命周期函数
-  //生命周期函数
-
   //组件创建时
   created(){
 
-    
-
+  
   },
+  // 组件挂载了
   mounted(){
     console.log("挂载 mounted...")
     
-    //监听事件
-        
+    //监听 请求到数据后，将数据设置到页面上
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
       console.log(data)
+      // 保存数据
       this.data=data
+      // 设置饼图的初始化指标，其他跟他联动的图一开始也是平均分这个指标，点击就切换成其他的
       this.nowIndex='平均分'
+      // 设置指标饼图
       this.setIndex()
+      // 设置top的班级
       this.set_classtop()
+      // 设置gpa散点图
       this.set_gpa_score()
+      // 设置分数范围
       this.set_range()
+      // 设置趋势
       this.set_trend()
-      //隐藏加载
+
+      //隐藏所有图表的加载动画
       this.hideLoad()
       
     })
+
   //显示加载数据和初始化图表
   this.showLoad()
-  //发送请求给Logo组件，请求学院数据
+  //发送请求给Logo组件，请求学院数据,请求响应后再上面的监听里可用监听
   EventBus.$emit("requestData","学院")
   },
   name: "College",
@@ -154,8 +151,7 @@ export default {
     //柱状图点击进入班级事件
     intoClass(params){
       console.log("进入班级..")
-      console.log(params)
-      console.log(params.name)
+    // 传递班级的名字作为参数
     this.$router.push({
         name:"class",
         params:{
@@ -170,7 +166,7 @@ export default {
         this.$refs[key].showLoading()
       })},
 
-       hideLoad(){
+    hideLoad(){
         //遍历所有图表组件实例，调用隐藏加载
        Object.keys( this.$refs).forEach(key => {
         this.$refs[key].hideLoading()
@@ -180,9 +176,9 @@ export default {
     indexChange(event){
         console.log("选择饼图:"+event.name)
 
-        //获取已经选择的指标，没有就是默认总和
+        //获取已经选择的指标，没有就是默认平均分
         let now="平均分";
-        //获取那个是选择了的
+        //获取那个是选择了的,
         for(let index in event.selected)
         {
           if(event.selected[index]==true)
@@ -201,6 +197,7 @@ export default {
     set_classtop(){
      console.log("设置班级top数据:"+this.nowIndex)
       let chart = this.$refs['classtop'];
+      // 
       if(Object.keys(this.data['top']).indexOf(this.nowIndex)==-1)
       {
         console.warn("设置班级top图失败,"+this.nowIndex+"不存在")
@@ -209,12 +206,12 @@ export default {
       let classes = this.data['top'][this.nowIndex]['classes']
       let names = [];
       let scores = [];
-      let ids = [];
       classes.forEach(element => {
         names.push(element['name'])
         scores.push(element['score'])
         
       });
+      // 倒序，这样显示柱子就是从大到小
       names=names.reverse()
       scores = scores.reverse();
 
@@ -301,7 +298,7 @@ export default {
       this.$refs['range'].mergeOptions(option)
 
     },
-         //gpa成绩关系
+  //gpa成绩关系
     set_gpa_score(){ 
    
       let gpa_scores = []
@@ -373,8 +370,7 @@ export default {
     //各个指标测评分均分（饼图联动）
     setIndex()
     {
-      console.log("设置饼图")
-      console.log(this.data)
+      console.log("setIndex:设置饼图")
       let piedata = [];
       for(let i =0;i<this.data.indexes.indexes.length;i+=1)
       {
@@ -401,25 +397,16 @@ export default {
           // 思想政治	身心健康	创新创业	技术技能	志愿服务	人文艺术	综合素质理论
           data:piedata
         }}
-
-      console.log(option)
-      
       let chart=this.$refs['index']
-      console.log(chart)
-
       chart.mergeOptions(option)
 
     }
-
-
-    //设置
-
   },
   computed:{
     //表格的数据，用计算属性 , nowIndex改变，这里的也会改变
     studenttop50()
     {
-      console.log("now index:"+this.nowIndex)
+      console.log("更新Top 50 表格:now index:"+this.nowIndex)
       if(  Object.keys( this.data['top']).indexOf( this.nowIndex)==-1 )
       {
         console.log("当前指标不存在:"+this.nowIndex);
@@ -431,26 +418,13 @@ export default {
     }
   },
   data() {
-    
-    let topdata = [];
-    let scatter=[];
-    for(let i = 0;i<50;i+=1)
-    {
-      topdata.push({
-        name:"小明"+i,
-        score:i*2+1
-      })
-      scatter.push([i,i*2+4])
-    
-    }
     return {
       //当前饼图的选择
       nowIndex:"平均分",
       stateStore:store.state,
-      //学院数据
-      data:college,
-      // top数据
-      topdata:topdata
+      //学院数据,默认是测试数据
+      data:college
+
     };
   }
 };
@@ -463,12 +437,5 @@ color:red;font-size:30px;
 }
 .chart {
 width: 100%;
- /* border: 2px solid #a9b4c2;  */
-/* box-shadow:0 0 13px #000 inset;  */
-}
-el-table {
-  /* border: 2px solid #0f4c95;
-box-shadow:0 0 13px #000 inset; */
-
 }
 </style>

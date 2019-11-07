@@ -1,11 +1,12 @@
 <template>
   <div class="logo" v-loading.fullscreen="loading">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="8" :xs="24">
         <img @click="home" style="width: 400px; " src="/logo.jpg" />
       </el-col>
       <!-- showSelect 变量来控制是否隐藏 -->
-      <el-row v-if="showSelect" type="flex" justify="end" :span="10">
+      <el-col :span="16" :xs="24">
+      <el-row  v-if="showSelect" type="flex" justify="end" >
         
         <!-- 如果年度数据为0，就是没有年度数据，显示按钮请求数据重新请求导航数据 -->
         <el-button @click="requestNav" v-if="years.length==0">请求导航数据</el-button>
@@ -26,6 +27,8 @@
 
         <el-cascader placeholder="进入班级界面" :options="classes" @change="intoClass"></el-cascader>
       </el-row>
+      </el-col>
+
     </el-row>
   </div>
 </template>
@@ -113,21 +116,15 @@ export default {
       console.log("进入班级:" + value);
       // 组成完整的id
       let id = value.join("");
+    // 刷新班级时替换路由参数
+       this.$route.params["classid"]=id;
       this.$router.push({
         name: "class",
         params: {
           classid: id
         }
-<<<<<<< HEAD
       });
       //this.selectYear()
-=======
-      })
-
-    },
-    login(){
-  EventBus.$emit("showLogin",college)
->>>>>>> dfd65ea7ccc33970cc50f89a1d58cb56c5c31908
     },
     //请求数据
     //选择年度 或者 学期事件 ,具体请求哪个数据，根据当前的路由决定
@@ -229,35 +226,6 @@ export default {
       console.log("请求学生数据....");
       console.log(this.$route.params);
 
-<<<<<<< HEAD
-      post("/api/select/geren", {
-        stu_id: studentid,
-        year: store.state.year,
-        term: store.state.term,
-        classid: classid
-      })
-        .then(res => {
-          console.log("请求个人的数据:..");
-          console.log(res);
-          console.log(typeof res);
-
-          this.loading = false;
-          //StudentData
-          Object.assign(StudentData, res);
-          EventBus.$emit("studentDataLoad", StudentData);
-        })
-        .catch(err => {
-          this.$alert(err, "服务器响应失败", {
-            confirmButtonText: "确定"
-          });
-          console.log("请求数据失败>>>----------");
-          console.log(err);
-          this.showFailDialog("获取学生数据失败:\n" + err, this.selectYear);
-          this.loading = false;
-          //设置成测试数据
-        });
-    }
-=======
             post("/api/select/geren",{stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
@@ -281,7 +249,6 @@ export default {
             })
         }
     
->>>>>>> dfd65ea7ccc33970cc50f89a1d58cb56c5c31908
   },
   data() {
     return {
