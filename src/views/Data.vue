@@ -67,6 +67,28 @@
             <div style="float:right">
               <div style="display:inline;padding-right:20px;" >用户名:{{storeState.login.username}}</div>
               <el-button type="success" @click="qiandao">每日签到领金币</el-button>
+              <el-button type="warning" @click="dialogVisible = true">修改登录密码</el-button>
+              <el-dialog title="提示"
+                        :visible.sync="dialogVisible"
+                        width="30%"
+                        :before-close="handleClose">
+                          <el-form size="medium">
+                        <el-form-item  label="原密码" prop="password1">
+                    <el-input placeholder="原密码" v-model="reg.password1" show-password> </el-input>
+                    </el-form-item>
+                    <el-form-item  label="新密码" prop="password2">
+                    <el-input placeholder="密码" v-model="reg.password2" show-password> </el-input>
+                </el-form-item>
+                <el-form-item   label="确认新密码" prop="password3">
+                    <el-input placeholder="密码" v-model="reg.password3" show-password> </el-input>
+                </el-form-item>
+                          </el-form>
+
+                        <span slot="footer" class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="changgg">确 定</el-button>
+                        </span>
+                        </el-dialog>
               <el-button type="danger" @click="logout">退出登录</el-button>
                </div>
             <!-- <el-dropdown style="float:right;">
@@ -154,8 +176,9 @@ import {
 
 import { Loading } from "element-ui";
 import { arrayFill } from "../utils/tools.js";
-import {apiLogout,apiUserInfo} from '../api/api.js'
+import {apiLogout,apiUserInfo,apiUserchange} from '../api/api.js'
 import {store} from '../store.js'
+
 export default {
   // 组件名称,在调试时有用
   name: "datamanage",
@@ -163,6 +186,12 @@ export default {
 
   data() {
     return {
+      reg:{
+         password1:"",
+         password2:"",
+         password3:"",
+      },
+      dialogVisible: false,
       storeState:store.state,
       // 接口2的 用来和选择框
       upload: {
@@ -232,6 +261,43 @@ export default {
         type:"warning"
       })
     },
+    
+    changgg(){
+      if(this.reg.password2!=this.reg.password3){
+        this.$message({
+          showClose: true,
+          message: '密码不一致',
+          type: 'error'
+        });
+        return
+      }
+      this.dialogVisible=false
+      console.log("调用监听修改密码")
+      apiUserchange({
+          password1:this.reg.password1,
+          password2:this.reg.password2,
+          password3:this.reg.password3,
+      }).then(res=>{
+        
+        console.log("请求成功..")
+        console.log(res)
+        this.$message({
+          showClose: true,
+          message: '密码修改成功',
+          type: 'success'
+        });
+      }).catch(err=>{
+        console.log("请求失败.")
+      })
+    },
+      handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+      }
+    ,
     logout(){
       apiLogout().then(res=>{
         this.$message({

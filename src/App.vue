@@ -1,9 +1,10 @@
 <template>
 <div id="app">
+  <!-- 网页背景的线粒特效 -->
   <vue-particles
         color="#CD5555"
         :particleOpacity="1"
-        :particlesNumber="200"
+        :particlesNumber="180"
         shapeType="circle"
         :particleSize="4"
         linesColor="#dedede"
