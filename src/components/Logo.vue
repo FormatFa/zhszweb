@@ -188,8 +188,7 @@ export default {
         })
         .catch(err => {
           console.warn("请求学院界面数据失败,发送测试数据...>>>");
-          console.log(err);
-
+    
           this.showFailDialog("获取学院数据失败:\n" + err, this.selectYear);
           //设置成测试数据
           //发送事件

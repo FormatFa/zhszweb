@@ -66,7 +66,7 @@
             <span>已经上传的数据</span>
             <div style="float:right">
               <div style="display:inline;padding-right:20px;" >用户名:{{storeState.login.username}}</div>
-              <el-button type="success" @click="qianqiandao">每日签到领金币</el-button>
+              <el-button type="success" @click="qiandao">每日签到领金币</el-button>
               <el-button type="danger" @click="logout">退出登录</el-button>
                </div>
             <!-- <el-dropdown style="float:right;">

@@ -10,7 +10,7 @@ import { Message } from 'element-ui';
 //axios.defaults.baseURL="/"
 axios.defaults.withCredentials = true
 // 设置超时时间
-axios.defaults.timeout = 7000;
+axios.defaults.timeout = 1000;
 //默认是表单格式，现在改成json
 axios.defaults.headers.post['Content-Type'] = 'Content-Type：application/json;charset=UTF-8';
 
@@ -70,11 +70,10 @@ export function get(url, params) {
 
 }
 //
-export function post(url, params) {
-    console.log(url+"post：参数:")
-    console.log(params)
+export function post(url, params,config) {
+    // console.log(url+"post：参数:")
     return new Promise((resolve, reject) => {
-        axios.post(url, params).then(res => { resolve(res.data) }).catch(err => {
+        axios.post(url, params,config).then(res => { resolve(res.data) }).catch(err => {
             reject(err)
         })
     })

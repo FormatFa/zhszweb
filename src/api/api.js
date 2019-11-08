@@ -4,8 +4,6 @@ export const apiLogin=p=>post('/api/auth/login',p)
 export const apiRegister=p=>post('/api/auth/register',p)
 // 退出登录
 export const apiLogout=()=>get("/api/auth/logout")
-//首页年度数据
-export const apiYears=p=>get('/test')
 
 // logo年度等数据
 export const apiLogoNav=p=>post('/api/nav/classes',p)

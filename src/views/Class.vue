@@ -177,8 +177,7 @@ export default {
     },
     //请求学生界面的路由，进入学生个人界面
     intoStudent(row, column, event){
-      console.log(row)
-      console.log(column)
+   
       console.log("进入学生:"+row+" "+column+" "+event)
       console.log(this.$route);
          this.$router.push({
@@ -198,7 +197,7 @@ export default {
 
     },
       handleChange(val){
-      console.log(val);
+      
     },
     //设置按学期各指标的雷达图
     set_suchindexscore()

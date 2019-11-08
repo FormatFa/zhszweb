@@ -102,7 +102,9 @@
   </div>
 </template>
 
+
 <script>
+// 学院界面
 import {store} from '../store.js'
 import {EventBus} from '../event-bus.js'
 import {college} from '../api/testdata.js'
@@ -120,7 +122,7 @@ export default {
     //监听 请求到数据后，将数据设置到页面上
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
-      console.log(data)
+    
       // 保存数据
       this.data=data
       // 设置饼图的初始化指标，其他跟他联动的图一开始也是平均分这个指标，点击就切换成其他的
@@ -363,8 +365,7 @@ export default {
        }
       ]
       }
-      console.log("趋势..")
-      console.log(option)
+      
       chart.mergeOptions(option)
     },
     //各个指标测评分均分（饼图联动）

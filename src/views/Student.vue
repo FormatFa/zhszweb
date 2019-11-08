@@ -178,14 +178,14 @@ export default {
     },
 
     set_CollegeData() {
-      let CollegeData = this.data["data1"]["CollegeData"];
+      
       this.CollegeData.splice(0, this.CollegeData.length);
       this.data["data1"]["CollegeData"].forEach(element => {
         this.CollegeData.push(element);
       });
     },//各指标在全院的排名
     set_ClassData() {
-      let ClassData = this.data["data2"]["ClassData"];
+      
       this.ClassData.splice(0, this.ClassData.length);
       this.data["data2"]["ClassData"].forEach(element => {
         this.ClassData.push(element);
