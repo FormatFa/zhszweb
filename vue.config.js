@@ -16,9 +16,9 @@ module.exports = {
           target: 'http://192.168.56.101:5000', // 要请求的地址
           ws: true,
           changeOrigin: true,
-          // pathRewrite: {
-          //   '^/api': ''
-          // }
+          pathRewrite: {
+            '^/api': ''
+          }
         }
       }
     }

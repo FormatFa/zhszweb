@@ -69,8 +69,8 @@ export default {
         isShow:true,
         //设置登录的表单，对应el-table里的model属性
         login:{
-         username:"jojo",   
-         password:"jojojojo"
+        //  username:"jojo",   
+        //  password:"jojojojo"
         }
 
         }

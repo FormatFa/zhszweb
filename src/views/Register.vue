@@ -96,15 +96,15 @@ export default {
         return {
             //表单的错误信息
             errors:{
-                    username:"jojo",
-                password:"jojo",
+                    username:"",
+                password:"",
                 password2:"",
             },
 
             reg:{
-                username:"jojo",
-                password:"jojojojo",
-                password2:"jojojojo",
+                username:"",
+                password:"",
+                password2:"",
             }
         }
     }
