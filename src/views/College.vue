@@ -59,7 +59,7 @@
     <el-row :gutter="40" style="margin-top: 25px;">  
       <!-- top 50表格  -->
       <el-col :span="5" :xs="24">
-         <el-card>
+         <el-card body-style="padding:12px">
         <div style="text-align:center;font-weight:bold">{{this.stateStore.year}} 年度 {{this.stateStore.termName()}} {{this.nowIndex}} TOP50 学生</div>
         <el-table :data="studenttop50" height="400">
         <el-table-column type="index" width="50"></el-table-column>
