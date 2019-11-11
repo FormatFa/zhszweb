@@ -238,6 +238,7 @@ export default {
 
         },
         yAxis: {
+          name:"班级",
           type:"category",
           data: names
 
@@ -390,7 +391,7 @@ export default {
         series: {
              label:{
           show:true,
-          // formatter:"{a}{d}"
+           formatter:"{b}({d}%)"
         },
           type: "pie",
           // 单选模式
