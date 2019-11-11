@@ -67,6 +67,7 @@
             <div style="float:right">
               <div style="display:inline;padding-right:20px;" >用户名:{{storeState.login.username}}</div>
               <el-button type="success" @click="qiandao">每日签到领金币</el-button>
+              <!-- 修改密码 -->
               <el-button type="warning" @click="dialogVisible = true">修改登录密码</el-button>
               <el-dialog title="提示"
                         :visible.sync="dialogVisible"
@@ -91,13 +92,7 @@
                         </el-dialog>
               <el-button type="danger" @click="logout">退出登录</el-button>
                </div>
-            <!-- <el-dropdown style="float:right;">
-              <el-button type="primary">{{storeState.login.username}}</el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item></el-dropdown-item>
-                <el-dropdown-item>退出登录</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown> -->
+            
             
           </div>
           <span>上传新数据</span>
