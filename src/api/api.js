@@ -12,5 +12,5 @@ export const apiLogoNav=p=>post('/api/nav/classes',p)
 export const apiUserInfo =()=> get("/api/auth/session")
 
 // 请求用户信息
-export const apiUserchange =k=> post("/api/auth/session",k)
+export const apiUserchange =k=> post("/api/auth/login/alterPassword",k)
 

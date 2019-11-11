@@ -274,17 +274,25 @@ export default {
       this.dialogVisible=false
       console.log("调用监听修改密码")
       apiUserchange({
-          password1:this.reg.password1,
-          password2:this.reg.password2,
-          password3:this.reg.password3,
+          username:this.storeState.login.username,
+          old_password:this.reg.password1,
+          password:this.reg.password2,
+          password2:this.reg.password3,
       }).then(res=>{
         
         console.log("请求成功..")
         console.log(res)
+        if(res.code==0)
         this.$message({
           showClose: true,
           message: '密码修改成功',
           type: 'success'
+        });
+        else
+        this.$message({
+          showClose: true,
+          message: '密码失败:'+res.msg,
+          type: 'error'
         });
       }).catch(err=>{
         console.log("请求失败.")
