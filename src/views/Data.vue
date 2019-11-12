@@ -8,7 +8,7 @@
     <!--  -->
     <el-row :gutter="40">
       <!-- 上传接口1  -->
-      <el-col :span="10">
+      <el-col :span="10"  v-if="false">
         <el-card>
           <div slot="header">
             <span>综合素质数据文件管理</span>
@@ -98,8 +98,14 @@
           <span>上传新数据</span>
 
           <el-row>
+                <el-col :span="4">
+              <el-select v-model="upload.college" placeholder="选择学院">
+                <el-option v-for="college in colleges" :key="college" :label="college" :value="college"></el-option>
+              </el-select>
+            </el-col>
             <!-- 选择年度 -->
             <el-col :span="4">
+              
               <el-date-picker v-model="upload.year" type="year" placeholder="选择年度"></el-date-picker>
             </el-col>
             <el-col :span="4">
@@ -181,6 +187,8 @@ export default {
 
   data() {
     return {
+      colleges:["大数据与人工智能学院","计算机工程技术学院","商学院商","应用外语学院","旅游学院旅","文化与传媒","机器人学院","机械与汽车学院","建筑工程学院","艺术设计学院","财会与金融学院","体育健康学院","马克思主义学院","国际合作学院","创新创业学院      ","广州学院","继续教育学院"]
+      ,
       reg:{
          password1:"",
          password2:"",
@@ -193,7 +201,8 @@ export default {
         // 这个选择后变成Date对象
         year: "",
         grade: "",
-        term: ""
+        term: "",
+        college:"大数据与人工智能学院"
       },
       // 上传文件时附带的数据,点击上传后根据upload对象里的各个值设置uploadData的内容再提交
       uploadData: {},
@@ -320,6 +329,7 @@ export default {
       this.uploadData["year"] = this.upload.year.getFullYear();
       this.uploadData["grade"] = this.upload.grade;
       this.uploadData["term"] = this.upload.term;
+      this.uploadData["college"] = this.upload.college;
       this.$refs.uploadNew.submit();
     },
     // 获取已上传数据
