@@ -157,7 +157,9 @@ export default {
     this.$router.push({
         name:"class",
         params:{
-          classid:params.name
+          classid:params.name,
+          collegeid:"大数据与人工智能学院"
+
         }
       })
 

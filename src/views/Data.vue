@@ -2,7 +2,11 @@
   <div>
     <el-row>
       <el-col>
-  <router-link :to="{name:'college'}"> <el-button @click="truncateFiles">跳转到可视化界面</el-button>  </router-link>       <el-button @click="truncateFiles">一键清空表</el-button>
+             <el-select @change="openCollege" v-model="selectCollege"  placeholder="打开可视化界面">
+                <el-option v-for="college in storeState.colleges" :key="college" :label="college" :value="college"></el-option>
+              </el-select>
+  <!-- <router-link :to="{name:'college'}"> <el-button @click="truncateFiles">跳转到可视化界面</el-button>  </router-link> -->
+         <el-button @click="truncateFiles">一键清空表</el-button>
       </el-col>
     </el-row>
     <!--  -->
@@ -100,7 +104,7 @@
           <el-row>
                 <el-col :span="4">
               <el-select v-model="upload.college" placeholder="选择学院">
-                <el-option v-for="college in colleges" :key="college" :label="college" :value="college"></el-option>
+                <el-option v-for="college in storeState.colleges" :key="college" :label="college" :value="college"></el-option>
               </el-select>
             </el-col>
             <!-- 选择年度 -->
@@ -179,6 +183,7 @@ import { Loading } from "element-ui";
 import { arrayFill } from "../utils/tools.js";
 import {apiLogout,apiUserInfo,apiUserchange} from '../api/api.js'
 import {store} from '../store.js'
+import { college } from '../api/testdata';
 
 export default {
   // 组件名称,在调试时有用
@@ -187,8 +192,8 @@ export default {
 
   data() {
     return {
-      colleges:["大数据与人工智能学院","计算机工程技术学院","商学院商","应用外语学院","旅游学院旅","文化与传媒","机器人学院","机械与汽车学院","建筑工程学院","艺术设计学院","财会与金融学院","体育健康学院","马克思主义学院","国际合作学院","创新创业学院      ","广州学院","继续教育学院"]
-      ,
+      selectCollege:"",
+      
       reg:{
          password1:"",
          password2:"",
@@ -258,7 +263,18 @@ export default {
     }
   },
   methods: {
+    openCollege(value)
+    {
+      console.log("打开学院:",value)
+      this.$router.push({
+        name:"college",
+        params:{
+          collegeid:value
+        }
+        
 
+      })
+    },
     qiandao(){
       this.$message({
         message:"签到成功,金币+10",
@@ -413,7 +429,8 @@ export default {
         // 年级
         grade: param.grade,
         // 学期
-        term: param.term
+        term: param.term,
+        college:param.college
       };
       apiParse(postparam)
         .then(res => {

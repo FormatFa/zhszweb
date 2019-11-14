@@ -9,19 +9,19 @@ import Register from './views/Register'
 Vue.use(VueRouter)
 const routes =[
     {
-      path:"/",component:College,name:"college"
+      path:"/:collegeid",component:College,name:"college"
     },
     {
-      path:"/student/:classid/:studentid",component:Student,name:"student"
+      path:"/:collegeid/:classid/:studentid",component:Student,name:"student"
     },
     {
-      path:"/class/:classid",component:Class,name:"class"
+      path:"/:collegeid/:classid",component:Class,name:"class"
     },
     {
       path:"/login",component:Login,name:"login"
     },
     {
-      path:"/data",component:Data,name:"data"
+      path:"/",component:Data,name:"data"
     },
     {
       path:"/register",component:Register,name:"register"

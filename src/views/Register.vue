@@ -21,7 +21,12 @@
                     <el-button  type="primary" @click="submit()" size="medium">立即注册</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-checkbox>我已阅读并同意相关服务条款和隐私政策</el-checkbox><img onclick="" src="/favicon.ico"/>
+                    <el-tooltip placement="top">
+                        <div slot="content">相关哈哈哈哈哈</div>
+                        <div>
+                    <el-checkbox v-model="isAgree" @change="agree">我已阅读并同意相关服务条款和隐私政策</el-checkbox><img onclick="" src="/favicon.ico"/>
+                        </div>
+                    </el-tooltip>
                 </el-form-item>
             </el-form>
                   
@@ -35,6 +40,7 @@
 
 import {apiRegister} from '../api/api.js'
 import {EventBus} from '../event-bus.js'
+import { type } from 'os';
 export default {
    
     name:"bg",
@@ -43,8 +49,18 @@ export default {
     },
     // 注册用户
     methods:{
-        
+        agree(){
+
+        },
         submit(){
+            if(!this.isAgree)
+            {
+                this.$message({
+                    message:"请勾选同意相关协议",
+                    type:"warning"
+                })
+                return;
+            }
             if(this.reg.password!=this.reg.password2){
                 this.errors.password2="两次密码不一样";
                 return;
@@ -94,6 +110,7 @@ export default {
     },
     data(){
         return {
+            isAgree:false,
             //表单的错误信息
             errors:{
                     username:"",

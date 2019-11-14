@@ -1,11 +1,15 @@
 <template>
   <div class="logo" v-loading.fullscreen="loading">
     <el-row>
-      <el-col :span="8" :xs="24">
-        <img @click="home" style="width: 400px; " src="/logo.jpg" />
+      <el-col :span="12" :xs="24">
+        
+          <img @click="home" style="width: 400px; " src="/logo.jpg" />
+        <div v-if="showSelect" style="display:inline;font">{{collegename}}</div>
+        
+        
       </el-col>
       <!-- showSelect 变量来控制是否隐藏 -->
-      <el-col :span="16" :xs="24">
+      <el-col :span="12" :xs="24">
       <el-row  v-if="showSelect" type="flex" justify="end" >
         
         <!-- 如果年度数据为0，就是没有年度数据，显示按钮请求数据重新请求导航数据 -->
@@ -70,7 +74,21 @@ export default {
       next();
     });
   },
-  computed: {},
+  computed: {
+    // 获取学院名字
+    collegename()
+    {
+      console.log("获取学院名字...")
+      console.log(this.$route.params)
+      if(Object.keys(this.$route.params).indexOf("collegeid")!=-1)
+      {
+      return this.$route.params['collegeid'];
+      }
+      else
+      return ""
+    }
+
+  },
   beforeRouteEnter(to, from, next) {
     console.log("beforeRouteEnter....");
     console.log(to);
