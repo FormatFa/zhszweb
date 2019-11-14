@@ -64,7 +64,7 @@
       </el-col>
 
 <!-- 上传接口2 -->
-      <el-col :span="14" >      
+      <el-col :span="14" :xs="20">      
         <el-card>
           <div slot="header">
             <span>已经上传的数据</span>
@@ -401,7 +401,8 @@ export default {
         // 年级
         grade: param.grade,
         // 学期
-        term: param.term
+        term: param.term,
+        college:param.college
       };
       apiDelete(postparam)
         .then(res => {
@@ -549,24 +550,24 @@ export default {
     // 0未上传 1以上
     switchYear(year) {
       this.requestUpload();
-      apiFiles({
-        year: year
-      })
-        .then(res => {
-          console.log("请求文件列表成功...");
-          // 清空原本的表格数据
-          this.files.splice(0, this.files.length);
-          // 插入请求回来的
-          res.forEach(element => {
-            this.files.push(element);
-          });
-        })
-        .catch(err => {
-          this.$alert(err, "请求已上传的文件列表失败", {
-            confirmButtonText: "ok"
-          });
-          console.log("请求文件列表失败");
-        });
+      // apiFiles({
+      //   year: year
+      // })
+      //   .then(res => {
+      //     console.log("请求文件列表成功...");
+      //     // 清空原本的表格数据
+      //     this.files.splice(0, this.files.length);
+      //     // 插入请求回来的
+      //     res.forEach(element => {
+      //       this.files.push(element);
+      //     });
+      //   })
+      //   .catch(err => {
+      //     this.$alert(err, "请求已上传的文件列表失败", {
+      //       confirmButtonText: "ok"
+      //     });
+      //     console.log("请求文件列表失败");
+      //   });
       console.log("选择年份:" + year);
       //
     },

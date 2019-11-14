@@ -99,7 +99,9 @@ export default {
       // 显示全局加载条
       this.loading = true;
       // 学年数据,包括所有年份,这个年度的所有班级，
-      apiLogoNav()
+      apiLogoNav({
+        college:this.collegename
+      })
         .then(res => {
           this.loading = false;
           //请求成功有，设置图表
@@ -126,7 +128,7 @@ export default {
     //跳转到首页
     home() {
       this.$router.push({
-        name: "college"
+        name: "data"
       });
     },
     // 班级选择器的回调事件
@@ -192,7 +194,9 @@ export default {
       });
     },
     requestCollege() {
+
       post("/api/nav/collage", {
+        college:this.collegename,
         year: store.state.year,
         term: store.state.term
       })
@@ -218,6 +222,7 @@ export default {
     requestClass(classid) {
       console.log("-------------------请求班级数据------------------");
       post("/api/select/banji", {
+        college:this.collegename,
         classid: classid,
         year: store.state.year,
         term: store.state.term
@@ -243,7 +248,9 @@ export default {
       console.log("请求学生数据....");
       console.log(this.$route.params);
 
-            post("/api/select/geren",{stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
+            post("/api/select/geren",{
+              college:this.collegename,
+              stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
               console.log("请求个人的数据:..")
               console.log(res)
               console.log(typeof res)
