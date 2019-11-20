@@ -131,7 +131,7 @@ export default {
 
 <style>
 /* 设置背景图案 */
-* #bg{
+ #bg{
     background: url("../images/44ce51cbfee3ac0249cd771f2ad9a7c2.jpg");
     background-size:cover;
     height: 100%;
