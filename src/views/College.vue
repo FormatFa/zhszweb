@@ -122,7 +122,6 @@ export default {
     //监听 请求到数据后，将数据设置到页面上
     EventBus.$on("collegeDataLoad",data=>{
       console.log("学院界面请求到数据...")
-    
       // 保存数据
       this.data=data
       // 设置饼图的初始化指标，其他跟他联动的图一开始也是平均分这个指标，点击就切换成其他的
@@ -137,7 +136,6 @@ export default {
       this.set_range()
       // 设置趋势
       this.set_trend()
-
       //隐藏所有图表的加载动画
       this.hideLoad()
       
