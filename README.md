@@ -1,4 +1,9 @@
-## 学生综合素质可视化
+---
+
+typora-root-url: ./
+---
+
+## 学生综合素质可视化（前端）
 
 ## 前端技术栈
 
@@ -62,7 +67,21 @@ npm run build
 ### 运行截图
 
 
+
+![后台管理](/preview/admin.PNG)
+
+
+
+![college](/preview/college.PNG)
+
+![class](/preview/class.PNG)
+
+![login](/preview/login.PNG)
+
+![register](/preview/register.PNG)
+
 ## 工程结构
+
 ### 目录树
 📦src
  ┣ 📂api                    api封装和每个页面测试数据
@@ -92,6 +111,10 @@ npm run build
  ┣ 📜main.js-----------------入口
  ┣ 📜router.js---------------路由配置
  ┗ 📜store.js----------------全局存储
+
+
+
+## 整体架构
 
 
 

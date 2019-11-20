@@ -6,7 +6,7 @@ import { Message } from 'element-ui';
 // axios 封装， 封装get,post请求
 
 //设置baseurl,后面的请求都会用这个接起来
-axios.defaults.baseURL="http://localhost:8080/"
+//axios.defaults.baseURL="http://localhost:8080/"
 //axios.defaults.baseURL="/"
 axios.defaults.withCredentials = true
 // 设置超时时间

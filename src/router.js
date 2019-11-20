@@ -21,6 +21,9 @@ const routes =[
       path:"/login",component:Login,name:"login"
     },
     {
+      path:"/",component:Data,name:"data"
+    },
+    {
       path:"/data",component:Data,name:"data"
     },
     {
