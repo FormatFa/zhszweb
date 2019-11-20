@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath:"./zhsz",
+    publicPath:"./",
     transpileDependencies: [
       'vue-echarts',
       'resize-detector'
