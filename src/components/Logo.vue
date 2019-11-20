@@ -195,7 +195,7 @@ export default {
     },
     requestCollege() {
 
-      post("/api/nav/collage", {
+      post("/nav/collage", {
         college:this.collegename,
         year: store.state.year,
         term: store.state.term
@@ -221,7 +221,7 @@ export default {
     },
     requestClass(classid) {
       console.log("-------------------请求班级数据------------------");
-      post("/api/select/banji", {
+      post("/select/banji", {
         college:this.collegename,
         classid: classid,
         year: store.state.year,
@@ -248,7 +248,7 @@ export default {
       console.log("请求学生数据....");
       console.log(this.$route.params);
 
-            post("/api/select/geren",{
+            post("/select/geren",{
               college:this.collegename,
               stu_id:studentid,year:store.state.year,term:store.state.term,classid:classid}).then(res=>{
               console.log("请求个人的数据:..")
