@@ -45,7 +45,7 @@
                 <el-upload
                   :on-success="uploadOk"
                   :on-error="uploadNotOk"
-                  action="http://localhost:5000/api/data/upload"
+                  action="/api/data/upload"
                   :data="getUploadPostData(scope.row)"
                   :show-file-list="false"
                 >
@@ -135,7 +135,7 @@
                 ref="uploadNew"
                 :auto-upload="false"
                 :data="uploadData"
-                action="http://localhost:5000/api/data/upload"
+                action="/api/data/upload"
                 :on-success="uploadOk"
                 :on-error="uploadNotOk"
                 :on-change="uploadChange"

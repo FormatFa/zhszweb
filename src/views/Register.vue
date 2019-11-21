@@ -97,9 +97,8 @@ export default {
         .catch(err => {
             Loading.service({ fullscreen: true }).close();
           console.log(err);
-          let data = err.response.data;
+     
           console.log("注册失败:");
-          console.log(data);
           this.$message({
             type: "error",
             message: "注册失败"

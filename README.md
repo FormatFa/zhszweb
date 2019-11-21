@@ -52,10 +52,13 @@ chrome里调试vue项目
 
 
 ### 运行项目
+
+在工程根目录运行下面的命令
+
 - 安装依赖
 ```
 npm install
-运行
+运行调试
 npm run serve
 ```
 - 打包项目
