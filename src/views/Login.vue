@@ -29,7 +29,7 @@ import {apiLogin,apiYears} from '../api/api.js'
 
 //引入event-bus
 import {EventBus} from '../event-bus.js'
-
+import { Loading } from "element-ui";
 export default {
     
     name:"login",
@@ -79,28 +79,53 @@ export default {
         register(){
             this.$router.replace({name:'register'})
         },
+        
         startLogin(){
+            Loading.service({ text: "正在登录....", fullscreen: true });
              apiLogin({
                 username:this.login.username,
                 password:this.login.password
             }).then(res=>{
+                Loading.service({ fullscreen: true }).close();
                 console.log("请求成功")
                 console.log(res)
                 this.isShow=false
                 // 登录成功，跳转到首页
                 //this.$router.push("college")
-                
-                this.$message({
+                if(res.code==0)
+                {
+                    this.$message({
                     type:"success",
                     message:"登录成功，正在跳转到页面"
                 })
-                window.setTimeout(() => {
-                    this.$router.push({name:"data"})
-                }, 3000);
+               this.$router.push({name:"data"})
+                }
+                else{
+                    console.log("登录返回非0")
+                    let data=res.data;
+                    console.log(data)
+                        if(data.username !== undefined)
+               {
+                     let temp = data.username.join(",");
+                    if(temp.indexOf('Invalid username')!=-1)
+                    this.errors.username="无效的用户名"
+               }
+                 if(data.password !== undefined)
+                  {
+                     //转换成中文
+                    let temp = data.password.join(",");
+                    console.log(temp)
+                    if(temp.indexOf("Incorrect password!")!=-1)
+                        this.errors.password="密码错误!"
+                 }
+                }
+             
                
                 //保存cookes
             }).catch(err=>{
+                Loading.service({ fullscreen: true }).close();
                 console.log("请求失败")
+                console.log(err)
                  let data = err.response.data
                  if(err.response.status==403)
                 this.$message({
@@ -113,22 +138,6 @@ export default {
                     message:"登录失败,请检查网络连接"
                 })  
                 }
-                console.log(data)
-                if(data.message.username !== undefined)
-               {
-                     let temp = data.message.username.join(",");
-                    if(temp.indexOf('Invalid username')!=-1)
-                    this.errors.username="无效的用户名"
-               }
-                 if(data.message.password !== undefined)
-                  {
-                     //转换成中文
-                    let temp = data.message.password.join(",");
-                    console.log(temp)
-                    if(temp.indexOf("Incorrect password!")!=-1)
-                this.errors.password="密码错误!"
-                 }
-                 console.log(this.errors.password)
 
 
             })

@@ -1,5 +1,5 @@
 #注册api
-POST http://127.0.0.1:5000/auth/register HTTP/1.1
+POST http://127.0.0.1:5000/api/auth/register HTTP/1.1
 content-type: application/json
 
 {
@@ -10,13 +10,16 @@ content-type: application/json
 ### 
 
 #登录
-POST http://127.0.0.1:5000/auth/login HTTP/1.1
+POST http://127.0.0.1:5000/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
     "username": "root",
     "password": "rootroot1"
 }
+
+### 获取登录信息
+GET http://127.0.0.1:5000/api/auth/session HTTP/1.1
 
 ### 登录出去
 
@@ -77,3 +80,6 @@ Content-Type: application/json
     "stu_id":"郑灿希",
     "classid":"17移动互联1"
 }
+
+###数据界面
+POST http://127.0.0.1:5000/api/data/uploaded

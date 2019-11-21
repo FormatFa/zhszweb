@@ -10,3 +10,11 @@ export function arrayFill(a1,a2)
     }
 
 }
+
+// 通用错误框
+export function errorDialog(vue,message)
+{
+    vue.$alert(message,"发生错误",{
+        confirmButtonText:"确定"
+      })
+}

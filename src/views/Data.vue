@@ -45,7 +45,7 @@
                 <el-upload
                   :on-success="uploadOk"
                   :on-error="uploadNotOk"
-                  action="/api/folder/upload"
+                  action="http://localhost:5000/api/data/upload"
                   :data="getUploadPostData(scope.row)"
                   :show-file-list="false"
                 >
@@ -135,7 +135,7 @@
                 ref="uploadNew"
                 :auto-upload="false"
                 :data="uploadData"
-                action="/api/folder/upload"
+                action="http://localhost:5000/api/data/upload"
                 :on-success="uploadOk"
                 :on-error="uploadNotOk"
                 :on-change="uploadChange"
@@ -180,7 +180,7 @@ import {
 } from "../api/dataApi.js";
 
 import { Loading } from "element-ui";
-import { arrayFill } from "../utils/tools.js";
+import { arrayFill ,errorDialog } from "../utils/tools.js";
 import {apiLogout,apiUserInfo,apiUserchange} from '../api/api.js'
 import {store} from '../store.js'
 import { college } from '../api/testdata';
@@ -235,11 +235,13 @@ export default {
     apiUserInfo().then(res=>{
       console.log("获取用户登录信息...")
       console.log(res)
- 
     //  设置用户信息
-
-    store.setUserName(res.user.username);
-    }).catch(err=>{})
+    console.log("设置用户名:"+res.data.username)
+    store.setUserName(res.data.username);
+    }).catch(err=>{
+      console.log("获取用户信息出错:")
+      console.log(err)
+    })
     // 请求两个接口的数据
     this.switchYear(2019);
     this.requestUpload();
@@ -303,11 +305,16 @@ export default {
         console.log("请求成功..")
         console.log(res)
         if(res.code==0)
+        {
         this.$message({
           showClose: true,
-          message: '密码修改成功',
+          message: '密码修改成功,跳转到登录界面',
           type: 'success'
         });
+        this.$router.push({
+          name:'login'
+        })
+        }
         else
         this.$message({
           showClose: true,
@@ -328,9 +335,18 @@ export default {
     ,
     logout(){
       apiLogout().then(res=>{
+        if(res.code==0){
         this.$message({
           message:"登出成功!"
         })
+        this.$router.push({
+          name:'login'
+
+        })
+        }
+        else{
+            errorDialog(this,res.msg)
+        }
       }).catch(err=>{})
 
     },
@@ -354,7 +370,12 @@ export default {
         .then(res => {
           console.log("获取已上传的数据:");
           console.log(res);
-          arrayFill(this.uploaded, res);
+          if(res.code==0)
+          arrayFill(this.uploaded, res.data);
+          else
+          this.$alert(res.data,"失败",{
+            confirmButtonText:"确定"
+          })
         })
         .catch(err => {
           console.log("获取已上传的数据失败");
@@ -404,15 +425,28 @@ export default {
         term: param.term,
         college:param.college
       };
+       Loading.service({ text: "删除数据文件和数据库里的记录....", fullscreen: true });
       apiDelete(postparam)
         .then(res => {
+              Loading.service({ fullscreen: true }).close();
           console.log("ffff")
           console.log(res)
-          this.$message({ type: "success", message: "清空数据成功:"+rs.msg });
+         
+          if(res.code==0){
+          this.$message({ type: "success", message: "清空数据成功:"+res.msg });
           // 删除成功刷新数据
           this.switchYear(this.year.getFullYear());
+          }
+          else
+          {
+            this.$alert(res.msg, "删除数据失败", {
+            confirmButtonText: "确定"
+          });
+          }
         })
         .catch(err => {
+              Loading.service({ fullscreen: true }).close();
+          console.log(err)
           this.$alert(err.data, "服务器响应失败,清空数据失败", {
             confirmButtonText: "确定"
           });
