@@ -5,6 +5,24 @@ typora-root-url: ./
 
 ## 学生综合素质可视化（前端）
 
+使用Vue.js和ECharts.js 实现 的 学生综合素质数据可视化系统,后端使用Python web 框架 Flask实现
+
+实现流程:
+(前端)
+- 分析原始数据,列出所需的图表,需要什么图
+- 使用测试数据画图表，定义图表需要的数据的json格式
+
+(后端)
+- 建立数据库表
+- 根据前端需要的数据的json格式，查询数据数据返回对应数据
+(最后)
+前端请求后端数据，图表显示后端的数据
+
+
+后端项目地址:
+https://gitee.com/calfhead_admin/zhsz_backend
+
+
 ## 前端技术栈
 
 1. Vue CLI
@@ -29,6 +47,11 @@ https://www.jb51.net/article/145341.htm
 顶部导航组件和学院，班级等组件订阅事件和发布事件,
 https://www.w3cplus.com/vue/managing-state-in-vue-js.html?utm_source=tuicool&utm_medium=referral
 
+## 实现功能
+
+- 登录注册
+- 上传数据
+- 可视化图表界面(学院，班级，个人)
 
 
 
@@ -69,11 +92,7 @@ npm run build
 
 ### 运行截图
 
-
-
 ![后台管理](/preview/admin.PNG)
-
-
 
 ![college](/preview/college.PNG)
 

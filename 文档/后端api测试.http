@@ -1,4 +1,6 @@
-#注册api
+#测试后端api,vscode 需要安装Rest Client插件
+
+### 测试注册
 POST http://127.0.0.1:5000/api/auth/register HTTP/1.1
 content-type: application/json
 
