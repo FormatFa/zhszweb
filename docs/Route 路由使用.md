@@ -2,9 +2,7 @@ vuerouter 官网: https://router.vuejs.org/zh/
 
 
 
-Vue Router 是 [Vue.js](http://cn.vuejs.org)
-
- 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：
+Vue Router 是 [Vue.js](http://cn.vuejs.org) 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。包含的功能有：
 
 - 嵌套的路由/视图表
 - 模块化的、基于组件的路由配置
@@ -53,7 +51,7 @@ const routes =[
   export default router
 ```
 
-上面的组件根据路由的不同，把router-view替换成对应的组件
+根据路由的不同，把router-view替换成对应的组件
 
 ```html
 App.vue

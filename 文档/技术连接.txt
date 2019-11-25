@@ -22,8 +22,4 @@ https://www.w3cplus.com/vue/managing-state-in-vue-js.html?utm_source=tuicool&utm
 axios封装:
 https://www.jb51.net/article/145341.htm
 
-1. 雷达图三条维度
-
-2. 同学名单
-
-3. 图表边框
+https://vis.baidu.com/chartusage/funnel/

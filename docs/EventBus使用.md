@@ -23,7 +23,7 @@ Logo 组件 和 下面的路由组件(Class.vue,College.vue之间交换数据
 
 
 
-![](/Event-Bus事件传递.png)
+![](Event-Bus事件传递.png)
 
 
 
