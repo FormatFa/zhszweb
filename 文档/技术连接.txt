@@ -1,0 +1,29 @@
+vue-router
+https://router.vuejs.org/zh/
+
+vue.js
+https://cn.vuejs.org/
+组件生命周期
+https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA
+
+
+vue-echarts
+https://github.com/ecomfe/vue-echarts/blob/master/README.zh_CN.md
+
+element-ui
+https://element.eleme.cn/2.0/#/zh-CN/guide/design
+
+vuex
+https://vuex.vuejs.org/zh/guide/state.html
+
+vuex 全局存储
+https://www.w3cplus.com/vue/managing-state-in-vue-js.html?utm_source=tuicool&utm_medium=referral
+
+axios封装:
+https://www.jb51.net/article/145341.htm
+
+1. 雷达图三条维度
+
+2. 同学名单
+
+3. 图表边框
