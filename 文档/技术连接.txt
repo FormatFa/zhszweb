@@ -23,3 +23,6 @@ axios封装:
 https://www.jb51.net/article/145341.htm
 
 https://vis.baidu.com/chartusage/funnel/
+
+Vue CLI:
+https://cli.vuejs.org/zh/
