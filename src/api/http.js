@@ -56,6 +56,7 @@ axios.interceptors.response.use(response => {
     return Promise.reject(err)
 
 })
+//get方法封装
 export function get(url, params) {
 
     return new Promise((resolve, reject) => {
@@ -66,12 +67,9 @@ export function get(url, params) {
                 reject(err)
             })
     })
-
-
 }
-//
+//post方法封装
 export function post(url, params,config) {
-    // console.log(url+"post：参数:")
     return new Promise((resolve, reject) => {
         axios.post(url, params,config).then(res => { resolve(res.data) }).catch(err => {
             reject(err)

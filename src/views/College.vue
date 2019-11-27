@@ -52,7 +52,6 @@
         <v-chart  @click="intoClass" class="chart" ref="classtop" autoresize ></v-chart>
          </el-card>
       </el-col>
-  
     </el-row>
 
     <!-- 第二行 -->
@@ -199,7 +198,7 @@ export default {
     set_classtop(){
      console.log("设置班级top数据:"+this.nowIndex)
       let chart = this.$refs['classtop'];
-      // 
+      
       if(Object.keys(this.data['top']).indexOf(this.nowIndex)==-1)
       {
         console.warn("设置班级top图失败,"+this.nowIndex+"不存在")
