@@ -70,7 +70,6 @@ export default {
     })
     this.$router.beforeEach((to, from, next) => {
       console.log("Logo.vue beforeEach....." + this.$router.currentRoute.name);
-
       next();
     });
   },
