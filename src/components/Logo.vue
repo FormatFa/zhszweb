@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="12" :xs="24">
         
-          <img @click="home" style="width: 400px; " src="/logo.jpg" />
+          <img @click="home" style="width: 400px; " src="logo.jpg" />
         <div v-if="showSelect" style="display:inline;font">{{collegename}}</div>
         
         
@@ -70,7 +70,6 @@ export default {
     })
     this.$router.beforeEach((to, from, next) => {
       console.log("Logo.vue beforeEach....." + this.$router.currentRoute.name);
-
       next();
     });
   },

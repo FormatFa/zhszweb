@@ -21,6 +21,7 @@ typora-root-url: ./
 
 后端项目地址:
 https://gitee.com/calfhead_admin/zhsz_backend
+https://github.com/FormatFa/zhsz_backend
 
 
 ## 前端技术栈
@@ -137,6 +138,3 @@ npm run build
 
 
 ## 整体架构
-
-
-
