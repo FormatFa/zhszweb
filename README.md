@@ -147,7 +147,7 @@ npm run build
 
 ## 整体架构
 
-![](preivew/../preview/项目架构.png)
+![](preview/项目架构.png)
 
 
 
