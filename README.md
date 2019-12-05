@@ -20,12 +20,14 @@ typora-root-url: ./
 
 
 后端项目地址:
+Gitee: https://gitee.com/calfhead_admin/zhsz_backend
+GitHub https://github.com/FormatFa/zhsz_backend
 
-Gitee:
-https://gitee.com/calfhead_admin/zhsz_backend
+前端项目地址:
+Gitee: https://gitee.com/old_tree/zhszweb
+GitHub: https://github.com/FormatFa/zhszweb
 
-GitHub
-https://github.com/FormatFa/zhsz_backend
+
 
 
 ## 前端技术栈
@@ -146,3 +148,21 @@ npm run build
 ## 整体架构
 
 ![](preivew/../preview/项目架构.png)
+
+
+
+### 开发者
+
+Gitee
+
+- [Gitee@old_tree](https://gitee.com/old_tree)
+- [Gitee@calfhead_admin](https://gitee.com/calfhead_admin)
+- [Gitee@BigdataZW](https://gitee.com/BigdataZW)
+- [Gitee@FormatFa](https://gitee.com/FormatFa)
+- 
+GitHub
+
+- [GitHub@FormatFa](https://github.com/FormatFa)
+- [GitHub@CattleHome](https://github.com/CattleHome)
+- [GitHub@old_tree](https://github.com/old-tree)
+- [GitHub@peterparker-bot](https://github.com/peterparker-bot)
