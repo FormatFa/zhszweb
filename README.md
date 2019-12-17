@@ -27,7 +27,8 @@ GitHub https://github.com/FormatFa/zhsz_backend
 Gitee: https://gitee.com/old_tree/zhszweb
 GitHub: https://github.com/FormatFa/zhszweb
 
-
+前端项目预览地址:
+http://blog.formatfa.top/zhsz/
 
 
 ## 前端技术栈
